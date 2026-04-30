@@ -1,0 +1,163 @@
+'use client';
+
+import { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+
+const groups = [
+  {
+    emoji: '👤',
+    title: 'Każda dorosła osoba',
+    desc: 'Profilaktycznie, aby znać swój poziom ryzyka — szczególnie po 40. roku życia.',
+  },
+  {
+    emoji: '👨‍👩‍👧',
+    title: 'Osoby z wywiadem rodzinnym',
+    desc: 'Jeśli w Twojej rodzinie występowały nowotwory, badanie pozwoli ocenić indywidualne ryzyko.',
+  },
+  {
+    emoji: '🧬',
+    title: 'Nosicielki mutacji BRCA1',
+    desc: 'Normy opracowane specjalnie dla tej grupy na podstawie wieloletnich badań.',
+  },
+  {
+    emoji: '🚬',
+    title: 'Osoby palące',
+    desc: 'Kadm i selen mają inne zakresy referencyjne dla palaczy — wynik uwzględnia ten czynnik.',
+  },
+  {
+    emoji: '🩺',
+    title: 'Pacjenci onkologiczni',
+    desc: 'Monitoring ryzyka kolejnego nowotworu pierwotnego na podstawie stężeń pierwiastków.',
+  },
+  {
+    emoji: '🥗',
+    title: 'Osoby na dietach eliminacyjnych',
+    desc: 'Weganie i wegetarianie mają istotnie wyższe stężenie kadmu we krwi.',
+  },
+];
+
+export default function ForWhom() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: 'start',
+    slidesToScroll: 1,
+    containScroll: 'trimSnaps',
+    loop: true,
+  });
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  const scrollTo = useCallback((i: number) => emblaApi?.scrollTo(i), [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+      emblaApi.off('reInit', onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  return (
+    <section id="dla-kogo" className="py-14 lg:py-20 bg-[#122056] relative overflow-hidden">
+      <div className="absolute inset-0">
+        <img src="/images/2150471457.webp" alt="" className="w-full h-full object-cover opacity-20" />
+        <div className="absolute inset-0 bg-[#122056]/60" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header with arrows */}
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4">
+              Kto powinien się zbadać?
+            </h2>
+            <p className="text-white/50 text-sm lg:text-base max-w-2xl">
+              Badanie jest zalecane dla wszystkich dorosłych z populacji polskiej. W szczególności dla:
+            </p>
+          </div>
+          <div className="hidden sm:flex gap-2 flex-shrink-0 ml-8">
+            <button
+              onClick={scrollPrev}
+              disabled={!canScrollPrev}
+              className="w-10 h-10 rounded-full border border-white/15 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <IconChevronLeft size={18} stroke={2} />
+            </button>
+            <button
+              onClick={scrollNext}
+              disabled={!canScrollNext}
+              className="w-10 h-10 rounded-full border border-white/15 bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <IconChevronRight size={18} stroke={2} />
+            </button>
+          </div>
+        </div>
+
+        {/* Slider */}
+        <div className="overflow-hidden -mx-2" ref={emblaRef}>
+          <div className="flex">
+            {groups.map((g, i) => (
+              <div
+                key={g.title}
+                className="flex-[0_0_80%] sm:flex-[0_0_45%] lg:flex-[0_0_33.333%] min-w-0 px-2"
+              >
+                <div
+                  className={`h-full p-6 transition-all cursor-pointer border-l-2 ${
+                    selectedIndex === i
+                      ? 'border-l-[#5B65DC] bg-white/[0.07]'
+                      : 'border-l-white/10 hover:border-l-white/30 hover:bg-white/[0.03]'
+                  }`}
+                  onClick={() => scrollTo(i)}
+                >
+                  <span className="text-2xl mb-4 block">{g.emoji}</span>
+                  <h3 className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mb-2">
+                    {g.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed ${
+                    selectedIndex === i ? 'text-white/70' : 'text-white/45'
+                  }`}>
+                    {g.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-8">
+          {groups.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => scrollTo(i)}
+              className={`rounded-full transition-all ${
+                selectedIndex === i
+                  ? 'w-6 h-1.5 bg-[#5B65DC]'
+                  : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Info */}
+        <p className="mt-10 text-white/40 text-xs sm:text-sm text-center max-w-2xl mx-auto">
+          <span className="text-white/70 font-semibold">Jak często powtarzać badanie?</span>{' '}
+          Przy nieprawidłowych stężeniach — kontrola po 3–6 miesiącach. Gdy wyniki w normie — co 6–12 miesięcy.
+        </p>
+      </div>
+    </section>
+  );
+}

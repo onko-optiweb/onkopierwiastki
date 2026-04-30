@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes: business --default;
+}
+
+@theme inline {
+  /* Primary — ciemny granat (tekst, naglowki, navbar, footer) */
+  --color-primary: #122056;
+  --color-primary-light: #1a2d6e;
+
+  /* Accent — fioletowo-niebieski (przyciski CTA, linki, badge) */
+  --color-accent: #5B65DC;
+  --color-accent-light: #7a82e5;
+  --color-accent-dark: #4a53c7;
+
+  /* Surface — jasny lawendowy (tlo co-drugiej sekcji, karty) */
+  --color-surface: #EEEFFD;
+  --color-surface-dark: #e0e2f8;
+
+  /* Background — prawie bialy z odcieniem niebieskiego */
+  --color-background: #FAFAFD;
+
+  /* Neutrals */
+  --color-neutral-50: #f8f9fc;
+  --color-neutral-100: #f0f1f6;
+  --color-neutral-200: #e2e4ec;
+  --color-neutral-300: #c5c8d6;
+  --color-neutral-400: #8a8fa6;
+  --color-neutral-500: #5f6580;
+  --color-neutral-600: #3d4260;
+  --color-neutral-700: #2a2e48;
+  --color-neutral-800: #1a1e35;
+  --color-neutral-900: #0d1020;
+
+  /* Fonty */
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Funnel Display', system-ui, sans-serif;
+}
+
+@theme "daisyui" {
+  --color-base-100: #ffffff;
+  --color-base-200: #EEEFFD;          /* = surface */
+  --color-base-300: #e0e2f8;          /* = surface-dark */
+  --color-base-content: #122056;      /* = primary (tekst) */
+  --color-primary: #122056;
+  --color-primary-content: #ffffff;
+  --color-secondary: #5B65DC;         /* = accent */
+  --color-secondary-content: #ffffff;
+  --color-accent: #5B65DC;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1a1e35;
+  --color-neutral-content: #f0f1f6;
+  --color-info: #5B65DC;
+  --color-success: #22c55e;
+  --color-warning: #5B65DC;
+  --color-error: #ef4444;
+  --radius-selector: 0.75rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-primary);
+  background: var(--color-background);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #5B65DC !important;
+  color: #ffffff !important;
+}
+
+/* Hero card masks — SVG cutouts, only on desktop */
+@media (min-width: 1024px) {
+  .card-mask-left {
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' preserveAspectRatio='none'><path d='M 40,0 H 560 A 40,40 0 0 1 600,40 V 530 A 12,12 0 0 1 588,542 H 562 A 22,22 0 0 0 540,564 V 580 A 20,20 0 0 1 520,600 H 40 A 40,40 0 0 1 0,560 V 40 A 40,40 0 0 1 40,0 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' preserveAspectRatio='none'><path d='M 40,0 H 560 A 40,40 0 0 1 600,40 V 530 A 12,12 0 0 1 588,542 H 562 A 22,22 0 0 0 540,564 V 580 A 20,20 0 0 1 520,600 H 40 A 40,40 0 0 1 0,560 V 40 A 40,40 0 0 1 40,0 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+  }
+
+  .card-mask-right {
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' preserveAspectRatio='none'><path d='M 40,0 H 560 A 40,40 0 0 1 600,40 V 560 A 40,40 0 0 1 560,600 H 80 A 20,20 0 0 1 60,580 V 564 A 22,22 0 0 0 38,542 H 12 A 12,12 0 0 1 0,530 V 40 A 40,40 0 0 1 40,0 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' preserveAspectRatio='none'><path d='M 40,0 H 560 A 40,40 0 0 1 600,40 V 560 A 40,40 0 0 1 560,600 H 80 A 20,20 0 0 1 60,580 V 564 A 22,22 0 0 0 38,542 H 12 A 12,12 0 0 1 0,530 V 40 A 40,40 0 0 1 40,0 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+  }
+}
+
+/* Floating card animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
