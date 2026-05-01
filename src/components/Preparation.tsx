@@ -33,7 +33,7 @@ export default function Preparation() {
   return (
     <section id="przygotowanie" className="py-16 lg:py-24 bg-[#122056] relative overflow-hidden">
       <div className="absolute inset-0">
-        <img src="/images/2150471457.webp" alt="" className="w-full h-full object-cover opacity-20" />
+        <img src="/images/2150471457.webp" alt="" className="w-full h-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-[#122056]/60" />
       </div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -74,7 +74,7 @@ export default function RootLayout({
 
   return (
     <html lang={siteConfig.language} data-theme='business'>
-      <body className={`${funnelDisplay.variable} ${dmSans.variable} font-sans antialiased`}>
+      <body className={`${funnelDisplay.variable} ${dmSans.variable} font-sans antialiased`} suppressHydrationWarning>
         {children}
 
         <script

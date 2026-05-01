@@ -51,7 +51,7 @@ export default function CTABanner({ text = 'Jedna kropla krwi. Sześć odpowiedz
 
         <div className="flex flex-wrap justify-center gap-4">
           <a
-            href="#cennik"
+            href="/zamow"
             className="group inline-flex items-center gap-3 bg-white text-[#122056] font-semibold pl-7 pr-2.5 py-3 rounded-full hover:shadow-2xl hover:shadow-white/20 transition-all text-sm"
           >
             Zamów badanie

@@ -74,7 +74,7 @@ export default function ForWhom() {
   return (
     <section id="dla-kogo" className="py-14 lg:py-20 bg-[#122056] relative overflow-hidden">
       <div className="absolute inset-0">
-        <img src="/images/2150471457.webp" alt="" className="w-full h-full object-cover opacity-20" />
+        <img src="/images/2150471457.webp" alt="" className="w-full h-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-[#122056]/60" />
       </div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,10 +115,10 @@ export default function ForWhom() {
                 className="flex-[0_0_80%] sm:flex-[0_0_45%] lg:flex-[0_0_33.333%] min-w-0 px-2"
               >
                 <div
-                  className={`h-full p-6 transition-all cursor-pointer border-l-2 ${
+                  className={`h-full p-6 rounded-xl transition-all cursor-pointer ${
                     selectedIndex === i
-                      ? 'border-l-[#5B65DC] bg-white/[0.07]'
-                      : 'border-l-white/10 hover:border-l-white/30 hover:bg-white/[0.03]'
+                      ? 'bg-white/20'
+                      : 'bg-white/10 hover:bg-white/15'
                   }`}
                   onClick={() => scrollTo(i)}
                 >

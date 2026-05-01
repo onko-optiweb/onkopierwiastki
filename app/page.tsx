@@ -4,6 +4,7 @@ import TrustBar from '@/src/components/TrustBar';
 import WhatAre from '@/src/components/WhatAre';
 import AboutTest from '@/src/components/AboutTest';
 import CTABanner from '@/src/components/CTABanner';
+import PeopleCTA from '@/src/components/PeopleCTA';
 import Statistics from '@/src/components/Statistics';
 import Elements from '@/src/components/Elements';
 import ForWhom from '@/src/components/ForWhom';
@@ -25,11 +26,12 @@ export default function HomePage() {
         <Hero />
         <TrustBar />
         <WhatAre />
-        <CTABanner text="Wiedz więcej, działaj wcześniej. Jedno badanie krwi może zmienić Twoje podejście do profilaktyki." />
+        <CTABanner text="Jedno pobranie krwi. Wynik w 15 dni. Konkretne zalecenia, nie tylko liczby." />
         <AboutTest />
         <Statistics />
         <Elements />
         <ForWhom />
+        <PeopleCTA />
         <Testimonials />
         <Preparation />
         <TrustSection />

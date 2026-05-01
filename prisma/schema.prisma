@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================
+// PLACÓWKI
+// ============================================
+
+model Facility {
+  id        Int      @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  phone     String
+  hours     String
+  lat       Float
+  lng       Float
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+// ============================================
+// ZAMÓWIENIA
+// ============================================
+
+model Order {
+  id          String      @id @default(cuid())
+
+  // Dane klienta
+  firstName   String
+  lastName    String
+  email       String
+  phone       String
+
+  // Panel badawczy
+  panelType   PanelType
+  panelTier   PanelTier
+  material    String
+  elements    String
+
+  // Placówka
+  facilityId  Int?
+  facility    Facility?   @relation(fields: [facilityId], references: [id])
+  isOnline    Boolean     @default(false)
+
+  // Płatność
+  price       Int         // w groszach (23000 = 230 zł)
+  status      OrderStatus @default(PENDING)
+
+  // Kod rabatowy
+  promoCodeId String?
+  promoCode   PromoCode?  @relation(fields: [promoCodeId], references: [id])
+  discount    Int         @default(0)
+
+  // PayU
+  payuOrderId String?     @unique
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  paidAt      DateTime?
+
+  payments    Payment[]
+}
+
+enum PanelType {
+  PROFILAKTYKA
+  ONKOLOGICZNY
+}
+
+enum PanelTier {
+  PODSTAWOWY
+  ROZSZERZONY
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+// ============================================
+// PŁATNOŚCI (historia PayU)
+// ============================================
+
+model Payment {
+  id          String        @id @default(cuid())
+  orderId     String
+  order       Order         @relation(fields: [orderId], references: [id])
+
+  payuOrderId String
+  status      PaymentStatus
+  amount      Int
+  method      String?
+
+  createdAt   DateTime      @default(now())
+}
+
+enum PaymentStatus {
+  NEW
+  PENDING
+  WAITING_FOR_CONFIRMATION
+  COMPLETED
+  CANCELED
+}
+
+// ============================================
+// KODY RABATOWE
+// ============================================
+
+model PromoCode {
+  id          String       @id @default(cuid())
+  code        String       @unique
+
+  type        DiscountType
+  value       Int          // PERCENT: 10 = 10%, FIXED: 1000 = 10 zł
+
+  maxUses     Int?
+  usedCount   Int          @default(0)
+
+  validFrom   DateTime     @default(now())
+  validUntil  DateTime?
+  active      Boolean      @default(true)
+
+  source      String?      // np. "influencer_jan", "facebook_maj"
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  orders      Order[]
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}

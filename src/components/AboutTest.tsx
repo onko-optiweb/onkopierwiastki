@@ -124,6 +124,15 @@ export default function AboutTest() {
             Badania naukowe pokazują, że średnie stężenia pierwiastków różnią się w zależności od regionu, diety i nawyków. Normy ogólne mogą nie oddawać rzeczywistego obrazu Twojego ryzyka. Zakresy referencyjne onkopierwiastków zostały opracowane na podstawie wieloletnich badań populacji polskiej przez Międzynarodowe Centrum Nowotworów Dziedzicznych PUM w Szczecinie.
           </p>
         </div>
+
+        <div className="text-center mt-10">
+          <a
+            href="/zamow"
+            className="inline-flex items-center gap-2 bg-[#5B65DC] text-white font-semibold px-8 py-4 rounded-xl hover:bg-[#4a53c7] transition-colors text-sm"
+          >
+            Zamów badanie onkopierwiastków
+          </a>
+        </div>
       </div>
     </section>
   );
