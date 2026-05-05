@@ -90,7 +90,7 @@ export default function CookieConsent() {
           <p className="text-[#8a8fa6] text-xs leading-relaxed">
             Używamy cookies niezbędnych do działania strony oraz opcjonalnych cookies analitycznych i marketingowych.
             Możesz zaakceptować wszystkie lub dostosować swoje preferencje.{' '}
-            <a href="/regulamin#s10" className="text-[#5B65DC] hover:underline">Polityka cookies</a>
+            <a href="/polityka-prywatnosci#cookies" className="text-[#5B65DC] hover:underline">Polityka cookies</a>
           </p>
         </div>
 
