@@ -66,11 +66,14 @@ const defaults: SiteSettings = {
 };
 
 async function fetchSettings(): Promise<SiteSettings> {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: "main" },
-  });
-
-  return { ...defaults, ...settings };
+  try {
+    const settings = await prisma.siteSettings.findUnique({
+      where: { id: "main" },
+    });
+    return { ...defaults, ...settings };
+  } catch {
+    return defaults;
+  }
 }
 
 export const getSettings = unstable_cache(fetchSettings, ["settings"], {
