@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Funnel_Display, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/src/siteConfig';
+import CookieConsent from '@/src/components/CookieConsent';
+import GoogleConsentMode from '@/src/components/GoogleConsentMode';
+import { getSettings } from '@/src/lib/get-settings';
 
 const funnelDisplay = Funnel_Display({
   subsets: ['latin', 'latin-ext'],
@@ -22,6 +25,10 @@ export const metadata: Metadata = {
   },
   description: siteConfig.tagline,
   metadataBase: new URL(siteConfig.domain),
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: '/',
   },
@@ -39,11 +46,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSettings();
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': siteConfig.businessType,
@@ -73,9 +81,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang={siteConfig.language} data-theme='business'>
+    <html lang={siteConfig.language} data-theme='business' suppressHydrationWarning>
       <body className={`${funnelDisplay.variable} ${dmSans.variable} font-sans antialiased`} suppressHydrationWarning>
+        <GoogleConsentMode ga4Id={settings.ga4Id} gtmId={settings.gtmId} />
         {children}
+        <CookieConsent />
 
         <script
           type='application/ld+json'

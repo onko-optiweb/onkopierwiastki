@@ -16,24 +16,17 @@ export const dynamic = 'force-static';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.domain;
 
-  // Zbierz wszystkie ścieżki z nawigacji
-  const navUrls = siteConfig.nav.flatMap((item) => {
-    const paths: string[] = [];
-    if (item.href && item.href !== '/#') {
-      paths.push(item.href);
-    }
-    if ('children' in item && item.children) {
-      paths.push(...item.children.map((child) => child.href));
-    }
-    return paths;
-  });
+  const pages = [
+    { path: '/', changeFrequency: 'weekly' as const, priority: 1.0 },
+    { path: '/zamow', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: '/regulamin', changeFrequency: 'yearly' as const, priority: 0.3 },
+    { path: '/polityka-prywatnosci', changeFrequency: 'yearly' as const, priority: 0.3 },
+  ];
 
-  const allPaths = [...new Set(navUrls)];
-
-  return allPaths.map((path) => ({
-    url: `${baseUrl}${path}`,
+  return pages.map((page) => ({
+    url: `${baseUrl}${page.path}`,
     lastModified: new Date(),
-    changeFrequency: path === '/' ? 'weekly' : 'monthly',
-    priority: path === '/' ? 1.0 : 0.8,
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
   }));
 }

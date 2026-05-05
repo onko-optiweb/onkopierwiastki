@@ -9,18 +9,37 @@ datasource db {
 }
 
 // ============================================
+// UŻYTKOWNICY (ADMIN)
+// ============================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+}
+
+enum UserRole {
+  ADMIN
+  SUPERADMIN
+}
+
+// ============================================
 // PLACÓWKI
 // ============================================
 
 model Facility {
-  id        Int      @id @default(autoincrement())
-  name      String
-  address   String
-  city      String
-  phone     String
-  hours     String
-  lat       Float
-  lng       Float
+  id         Int      @id @default(autoincrement())
+  name       String
+  address    String   // ulica z numerem
+  postalCode String   @default("")
+  city       String
+  phone      String
+  hours      String
+  lat        Float
+  lng        Float
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -39,6 +58,12 @@ model Order {
   lastName    String
   email       String
   phone       String
+  address     String
+  pesel       String   @default("")
+  noPesel     Boolean  @default(false)
+  needInvoice Boolean  @default(false)
+  companyName String   @default("")
+  nip         String   @default("")
 
   // Panel badawczy
   panelType   PanelType
@@ -96,11 +121,11 @@ enum OrderStatus {
 model Payment {
   id          String        @id @default(cuid())
   orderId     String
-  order       Order         @relation(fields: [orderId], references: [id])
+  order       Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
-  payuOrderId String
-  status      PaymentStatus
-  amount      Int
+  payuOrderId String?
+  status      PaymentStatus @default(NEW)
+  amount      Int           @default(0)
   method      String?
 
   createdAt   DateTime      @default(now())
@@ -142,4 +167,60 @@ model PromoCode {
 enum DiscountType {
   PERCENT
   FIXED
+}
+
+// ============================================
+// USTAWIENIA SERWISU
+// ============================================
+
+model SiteSettings {
+  id        String @id @default("main")
+
+  // Dane firmy
+  siteName  String?
+  email     String?
+  phone     String?
+  address   String?
+
+  // Google Analytics 4
+  ga4Id     String?
+
+  // Google Search Console
+  gscVerification String?
+
+  // Google Tag Manager
+  gtmId     String?
+
+  // Google reCAPTCHA v3
+  recaptchaEnabled   Boolean @default(false)
+  recaptchaSiteKey   String?
+  recaptchaSecretKey String?
+
+  // PayU
+  payuEnabled      Boolean @default(false)
+  payuSandbox      Boolean @default(true)
+  payuPosId        String?
+  payuClientSecret String?
+  payuMd5Key       String?
+
+  // Powiadomienia e-mail
+  emailNotificationsEnabled Boolean @default(false)
+  notificationEmail         String?
+
+  // Szablony e-mail
+  emailSubjectConfirmation String?  // Temat emaila potwierdzenia
+  emailIntroText           String?  // Tekst powitalny w emailu (np. "Dziękujemy za zamówienie!")
+  emailFacilityText        String?  // Tekst instrukcji dla placówki
+  emailOnlineText          String?  // Tekst dla zamówień online
+  emailFooterText          String?  // Stopka emaila
+
+  // SMTP
+  smtpHost     String?
+  smtpPort     Int?     @default(587)
+  smtpUser     String?
+  smtpPassword String?
+  smtpFrom     String?  // np. "Onkopierwiastki <noreply@onkopierwiastki.pl>"
+  smtpSecure   Boolean  @default(false)
+
+  updatedAt DateTime @updatedAt
 }

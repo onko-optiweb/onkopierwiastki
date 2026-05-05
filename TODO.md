@@ -11,8 +11,8 @@
 - [x] Skonfigurować kolory (granat #122056, akcent #5B65DC, light #EEEFFD, bg #FAFAFD)
 - [x] Przenieść grafiki do /public/images/
 - [x] Git repo + pierwszy commit
-- [ ] Push na GitHub (onko-optiweb/onkopierwiastki)
-- [ ] Dodać Prisma + PostgreSQL (Vercel Postgres)
+- [x] Push na GitHub (onko-optiweb/onkopierwiastki)
+- [x] Dodać Prisma + PostgreSQL (Vercel Postgres)
 - [ ] Dodać NextAuth (panel admina)
 
 ## FAZA 1 — Landing Page ✅
@@ -42,11 +42,12 @@
 - [x] Wybór panelu badawczego (profilaktyka/onkologiczny, podstawowy/rozszerzony)
 - [x] Wybór placówki z mapą Leaflet (desktop: obok listy, mobile: na górze)
 - [x] Opcja "Zamów online" gdy brak placówki w mieście
-- [ ] **Formularz danych klienta** — imię, nazwisko, email, telefon (dodać jako step 3, podsumowanie → step 4)
-- [ ] **Prisma + PostgreSQL** — modele: Order, Facility, Payment
-- [ ] **PayU API routes** — create order, notify webhook
-- [ ] **Integracja PayU** — redirect do płatności
-- [ ] **Strona statusu zamówienia** — /zamowienie/[id]
+- [x] **Formularz danych klienta** — step 3: imię, nazwisko, email, telefon, adres, zgody
+- [x] **Prisma + PostgreSQL** — modele: Order, Facility, Payment, PromoCode
+- [x] **PayU API routes** — create order, notify webhook (/api/payu/notify)
+- [x] **Integracja PayU** — redirect do płatności z formularza
+- [x] **Strona statusu zamówienia** — /zamowienie/[id]
+- [x] **Kody rabatowe** — walidacja + API /api/promo + pole w podsumowaniu
 - [ ] **Email potwierdzenia** — po złożeniu i po opłaceniu
 
 ## FAZA 3 — Placówki z bazy danych
@@ -58,12 +59,14 @@
 - [ ] **Dynamiczne ładowanie z DB**
 
 ## FAZA 4 — Panel admina
-- [ ] Logowanie (NextAuth)
-- [ ] Dashboard — statystyki zamówień
-- [ ] Lista zamówień — filtrowanie, statusy
-- [ ] Zarządzanie placówkami — CRUD z mapą
-- [ ] Ustawienia (dane firmy, cennik)
+- [x] Logowanie (NextAuth + credentials + middleware)
+- [x] Dashboard — statystyki zamówień, szybkie linki, ostatnie zamówienia
+- [x] Lista zamówień — filtrowanie po statusie, tabela, szczegóły zamówienia
+- [x] Zmiana statusu zamówienia (PENDING → PAID → PROCESSING → COMPLETED)
+- [x] Zarządzanie placówkami — CRUD (dodaj/edytuj/dezaktywuj)
+- [x] Zarządzanie kodami rabatowymi — CRUD (twórz/aktywuj/dezaktywuj/usuń)
 - [ ] Eksport CSV
+- [ ] Ustawienia (dane firmy, cennik)
 
 ## FAZA 5 — SEO i prawo
 - [x] Meta tagi, Open Graph, canonical URLs
@@ -75,8 +78,8 @@
 - [ ] Regulamin zakupu
 
 ## FAZA 6 — Deploy i produkcja
-- [ ] **Deploy na Vercel** — domena techniczna ← TERAZ
-- [ ] **Vercel Postgres** — podpiąć bazę
+- [x] **Deploy na Vercel** — domena techniczna
+- [x] **Vercel Postgres** — podpiąć bazę
 - [ ] Testy PayU (sandbox)
 - [ ] Responsywność — finalne poprawki
 - [ ] Podpięcie domeny onkopierwiastki.pl
@@ -85,12 +88,12 @@
 ---
 
 ## CO TERAZ ROBIĆ (po kolei)
-1. ⬜ Push na GitHub → `git push -u origin main`
-2. ⬜ Deploy na Vercel → vercel.com/new → import repo
-3. ⬜ Vercel Postgres → Storage → Create Database → Connect
-4. ⬜ Prisma setup → schema + modele (Order, Facility, Payment)
-5. ⬜ Formularz danych klienta w /zamow (step 3)
-6. ⬜ PayU integracja (potrzebne klucze API)
+1. ✅ Push na GitHub → `git push -u origin main`
+2. ✅ Deploy na Vercel
+3. ✅ Vercel Postgres → podpięta baza
+4. ✅ Prisma setup → schema + modele (Order, Facility, Payment)
+5. ✅ Formularz danych klienta w /zamow (step 3)
+6. ✅ PayU integracja + kody rabatowe
 7. ⬜ Panel admina
 
 ## POTRZEBNE OD KLIENTA

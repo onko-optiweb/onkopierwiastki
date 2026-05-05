@@ -23,14 +23,14 @@ const slides = [
     image: '/images/mit-dieta.webp',
     alt: 'Zdrowe warzywa i owoce — sama dieta nie gwarantuje optymalnego poziomu pierwiastków',
     myth: '„Zdrowa dieta wystarczy"',
-    fact: 'Weganie i palacze według badań mają istotnie inne profile pierwiastkowe.',
+    fact: 'Potrzebne jest indywidualne badanie dla określenia optymalnej diety / suplementacji.',
     conclusion: 'Dlatego potrzebne jest indywidualne badanie.',
   },
   {
     image: '/images/mit-brak-objawow.webp',
     alt: 'Kobieta trzymająca się za kark z bólu — niedobory pierwiastków rzadko dają objawy',
     myth: '„Zauważę, jeśli coś będzie nie tak"',
-    fact: 'Niedobory i nadmiary pierwiastków rzadko dają objawy.',
+    fact: 'Istotne klinicznie niedobory i nadmiary pierwiastków rzadko dają objawy.',
     conclusion: 'Wykrywa je tylko badanie laboratoryjne.',
   },
 ];
@@ -68,9 +68,9 @@ export default function WhatAre() {
     <section className="py-14 lg:py-20 bg-[#FAFAFD]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-14 max-w-2xl mx-auto">
-          <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-5xl text-black mb-5">
-            Większość nowotworów wykrywanych jest za późno.
+        <div className="text-center mb-14 max-w-[90%] mx-auto">
+          <h2 className="font-[family-name:var(--font-funnel)] font-bold text-[1.6rem] sm:text-4xl lg:text-5xl !leading-tight text-black mb-5">
+            Ocena stężenia pierwiastków skutecznie wspiera profilaktykę nowotworów i obniża ryzyko zgonów w młodszym wieku.
           </h2>
           <p className="text-[#8a8fa6] text-sm lg:text-base">
             Sprawdź, które przekonania mogą dawać Ci <span className="text-[#122056] font-semibold">fałszywe poczucie bezpieczeństwa</span>.

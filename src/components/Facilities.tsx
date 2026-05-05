@@ -1,10 +1,20 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { IconSearch, IconMapPin, IconPhone, IconClock } from '@tabler/icons-react';
-import { facilities } from '@/src/data/facilities';
-import type { Facility } from '@/src/data/facilities';
+
+interface Facility {
+  id: number;
+  name: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  phone: string;
+  hours: string;
+  lat: number;
+  lng: number;
+}
 
 // Dynamic import — Leaflet needs window
 const FacilitiesMap = dynamic(() => import('./FacilitiesMap'), {
@@ -17,8 +27,13 @@ const FacilitiesMap = dynamic(() => import('./FacilitiesMap'), {
 });
 
 export default function Facilities() {
+  const [facilities, setFacilities] = useState<Facility[]>([]);
   const [query, setQuery] = useState('');
   const [activeId, setActiveId] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch('/api/facilities').then(r => r.json()).then(setFacilities).catch(() => {});
+  }, []);
 
   const filtered = useMemo(() => {
     if (!query) return facilities;
@@ -29,7 +44,7 @@ export default function Facilities() {
         f.name.toLowerCase().includes(q) ||
         f.address.toLowerCase().includes(q)
     );
-  }, [query]);
+  }, [query, facilities]);
 
   const handleSelect = useCallback((id: number) => {
     setActiveId(id);
@@ -62,13 +77,13 @@ export default function Facilities() {
               />
             </div>
 
-            {/* List */}
-            <div className="flex flex-col gap-2 max-h-[480px] overflow-y-auto pr-1">
-              {filtered.map((f) => (
+            {/* List — max 3 on mobile, scrollable on desktop */}
+            <div className="flex flex-col gap-2 lg:max-h-[480px] lg:overflow-y-auto pr-1">
+              {filtered.map((f, i) => (
                 <button
                   key={f.id}
                   onClick={() => handleSelect(f.id)}
-                  className={`text-left rounded-xl p-4 transition-all border ${
+                  className={`text-left rounded-xl p-4 transition-all border ${i >= 3 ? 'hidden lg:block' : ''} ${
                     activeId === f.id
                       ? 'bg-[#5B65DC] border-[#5B65DC] text-white'
                       : 'bg-[#EEEFFD]/30 border-[#EEEFFD] hover:border-[#5B65DC]/30'
@@ -82,7 +97,7 @@ export default function Facilities() {
                   <div className="space-y-1.5">
                     <div className="flex items-start gap-2">
                       <IconMapPin size={14} className={`flex-shrink-0 mt-0.5 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
-                      <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.address}</span>
+                      <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.address}, {f.postalCode} {f.city}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <IconPhone size={14} className={`flex-shrink-0 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />

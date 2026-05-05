@@ -1,9 +1,21 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTruck } from '@tabler/icons-react';
-import { facilities } from '@/src/data/facilities';
+import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTruck, IconTag, IconLoader2 } from '@tabler/icons-react';
+import { createOrder } from '@/src/actions/orders';
+
+interface Facility {
+  id: number;
+  name: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  phone: string;
+  hours: string;
+  lat: number;
+  lng: number;
+}
 
 type PanelType = 'profilaktyka' | 'onkologiczny';
 type PanelTier = 'podstawowy' | 'rozszerzony';
@@ -19,6 +31,8 @@ const panels = {
   },
 };
 
+const STEPS = 4;
+
 const FacilitiesMap = dynamic(() => import('@/src/components/FacilitiesMap'), {
   ssr: false,
   loading: () => (
@@ -29,6 +43,7 @@ const FacilitiesMap = dynamic(() => import('@/src/components/FacilitiesMap'), {
 });
 
 export default function OrderPage() {
+  const [facilities, setFacilities] = useState<Facility[]>([]);
   const [step, setStep] = useState(1);
   const [panelType, setPanelType] = useState<PanelType>('profilaktyka');
   const [panelTier, setPanelTier] = useState<PanelTier>('rozszerzony');
@@ -36,7 +51,41 @@ export default function OrderPage() {
   const [isOnline, setIsOnline] = useState(false);
   const [query, setQuery] = useState('');
 
+  useEffect(() => {
+    fetch('/api/facilities').then(r => r.json()).then(setFacilities).catch(() => {});
+  }, []);
+
+  // Step 3 — dane klienta
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [pesel, setPesel] = useState('');
+  const [noPesel, setNoPesel] = useState(false);
+  const [street, setStreet] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
+  const [apartmentNumber, setApartmentNumber] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [city, setCity] = useState('');
+  const [needInvoice, setNeedInvoice] = useState(false);
+  const [companyName, setCompanyName] = useState('');
+  const [nip, setNip] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptMarketing, setAcceptMarketing] = useState(false);
+
+  // Kod rabatowy
+  const [promoCode, setPromoCode] = useState('');
+  const [promoResult, setPromoResult] = useState<{ valid: boolean; discount?: number; label?: string; error?: string } | null>(null);
+  const [promoLoading, setPromoLoading] = useState(false);
+
+  // Submit
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
   const selectedPanel = panels[panelType][panelTier];
+  const priceInGrosze = selectedPanel.price * 100;
+  const discount = promoResult?.valid ? promoResult.discount! : 0;
+  const finalPrice = selectedPanel.price - discount / 100;
   const selectedFacility = facilities.find((f) => f.id === facilityId);
 
   const filtered = useMemo(() => {
@@ -45,18 +94,101 @@ export default function OrderPage() {
     return facilities.filter(
       (f) => f.city.toLowerCase().includes(q) || f.name.toLowerCase().includes(q) || f.address.toLowerCase().includes(q)
     );
-  }, [query]);
+  }, [query, facilities]);
 
   const handleSelectFacility = useCallback((id: number) => {
     setFacilityId(id);
     setIsOnline(false);
   }, []);
 
+  const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const isValidPhone = (v: string) => /^[\d\s\-+()]{7,}$/.test(v);
+  const isValidPesel = (v: string) => /^\d{11}$/.test(v);
+  const isValidPostalCode = (v: string) => /^\d{2}-\d{3}$/.test(v);
+
   const canProceed = () => {
     if (step === 1) return true;
     if (step === 2) return facilityId !== null || isOnline;
+    if (step === 3) {
+      const peselOk = noPesel || isValidPesel(pesel);
+      const invoiceOk = !needInvoice || (companyName.trim().length >= 2 && nip.trim().length >= 10);
+      return (
+        firstName.trim().length >= 2 &&
+        lastName.trim().length >= 2 &&
+        isValidEmail(email) &&
+        isValidPhone(phone) &&
+        peselOk &&
+        street.trim().length >= 2 &&
+        houseNumber.trim().length >= 1 &&
+        isValidPostalCode(postalCode) &&
+        city.trim().length >= 2 &&
+        invoiceOk &&
+        acceptTerms
+      );
+    }
     return false;
   };
+
+  const handleApplyPromo = async () => {
+    if (!promoCode.trim()) return;
+    setPromoLoading(true);
+    try {
+      const res = await fetch('/api/promo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: promoCode.trim(), price: priceInGrosze }),
+      });
+      const data = await res.json();
+      setPromoResult(data);
+    } catch {
+      setPromoResult({ valid: false, error: 'Błąd połączenia' });
+    }
+    setPromoLoading(false);
+  };
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setSubmitError('');
+    try {
+      const result = await createOrder({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        address: `${street.trim()} ${houseNumber.trim()}${apartmentNumber.trim() ? '/' + apartmentNumber.trim() : ''}, ${postalCode} ${city.trim()}`,
+        pesel: noPesel ? '' : pesel,
+        noPesel,
+        needInvoice,
+        companyName: needInvoice ? companyName.trim() : '',
+        nip: needInvoice ? nip.trim() : '',
+        panelType: panelType === 'profilaktyka' ? 'PROFILAKTYKA' : 'ONKOLOGICZNY',
+        panelTier: panelTier === 'podstawowy' ? 'PODSTAWOWY' : 'ROZSZERZONY',
+        material: selectedPanel.material,
+        elements: selectedPanel.elements,
+        facilityId: facilityId,
+        isOnline,
+        price: priceInGrosze,
+        promoCode: promoResult?.valid ? promoCode.trim().toUpperCase() : null,
+        acceptTerms: true,
+        acceptMarketing,
+      });
+
+      if (result.success && result.data) {
+        if (result.data.redirectUrl) {
+          window.location.href = result.data.redirectUrl;
+        } else {
+          window.location.href = `/zamowienie/${result.data.orderId}`;
+        }
+      } else {
+        setSubmitError(result.error || 'Nie udało się złożyć zamówienia');
+      }
+    } catch {
+      setSubmitError('Błąd połączenia z serwerem');
+    }
+    setSubmitting(false);
+  };
+
+  const stepLabels = ['Panel', 'Placówka', 'Dane', 'Podsumowanie'];
 
   return (
     <div className="min-h-screen bg-[#FAFAFD]">
@@ -67,15 +199,18 @@ export default function OrderPage() {
             <IconArrowLeft size={18} stroke={2} />
             <img src="/logos/onkopierwiastki.svg" alt="Onkopierwiastki" className="h-10" />
           </a>
-          <div className="flex items-center gap-2 text-xs text-[#8a8fa6]">
-            {[1, 2, 3].map((s) => (
-              <div key={s} className="flex items-center gap-2">
-                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                  s === step ? 'bg-[#5B65DC] text-white' : s < step ? 'bg-[#122056] text-white' : 'bg-[#EEEFFD] text-[#8a8fa6]'
-                }`}>
-                  {s < step ? '✓' : s}
-                </span>
-                {s < 3 && <div className={`w-8 h-px ${s < step ? 'bg-[#122056]' : 'bg-[#EEEFFD]'}`} />}
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-[#8a8fa6]">
+            {Array.from({ length: STEPS }, (_, i) => i + 1).map((s) => (
+              <div key={s} className="flex items-center gap-1.5 sm:gap-2">
+                <div className="flex flex-col items-center gap-0.5">
+                  <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+                    s === step ? 'bg-[#5B65DC] text-white' : s < step ? 'bg-[#122056] text-white' : 'bg-[#EEEFFD] text-[#8a8fa6]'
+                  }`}>
+                    {s < step ? '\u2713' : s}
+                  </span>
+                  <span className="text-[9px] hidden sm:block">{stepLabels[s - 1]}</span>
+                </div>
+                {s < STEPS && <div className={`w-5 sm:w-8 h-px ${s < step ? 'bg-[#122056]' : 'bg-[#EEEFFD]'}`} />}
               </div>
             ))}
           </div>
@@ -83,13 +218,13 @@ export default function OrderPage() {
       </header>
 
       <main className={`mx-auto px-4 sm:px-6 py-10 ${step === 2 ? 'max-w-7xl' : 'max-w-3xl'}`}>
-        {/* Step 1 — wybór panelu */}
+        {/* Step 1 — wybor panelu */}
         {step === 1 && (
           <div>
             <h1 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-black mb-2">
               Wybierz panel badawczy
             </h1>
-            <p className="text-[#8a8fa6] text-sm mb-8">Dopasuj badanie do swojej sytuacji zdrowotnej. Placówkę wybierzesz w kolejnym kroku.</p>
+            <p className="text-[#8a8fa6] text-sm mb-8">Dopasuj badanie do swojej sytuacji zdrowotnej.</p>
 
             {/* Typ */}
             <div className="flex gap-2 mb-6">
@@ -141,10 +276,15 @@ export default function OrderPage() {
                 );
               })}
             </div>
+
+            <div className="mt-8 bg-[#EEEFFD]/50 rounded-xl p-5 flex items-center gap-3">
+              <IconMapPin size={20} className="text-[#5B65DC] flex-shrink-0" stroke={2} />
+              <p className="text-[#122056] text-sm font-semibold">Placówkę do pobrania krwi wybierzesz w kolejnym kroku.</p>
+            </div>
           </div>
         )}
 
-        {/* Step 2 — wybór placówki + mapa */}
+        {/* Step 2 — wybor placowki + mapa */}
         {step === 2 && (
           <div>
             <h1 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-black mb-2">
@@ -190,7 +330,7 @@ export default function OrderPage() {
                     >
                       <p className="font-bold text-[#122056] text-sm">{f.name}</p>
                       <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1.5 text-[#8a8fa6] text-xs">
-                        <span className="flex items-center gap-1"><IconMapPin size={12} stroke={1.5} />{f.address}</span>
+                        <span className="flex items-center gap-1"><IconMapPin size={12} stroke={1.5} />{f.address}, {f.postalCode} {f.city}</span>
                         <span className="flex items-center gap-1"><IconPhone size={12} stroke={1.5} />{f.phone}</span>
                         <span className="flex items-center gap-1"><IconClock size={12} stroke={1.5} />{f.hours}</span>
                       </div>
@@ -239,8 +379,180 @@ export default function OrderPage() {
           </div>
         )}
 
-        {/* Step 3 — podsumowanie */}
+        {/* Step 3 — dane klienta */}
         {step === 3 && (
+          <div>
+            <h1 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-black mb-2">
+              Twoje dane
+            </h1>
+            <p className="text-[#8a8fa6] text-sm mb-8">Podaj dane potrzebne do realizacji zamówienia.</p>
+
+            <div className="bg-white rounded-xl p-6 space-y-5">
+              {/* Sekcja: Dane osobowe */}
+              <h2 className="font-bold text-[#122056] text-sm">Dane osobowe</h2>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="firstName" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Imię <span className="text-red-500">*</span>
+                  </label>
+                  <input id="firstName" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Imię"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Nazwisko <span className="text-red-500">*</span>
+                  </label>
+                  <input id="lastName" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Nazwisko"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="email" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Adres e-mail <span className="text-red-500">*</span>
+                  </label>
+                  <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Numer telefonu <span className="text-red-500">*</span>
+                  </label>
+                  <input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+48"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+              </div>
+
+              {/* PESEL */}
+              <div>
+                <label htmlFor="pesel" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                  PESEL {!noPesel && <span className="text-red-500">*</span>}
+                </label>
+                <input id="pesel" type="text" value={pesel} onChange={(e) => setPesel(e.target.value.replace(/\D/g, '').slice(0, 11))}
+                  placeholder="00000000000" disabled={noPesel} maxLength={11}
+                  className={`w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6] ${noPesel ? 'opacity-40' : ''}`} />
+                <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                  <input type="checkbox" checked={noPesel} onChange={(e) => { setNoPesel(e.target.checked); if (e.target.checked) setPesel(''); }}
+                    className="w-4 h-4 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer" />
+                  <span className="text-xs text-[#8a8fa6]">Brak numeru PESEL</span>
+                </label>
+              </div>
+
+              {/* Separator */}
+              <div className="h-px bg-[#EEEFFD]" />
+
+              {/* Sekcja: Adres */}
+              <h2 className="font-bold text-[#122056] text-sm">Adres zamieszkania</h2>
+
+              <div className="grid grid-cols-2 sm:grid-cols-[1fr_auto_auto] gap-4">
+                <div className="col-span-2 sm:col-span-1">
+                  <label htmlFor="street" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Ulica <span className="text-red-500">*</span>
+                  </label>
+                  <input id="street" type="text" value={street} onChange={(e) => setStreet(e.target.value)} placeholder="Ulica"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+                <div>
+                  <label htmlFor="houseNumber" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Nr domu <span className="text-red-500">*</span>
+                  </label>
+                  <input id="houseNumber" type="text" value={houseNumber} onChange={(e) => setHouseNumber(e.target.value)} placeholder="Nr domu"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+                <div>
+                  <label htmlFor="apartmentNumber" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Nr mieszkania
+                  </label>
+                  <input id="apartmentNumber" type="text" value={apartmentNumber} onChange={(e) => setApartmentNumber(e.target.value)} placeholder="Nr mieszkania"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="postalCode" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Kod pocztowy <span className="text-red-500">*</span>
+                  </label>
+                  <input id="postalCode" type="text" value={postalCode}
+                    onChange={(e) => {
+                      let v = e.target.value.replace(/[^\d-]/g, '');
+                      if (v.length === 2 && !v.includes('-') && postalCode.length < v.length) v += '-';
+                      setPostalCode(v.slice(0, 6));
+                    }}
+                    placeholder="XX-XXX" maxLength={6}
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+                <div>
+                  <label htmlFor="city" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                    Miasto <span className="text-red-500">*</span>
+                  </label>
+                  <input id="city" type="text" value={city} onChange={(e) => setCity(e.target.value)} placeholder="Miasto"
+                    className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                </div>
+              </div>
+
+              {/* Separator */}
+              <div className="h-px bg-[#EEEFFD]" />
+
+              {/* Faktura */}
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" checked={needInvoice} onChange={(e) => setNeedInvoice(e.target.checked)}
+                  className="w-5 h-5 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer" />
+                <span className="text-sm text-[#122056] font-medium">Potrzebuję fakturę na firmę</span>
+              </label>
+
+              {needInvoice && (
+                <div className="grid sm:grid-cols-2 gap-4 pl-8">
+                  <div>
+                    <label htmlFor="companyName" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                      Nazwa firmy <span className="text-red-500">*</span>
+                    </label>
+                    <input id="companyName" type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Nazwa firmy"
+                      className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                  </div>
+                  <div>
+                    <label htmlFor="nip" className="block text-xs font-semibold text-[#122056] mb-1.5">
+                      NIP <span className="text-red-500">*</span>
+                    </label>
+                    <input id="nip" type="text" value={nip} onChange={(e) => setNip(e.target.value.replace(/[^\d]/g, '').slice(0, 10))} placeholder="0000000000" maxLength={10}
+                      className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
+                  </div>
+                </div>
+              )}
+
+              {/* Separator */}
+              <div className="h-px bg-[#EEEFFD]" />
+
+              {/* Checkboxy */}
+              <div className="space-y-4">
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)}
+                    className="mt-0.5 w-5 h-5 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer flex-shrink-0" />
+                  <span className="text-sm text-[#122056] leading-relaxed">
+                    Akceptuję <a href="/regulamin" className="text-[#5B65DC] underline hover:no-underline">regulamin</a> oraz <a href="/polityka-prywatnosci" className="text-[#5B65DC] underline hover:no-underline">politykę prywatności</a>. <span className="text-red-500">*</span>
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input type="checkbox" checked={acceptMarketing} onChange={(e) => setAcceptMarketing(e.target.checked)}
+                    className="mt-0.5 w-5 h-5 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer flex-shrink-0" />
+                  <span className="text-sm text-[#8a8fa6] leading-relaxed">
+                    Wyrażam zgodę na przetwarzanie danych osobowych, w tym profilowanie w celu przesyłania na wskazany adres e-mail zindywidualizowanych informacji dot. akcji profilaktycznych w zakresie ochrony zdrowia i informacji z tym związanych.
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <p className="text-[#8a8fa6] text-[11px] mt-4">
+              <span className="text-red-500">*</span> Pola wymagane
+            </p>
+          </div>
+        )}
+
+        {/* Step 4 — podsumowanie */}
+        {step === 4 && (
           <div>
             <h1 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-black mb-2">
               Podsumowanie zamówienia
@@ -260,7 +572,7 @@ export default function OrderPage() {
                 <button onClick={() => setStep(1)} className="text-[#5B65DC] text-xs font-semibold hover:underline">Zmień</button>
               </div>
 
-              {/* Placówka */}
+              {/* Placowka */}
               <div className="flex items-center justify-between pb-4 border-b border-[#EEEFFD]">
                 <div>
                   <p className="text-[#8a8fa6] text-xs mb-0.5">Placówka</p>
@@ -276,16 +588,74 @@ export default function OrderPage() {
                 <button onClick={() => setStep(2)} className="text-[#5B65DC] text-xs font-semibold hover:underline">Zmień</button>
               </div>
 
-              {/* Materiał */}
+              {/* Dane klienta */}
+              <div className="flex items-center justify-between pb-4 border-b border-[#EEEFFD]">
+                <div>
+                  <p className="text-[#8a8fa6] text-xs mb-0.5">Dane klienta</p>
+                  <p className="text-[#122056] font-bold text-sm">{firstName} {lastName}</p>
+                  <p className="text-[#8a8fa6] text-xs mt-0.5">{email} &middot; {phone}</p>
+                  {!noPesel && pesel && <p className="text-[#8a8fa6] text-xs">PESEL: {pesel}</p>}
+                  <p className="text-[#8a8fa6] text-xs">
+                    {street} {houseNumber}{apartmentNumber ? '/' + apartmentNumber : ''}, {postalCode} {city}
+                  </p>
+                  {needInvoice && <p className="text-[#8a8fa6] text-xs">Faktura: {companyName}, NIP: {nip}</p>}
+                </div>
+                <button onClick={() => setStep(3)} className="text-[#5B65DC] text-xs font-semibold hover:underline">Zmień</button>
+              </div>
+
+              {/* Material */}
               <div className="pb-4 border-b border-[#EEEFFD]">
                 <p className="text-[#8a8fa6] text-xs mb-0.5">Materiał</p>
                 <p className="text-[#122056] font-bold text-sm">{selectedPanel.material}</p>
               </div>
 
+              {/* Kod rabatowy */}
+              <div className="pb-4 border-b border-[#EEEFFD]">
+                <p className="text-[#8a8fa6] text-xs mb-2">Kod rabatowy</p>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <IconTag size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8a8fa6]" stroke={1.5} />
+                    <input
+                      type="text"
+                      value={promoCode}
+                      onChange={(e) => { setPromoCode(e.target.value.toUpperCase()); setPromoResult(null); }}
+                      placeholder="Wpisz kod"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-[#FAFAFD] placeholder:text-[#c5c8d6] uppercase"
+                    />
+                  </div>
+                  <button
+                    onClick={handleApplyPromo}
+                    disabled={!promoCode.trim() || promoLoading}
+                    className="px-5 py-2.5 rounded-xl bg-[#EEEFFD] text-[#122056] text-sm font-semibold hover:bg-[#e0e2f8] transition-colors disabled:opacity-40"
+                  >
+                    {promoLoading ? 'Sprawdzam...' : 'Zastosuj'}
+                  </button>
+                </div>
+                {promoResult && (
+                  <p className={`text-xs mt-2 ${promoResult.valid ? 'text-emerald-600' : 'text-red-500'}`}>
+                    {promoResult.valid ? `Rabat zastosowany: ${promoResult.label}` : promoResult.error}
+                  </p>
+                )}
+              </div>
+
               {/* Cena */}
-              <div className="flex items-center justify-between">
-                <p className="text-[#122056] font-bold text-base">Do zapłaty</p>
-                <p className="font-[family-name:var(--font-funnel)] font-bold text-3xl text-black">{selectedPanel.price} <span className="text-base text-[#8a8fa6] font-normal">zł</span></p>
+              <div>
+                {discount > 0 && (
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-[#8a8fa6] text-sm">Cena</p>
+                    <p className="text-[#8a8fa6] text-sm line-through">{selectedPanel.price} zł</p>
+                  </div>
+                )}
+                {discount > 0 && (
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-emerald-600 text-sm">Rabat</p>
+                    <p className="text-emerald-600 text-sm font-semibold">-{(discount / 100).toFixed(0)} zł</p>
+                  </div>
+                )}
+                <div className="flex items-center justify-between">
+                  <p className="text-[#122056] font-bold text-base">Do zapłaty</p>
+                  <p className="font-[family-name:var(--font-funnel)] font-bold text-3xl text-black">{finalPrice} <span className="text-base text-[#8a8fa6] font-normal">zł</span></p>
+                </div>
               </div>
             </div>
 
@@ -293,20 +663,31 @@ export default function OrderPage() {
               Cena brutto. Badanie zwolnione z VAT. Bez skierowania lekarskiego.
             </p>
 
-            <button
-              className="w-full bg-[#5B65DC] text-white font-semibold py-4 rounded-xl hover:bg-[#4a53c7] transition-colors text-base"
-            >
-              Przejdź do płatności — {selectedPanel.price} zł
-            </button>
+            {submitError && (
+              <div className="bg-red-50 text-red-700 text-sm rounded-xl p-4 mb-4">
+                {submitError}
+              </div>
+            )}
 
-            <p className="text-[#8a8fa6] text-[11px] text-center mt-3">
-              Płatność zostanie uruchomiona po wdrożeniu systemu PayU
-            </p>
+            <button
+              onClick={handleSubmit}
+              disabled={submitting}
+              className="w-full bg-[#5B65DC] text-white font-semibold py-4 rounded-xl hover:bg-[#4a53c7] transition-colors text-base disabled:opacity-60 flex items-center justify-center gap-2"
+            >
+              {submitting ? (
+                <>
+                  <IconLoader2 size={20} className="animate-spin" />
+                  Przetwarzanie...
+                </>
+              ) : (
+                `Zamów i zapłać — ${finalPrice} zł`
+              )}
+            </button>
           </div>
         )}
 
         {/* Navigation */}
-        {step < 3 && (
+        {step < STEPS && (
           <div className="flex items-center justify-between mt-10">
             <button
               onClick={() => step > 1 ? setStep(step - 1) : window.location.href = '/'}
@@ -322,6 +703,18 @@ export default function OrderPage() {
             >
               Dalej
               <IconArrowRight size={16} stroke={2} />
+            </button>
+          </div>
+        )}
+
+        {step === STEPS && (
+          <div className="flex justify-start mt-6">
+            <button
+              onClick={() => setStep(step - 1)}
+              className="flex items-center gap-2 text-[#8a8fa6] text-sm font-semibold hover:text-[#122056] transition-colors"
+            >
+              <IconArrowLeft size={16} stroke={2} />
+              Wstecz
             </button>
           </div>
         )}

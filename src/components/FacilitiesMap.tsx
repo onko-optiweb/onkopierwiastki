@@ -4,7 +4,17 @@ import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { Facility } from '@/src/data/facilities';
+interface Facility {
+  id: number;
+  name: string;
+  address: string;
+  postalCode?: string;
+  city?: string;
+  phone: string;
+  hours: string;
+  lat: number;
+  lng: number;
+}
 
 // Custom marker icon matching the site accent color
 const defaultIcon = new L.DivIcon({
@@ -91,7 +101,7 @@ export default function FacilitiesMap({ facilities, activeId, onSelect }: Facili
           <Popup>
             <div className="text-sm">
               <p className="font-bold text-[#122056] mb-1">{f.name}</p>
-              <p className="text-[#8a8fa6] text-xs">{f.address}</p>
+              <p className="text-[#8a8fa6] text-xs">{f.address}{f.postalCode ? `, ${f.postalCode}` : ''} {f.city || ''}</p>
               <p className="text-[#8a8fa6] text-xs mt-1">{f.phone}</p>
             </div>
           </Popup>

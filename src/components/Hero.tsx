@@ -50,7 +50,7 @@ export default function Hero() {
             <div className="relative bg-[#EEEFFD] rounded-2xl lg:rounded-none p-8 sm:p-10 lg:p-14 flex flex-col justify-center items-center min-h-[400px] lg:min-h-[85vh] card-mask-left">
               <div className="flex flex-col items-center text-center">
                 {/* Heading */}
-                <h1 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-[3.2rem] leading-[1.1] tracking-tight text-black mb-2">
+                <h1 className="font-[family-name:var(--font-funnel)] font-bold text-[2.2rem] sm:text-4xl lg:text-[3.2rem] leading-[1.1] tracking-tight text-black mb-2">
                   Zbadaj onkopierwiastki
                 </h1>
                 <p className="font-[family-name:var(--font-funnel)] font-bold text-xl sm:text-2xl lg:text-[1.8rem] leading-[1.2] text-black italic mb-5">
@@ -59,7 +59,7 @@ export default function Hero() {
 
                 {/* Description */}
                 <p className="text-[#8a8fa6] text-[13px] lg:text-sm leading-relaxed mb-8 max-w-lg">
-                  Jedyne w Polsce badanie z krwi z <span className="text-[#122056] font-semibold">normami opracowanymi dla populacji polskiej</span>. Sprawdza poziom 6 pierwiastków, które badania naukowe wiążą z ryzykiem nowotworów złośliwych. Jedno pobranie. Wynik z <span className="text-[#122056] font-semibold">konkretnymi zaleceniami w 15 dni</span>.
+                  Badania z krwi z <span className="text-[#122056] font-semibold">normami opracowanymi dla populacji polskiej</span> oparte na ponad 40 publikacjach w piśmiennictwie międzynarodowym oraz ponad 100 przyznanych lub zgłoszonych patentach. Sprawdza stężenie 6 pierwiastków, które badania naukowe wiążą ze zwiększonym ryzykiem nowotworów złośliwych oraz zgonów w młodszym wieku. Jedno pobranie. Wynik z <span className="text-[#122056] font-semibold">konkretnymi zaleceniami w 15 dni roboczych</span>.
                 </p>
 
                 {/* CTA */}
@@ -121,7 +121,7 @@ export default function Hero() {
                   </div>
                 </div>
                 <p className="text-[#122056] font-semibold text-xs">20+ lat badań naukowych</p>
-                <p className="text-[#122056]/50 text-[11px]">PUM Szczecin &bull; prof. Lubiński</p>
+                <p className="text-[#122056]/50 text-[11px]">READ-GENE S.A. &bull; PUM Szczecin</p>
               </div>
 
               {/* Scattered element symbols */}

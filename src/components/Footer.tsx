@@ -1,3 +1,5 @@
+'use client';
+
 import { siteConfig } from '@/src/siteConfig';
 import { ArrowRight, MapPin } from 'lucide-react';
 
@@ -15,6 +17,7 @@ const legalLinks = [
   { label: 'Regulamin', href: '/regulamin' },
   { label: 'Cennik', href: '#cennik' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Ustawienia cookies', href: '#cookies', onClick: true },
 ];
 
 export default function Footer() {
@@ -74,8 +77,17 @@ export default function Footer() {
             <h4 className="font-semibold text-white text-sm mb-4">Informacje</h4>
             <ul className="space-y-2.5">
               {legalLinks.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="text-sm hover:text-white transition-colors">{link.label}</a>
+                <li key={link.label}>
+                  {link.onClick ? (
+                    <button
+                      onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+                      className="text-sm hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <a href={link.href} className="text-sm hover:text-white transition-colors">{link.label}</a>
+                  )}
                 </li>
               ))}
             </ul>

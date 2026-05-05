@@ -2,8 +2,8 @@ import { FlaskConical, FileText, Hospital } from 'lucide-react';
 
 const items = [
   { icon: FlaskConical, value: '1 badanie', label: 'Z krwi lub surowicy' },
-  { icon: FileText, value: '15 dni', label: 'Wynik PDF z zaleceniami' },
-  { icon: Hospital, value: '100%', label: 'Tylko w sprawdzonych placówkach' },
+  { icon: FileText, value: '15 dni roboczych', label: 'Wynik PDF z zaleceniami' },
+  { icon: Hospital, value: '100%', label: 'Tylko w certyfikowanych placówkach' },
 ];
 
 export default function TrustBar() {
