@@ -2,10 +2,10 @@ import Navbar from '@/src/components/Navbar';
 import Hero from '@/src/components/Hero';
 import TrustBar from '@/src/components/TrustBar';
 import WhatAre from '@/src/components/WhatAre';
-import AboutTest from '@/src/components/AboutTest';
+// import AboutTest from '@/src/components/AboutTest';
 import CTABanner from '@/src/components/CTABanner';
 import PeopleCTA from '@/src/components/PeopleCTA';
-import Statistics from '@/src/components/Statistics';
+// import Statistics from '@/src/components/Statistics';
 import Elements from '@/src/components/Elements';
 import ForWhom from '@/src/components/ForWhom';
 import Testimonials from '@/src/components/Testimonials';
@@ -27,8 +27,8 @@ export default function HomePage() {
         <TrustBar />
         <WhatAre />
         <CTABanner text="Jedno pobranie krwi. Wynik w 15 dni. Konkretne zalecenia, nie tylko liczby." />
-        <AboutTest />
-        <Statistics />
+        {/* <AboutTest /> */}
+        {/* <Statistics /> */}
         <Elements />
         <ForWhom />
         <PeopleCTA />
