@@ -46,8 +46,8 @@ export default function Hero() {
         <div className="relative">
           <div className="grid lg:grid-cols-2 gap-4">
 
-            {/* LEFT CARD — mask only on lg+ */}
-            <div className="relative bg-[#EEEFFD] rounded-2xl lg:rounded-none p-8 sm:p-10 lg:p-14 flex flex-col justify-center items-center min-h-[400px] lg:min-h-[85vh] card-mask-left">
+            {/* LEFT CARD — mask only on lg+, on mobile goes second (order-2) */}
+            <div className="relative bg-[#EEEFFD] rounded-2xl lg:rounded-none p-8 sm:p-10 lg:p-14 flex flex-col justify-center items-center min-h-[400px] lg:min-h-[85vh] card-mask-left order-2 lg:order-1">
               <div className="flex flex-col items-center text-center">
                 {/* Heading */}
                 <h1 className="font-[family-name:var(--font-funnel)] font-bold text-[2.2rem] sm:text-4xl lg:text-[3.2rem] leading-[1.1] tracking-tight text-black mb-2">
@@ -93,8 +93,8 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* RIGHT CARD — mask only on lg+ */}
-            <div className="relative rounded-2xl lg:rounded-none overflow-hidden lg:overflow-visible min-h-[350px] lg:min-h-[85vh] card-mask-right">
+            {/* RIGHT CARD — mask only on lg+, on mobile goes first (order-1) */}
+            <div className="relative rounded-2xl lg:rounded-none overflow-hidden lg:overflow-visible min-h-[350px] lg:min-h-[85vh] card-mask-right order-1 lg:order-2">
               <video
                 autoPlay
                 loop
