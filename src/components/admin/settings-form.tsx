@@ -101,7 +101,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
   return (
     <div className="space-y-6">
       {/* Dane firmy */}
-      <Section title="Dane firmy" description="Informacje wyswietlane na stronie i w stopce">
+      <Section title="Dane firmy" description="Informacje wyświetlane na stronie i w stopce">
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Nazwa serwisu" name="siteName" value={form.siteName} onChange={handleField} placeholder="Onkopierwiastki.pl" />
           <Field label="E-mail kontaktowy" name="email" value={form.email} onChange={handleField} placeholder="kontakt@onkopierwiastki.pl" type="email" />
@@ -127,7 +127,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
 
       {/* reCAPTCHA */}
       <Section title="Google reCAPTCHA v3" description="Ochrona formularzy przed botami">
-        <Toggle label="Wlacz reCAPTCHA" checked={form.recaptchaEnabled} onChange={(v) => handleToggle('recaptchaEnabled', v)} />
+        <Toggle label="Włącz reCAPTCHA" checked={form.recaptchaEnabled} onChange={(v) => handleToggle('recaptchaEnabled', v)} />
         {form.recaptchaEnabled && (
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Site Key" name="recaptchaSiteKey" value={form.recaptchaSiteKey} onChange={handleField} placeholder="6Lc..." mono />
@@ -137,12 +137,12 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
       </Section>
 
       {/* PayU */}
-      <Section title="Integracja PayU" description="Klucze API do systemu platnosci PayU">
+      <Section title="Integracja PayU" description="Klucze API do systemu płatności PayU">
         <div className="space-y-3">
-          <Toggle label="Wlacz platnosci PayU" checked={form.payuEnabled} onChange={(v) => handleToggle('payuEnabled', v)} />
+          <Toggle label="Włącz płatności PayU" checked={form.payuEnabled} onChange={(v) => handleToggle('payuEnabled', v)} />
           {form.payuEnabled && (
             <>
-              <Toggle label="Tryb sandbox (testowy)" description="Wlacz tryb testowy PayU — platnosci nie beda prawdziwe" checked={form.payuSandbox} onChange={(v) => handleToggle('payuSandbox', v)} />
+              <Toggle label="Tryb sandbox (testowy)" description="Włącz tryb testowy PayU — płatności nie będą prawdziwe" checked={form.payuSandbox} onChange={(v) => handleToggle('payuSandbox', v)} />
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="POS ID" name="payuPosId" value={form.payuPosId} onChange={handleField} placeholder="300746" mono />
                 <Field label="Client Secret" name="payuClientSecret" value={form.payuClientSecret} onChange={handleField} placeholder="2ee86..." mono />
@@ -154,25 +154,25 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
       </Section>
 
       {/* Powiadomienia */}
-      <Section title="Powiadomienia e-mail" description="Automatyczne powiadomienia o nowych zamowieniach i potwierdzenia dla klientow">
-        <Toggle label="Wlacz powiadomienia dla admina" description="Otrzymuj e-mail przy kazdym nowym zamowieniu" checked={form.emailNotificationsEnabled} onChange={(v) => handleToggle('emailNotificationsEnabled', v)} />
+      <Section title="Powiadomienia e-mail" description="Automatyczne powiadomienia o nowych zamówieniach i potwierdzenia dla klientów">
+        <Toggle label="Włącz powiadomienia dla admina" description="Otrzymuj e-mail przy każdym nowym zamówieniu" checked={form.emailNotificationsEnabled} onChange={(v) => handleToggle('emailNotificationsEnabled', v)} />
         {form.emailNotificationsEnabled && (
-          <Field label="Adres e-mail do powiadomien" name="notificationEmail" value={form.notificationEmail} onChange={handleField} placeholder="admin@onkopierwiastki.pl" type="email" />
+          <Field label="Adres e-mail do powiadomień" name="notificationEmail" value={form.notificationEmail} onChange={handleField} placeholder="admin@onkopierwiastki.pl" type="email" />
         )}
       </Section>
 
       {/* SMTP */}
-      <Section title="Konfiguracja SMTP" description="Serwer poczty wychodzacej do wysylania powiadomien i potwierdzen">
+      <Section title="Konfiguracja SMTP" description="Serwer poczty wychodzącej do wysyłania powiadomień i potwierdzeń">
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Host SMTP" name="smtpHost" value={form.smtpHost} onChange={handleField} placeholder="smtp.gmail.com" mono />
           <Field label="Port" name="smtpPort" value={form.smtpPort} onChange={handleField} placeholder="587" />
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
-          <Field label="Uzytkownik SMTP" name="smtpUser" value={form.smtpUser} onChange={handleField} placeholder="noreply@onkopierwiastki.pl" mono />
-          <Field label="Haslo SMTP" name="smtpPassword" value={form.smtpPassword} onChange={handleField} placeholder="********" type="password" mono />
+          <Field label="Użytkownik SMTP" name="smtpUser" value={form.smtpUser} onChange={handleField} placeholder="noreply@onkopierwiastki.pl" mono />
+          <Field label="Hasło SMTP" name="smtpPassword" value={form.smtpPassword} onChange={handleField} placeholder="********" type="password" mono />
         </div>
         <Field label="Nadawca (From)" name="smtpFrom" value={form.smtpFrom} onChange={handleField} placeholder="Onkopierwiastki <noreply@onkopierwiastki.pl>" />
-        <Toggle label="SSL/TLS (port 465)" description="Wlacz jesli uzywasz portu 465 z pelnym szyfrowaniem" checked={form.smtpSecure} onChange={(v) => handleToggle('smtpSecure', v)} />
+        <Toggle label="SSL/TLS (port 465)" description="Włącz jeśli używasz portu 465 z pełnym szyfrowaniem" checked={form.smtpSecure} onChange={(v) => handleToggle('smtpSecure', v)} />
       </Section>
 
       {/* Save */}
@@ -184,8 +184,8 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
         >
           {saving ? 'Zapisywanie...' : 'Zapisz ustawienia'}
         </button>
-        {status === 'success' && <span className="text-emerald-600 text-sm font-medium">Zapisano pomyslnie</span>}
-        {status === 'error' && <span className="text-red-500 text-sm font-medium">Blad zapisu</span>}
+        {status === 'success' && <span className="text-emerald-600 text-sm font-medium">Zapisano pomyślnie</span>}
+        {status === 'error' && <span className="text-red-500 text-sm font-medium">Błąd zapisu</span>}
       </div>
     </div>
   );

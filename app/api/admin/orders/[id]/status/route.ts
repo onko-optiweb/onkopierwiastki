@@ -29,3 +29,21 @@ export async function PATCH(
 
   return NextResponse.json({ success: true });
 }
+
+export async function DELETE(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await auth();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await params;
+
+  // Delete payments first, then order
+  await prisma.payment.deleteMany({ where: { orderId: id } });
+  await prisma.order.delete({ where: { id } });
+
+  return NextResponse.json({ success: true });
+}

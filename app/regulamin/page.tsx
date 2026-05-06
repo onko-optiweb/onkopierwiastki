@@ -49,172 +49,172 @@ export default function RegulaminPage() {
             Regulamin serwisu internetowego
           </h1>
           <p className="text-[#8a8fa6] text-sm">
-            www.onkopierwiastki.pl &middot; wersja 1.0, obowiazuje od dnia 1 maja 2026 r.
+            www.onkopierwiastki.pl &middot; wersja 1.0, obowiązuje od dnia 1 maja 2026 r.
           </p>
         </div>
 
         <div className="bg-white rounded-xl p-6 sm:p-8">
 
           {/* §1 */}
-          <Section id="s1" title="&sect;1. Postanowienia ogolne">
-            <P n={1}>Niniejszy Regulamin okresla zasady korzystania z serwisu internetowego dostepnego pod adresem www.onkopierwiastki.pl (dalej: &bdquo;Serwis&rdquo;), w tym zasady skladania zamowien, swiadczenia uslug oraz ochrone danych osobowych uzytkownikow.</P>
-            <P n={2}>Operatorem Serwisu i podmiotem swiadczacym uslugi jest Innowacyjna Medycyna sp. z o.o.</P>
+          <Section id="s1" title="§1. Postanowienia ogólne">
+            <P n={1}>Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem www.onkopierwiastki.pl (dalej: &bdquo;Serwis&rdquo;), w tym zasady składania zamówień, świadczenia usług oraz ochronę danych osobowych użytkowników.</P>
+            <P n={2}>Operatorem Serwisu i podmiotem świadczącym usługi jest Innowacyjna Medycyna sp. z o.o.</P>
             <Ul>
               <li>Siedziba: 71-253 Szczecin, ul. Akacjowa 2</li>
               <li>NIP: 8522608584, REGON: 321548146</li>
               <li>Adres korespondencyjny laboratorium: Grzepnica, ul. Alabastrowa 8, 72-003 Dobra</li>
               <li>Adres e-mail: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a></li>
             </Ul>
-            <P n={3}>Korzystanie z Serwisu oznacza akceptacje niniejszego Regulaminu. Przed zlozeniem zamowienia Uzytkownik zobowiazany jest zapoznac sie z jego trescia.</P>
-            <P n={4}>Z uslug Serwisu moga korzystac wylacznie osoby pelnoletnie, ktore ukonczyly 18 rok zycia.</P>
-            <P n={5}>Regulamin jest udostepniony nieodplatnie na stronie Serwisu w formie umozliwiajacej jego pobranie, utrwalenie i wydrukowanie.</P>
+            <P n={3}>Korzystanie z Serwisu oznacza akceptację niniejszego Regulaminu. Przed złożeniem zamówienia Użytkownik zobowiązany jest zapoznać się z jego treścią.</P>
+            <P n={4}>Z usług Serwisu mogą korzystać wyłącznie osoby pełnoletnie, które ukończyły 18 rok życia.</P>
+            <P n={5}>Regulamin jest udostępniony nieodpłatnie na stronie Serwisu w formie umożliwiającej jego pobranie, utrwalenie i wydrukowanie.</P>
           </Section>
 
           {/* §2 */}
-          <Section id="s2" title="&sect;2. Definicje">
-            <P n={6}><strong>Uzytkownik</strong> &ndash; pelnoletnia osoba fizyczna korzystajaca z Serwisu w celu zlozenia zamowienia na badanie.</P>
-            <P n={7}><strong>Badanie</strong> &ndash; usluga diagnostyczna polegajaca na oznaczeniu stezen pierwiastkow (onkopierwiastkow) we krwi pelnej lub surowicy, realizowana przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
-            <P n={8}><strong>Zamowienie</strong> &ndash; oswiadczenie woli Uzytkownika zlozone za posrednictwem Serwisu, zmierzajace do zawarcia umowy o wykonanie Badania.</P>
-            <P n={9}><strong>Placowka referencyjna</strong> &ndash; punkt pobrania materialu biologicznego wspolpracujacy z Operatorem, wskazany Uzytkownikowi po zlozeniu Zamowienia.</P>
-            <P n={10}><strong>Wynik</strong> &ndash; raport PDF zawierajacy wyniki Badania, przekazywany Uzytkownikowi droga elektroniczna.</P>
-            <P n={11}><strong>Panel badawczy</strong> &ndash; zestaw pierwiastkow objetych danym Badaniem, zgodny z oferta przedstawiona w Serwisie.</P>
+          <Section id="s2" title="§2. Definicje">
+            <P n={6}><strong>Użytkownik</strong> &ndash; pełnoletnia osoba fizyczna korzystająca z Serwisu w celu złożenia zamówienia na badanie.</P>
+            <P n={7}><strong>Badanie</strong> &ndash; usługa diagnostyczna polegająca na oznaczeniu stężeń pierwiastków (onkopierwiastków) we krwi pełnej lub surowicy, realizowana przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
+            <P n={8}><strong>Zamówienie</strong> &ndash; oświadczenie woli Użytkownika złożone za pośrednictwem Serwisu, zmierzające do zawarcia umowy o wykonanie Badania.</P>
+            <P n={9}><strong>Placówka referencyjna</strong> &ndash; punkt pobrania materiału biologicznego współpracujący z Operatorem, wskazany Użytkownikowi po złożeniu Zamówienia.</P>
+            <P n={10}><strong>Wynik</strong> &ndash; raport PDF zawierający wyniki Badania, przekazywany Użytkownikowi drogą elektroniczną.</P>
+            <P n={11}><strong>Panel badawczy</strong> &ndash; zestaw pierwiastków objętych danym Badaniem, zgodny z ofertą przedstawioną w Serwisie.</P>
           </Section>
 
           {/* §3 */}
-          <Section id="s3" title="&sect;3. Przedmiot uslugi">
-            <P n={12}>Za posrednictwem Serwisu Uzytkownik moze zamowic badanie oznaczenia stezen onkopierwiastkow we krwi lub surowicy, realizowane przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
-            <P n={13}>Oferta Serwisu obejmuje nastepujace panele badawcze:</P>
+          <Section id="s3" title="§3. Przedmiot usługi">
+            <P n={12}>Za pośrednictwem Serwisu Użytkownik może zamówić badanie oznaczenia stężeń onkopierwiastków we krwi lub surowicy, realizowane przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
+            <P n={13}>Oferta Serwisu obejmuje następujące panele badawcze:</P>
             <Ul>
-              <li>Onkopakiet do 3 wybranych pierwiastkow we krwi pelnej (As, Zn, Cd, Pb, Se, Cu)</li>
-              <li>Onkopakiet do 6 wybranych pierwiastkow we krwi pelnej (As, Zn, Cd, Pb, Se, Cu)</li>
-              <li>Onkopakiet do 3 wybranych pierwiastkow w surowicy (As, Zn, Se, Mn, Cu)</li>
-              <li>Onkopakiet do 5 wybranych pierwiastkow w surowicy (As, Zn, Se, Mn, Cu)</li>
+              <li>Onkopakiet do 3 wybranych pierwiastków we krwi pełnej (As, Zn, Cd, Pb, Se, Cu)</li>
+              <li>Onkopakiet do 6 wybranych pierwiastków we krwi pełnej (As, Zn, Cd, Pb, Se, Cu)</li>
+              <li>Onkopakiet do 3 wybranych pierwiastków w surowicy (As, Zn, Se, Mn, Cu)</li>
+              <li>Onkopakiet do 5 wybranych pierwiastków w surowicy (As, Zn, Se, Mn, Cu)</li>
             </Ul>
-            <P n={14}>Wyniki Badan opracowywane sa w oparciu o zakresy referencyjne ustalone wylacznie dla populacji polskiej, opracowane przez Miedzynarodowe Centrum Nowotworow Dziedzicznych Pomorskiego Uniwersytetu Medycznego w Szczecinie i chronione patentami Urzedu Patentowego Rzeczypospolitej Polskiej.</P>
-            <P n={15}>Badanie nie stanowi diagnozy medycznej i nie zastepuje konsultacji lekarskiej. Wyniki nalezy omawiac z lekarzem.</P>
-            <P n={16}>Serwis nie wymaga skierowania lekarskiego do zlozenia Zamowienia.</P>
+            <P n={14}>Wyniki Badań opracowywane są w oparciu o zakresy referencyjne ustalone wyłącznie dla populacji polskiej, opracowane przez Międzynarodowe Centrum Nowotworów Dziedzicznych Pomorskiego Uniwersytetu Medycznego w Szczecinie i chronione patentami Urzędu Patentowego Rzeczypospolitej Polskiej.</P>
+            <P n={15}>Badanie nie stanowi diagnozy medycznej i nie zastępuje konsultacji lekarskiej. Wyniki należy omawiać z lekarzem.</P>
+            <P n={16}>Serwis nie wymaga skierowania lekarskiego do złożenia Zamówienia.</P>
           </Section>
 
           {/* §4 */}
-          <Section id="s4" title="&sect;4. Skladanie zamowien i zawarcie umowy">
-            <P n={17}>Zamowienie sklada sie poprzez wypelnienie formularza dostepnego w Serwisie, wybor panelu badawczego oraz dokonanie platnosci.</P>
-            <P n={18}>Warunkiem zlozenia Zamowienia jest:</P>
+          <Section id="s4" title="§4. Składanie zamówień i zawarcie umowy">
+            <P n={17}>Zamówienie składa się poprzez wypełnienie formularza dostępnego w Serwisie, wybór panelu badawczego oraz dokonanie płatności.</P>
+            <P n={18}>Warunkiem złożenia Zamówienia jest:</P>
             <Ul>
-              <li>Podanie prawdziwych danych osobowych (imie, nazwisko, PESEL, adres e-mail, nr telefonu)</li>
-              <li>Wybor panelu badawczego</li>
+              <li>Podanie prawdziwych danych osobowych (imię, nazwisko, PESEL, adres e-mail, nr telefonu)</li>
+              <li>Wybór panelu badawczego</li>
               <li>Zaakceptowanie niniejszego Regulaminu</li>
-              <li>Dokonanie platnosci</li>
+              <li>Dokonanie płatności</li>
             </Ul>
-            <P n={19}>Umowa o wykonanie Badania zostaje zawarta z chwila potwierdzenia przez Operatora przyjecia Zamowienia droga e-mail.</P>
-            <P n={20}>Po zlozeniu Zamowienia Uzytkownik otrzymuje informacje o wskazanej Placowce referencyjnej, w ktorej powinien sie zglosic na pobranie materialu.</P>
-            <P n={21}>Zamowienia realizowane sa w dniach roboczych od poniedzialku do czwartku. Pobrania dokonane w piatek lub w swieta beda wysylane w nastepnym dostepnym dniu roboczym.</P>
+            <P n={19}>Umowa o wykonanie Badania zostaje zawarta z chwilą potwierdzenia przez Operatora przyjęcia Zamówienia drogą e-mail.</P>
+            <P n={20}>Po złożeniu Zamówienia Użytkownik otrzymuje informację o wskazanej Placówce referencyjnej, w której powinien się zgłosić na pobranie materiału.</P>
+            <P n={21}>Zamówienia realizowane są w dniach roboczych od poniedziałku do czwartku. Pobrania dokonane w piątek lub w święta będą wysyłane w następnym dostępnym dniu roboczym.</P>
           </Section>
 
           {/* §5 */}
-          <Section id="s5" title="&sect;5. Ceny i platnosci">
-            <P n={22}>Ceny Badan podane sa w Serwisie i wyrazone sa w zlotych polskich. Badania diagnostyczne sa zwolnione z podatku VAT na podstawie art. 43 ust. 1 pkt 18 ustawy o podatku od towarow i uslug.</P>
-            <P n={23}>Platnosc za Badanie realizowana jest z gory, przed pobraniem materialu, za posrednictwem systemu platnosci online (karta platnicza, przelew online).</P>
-            <P n={24}>Operator nie ponosi odpowiedzialnosci za nieprawidlowosci w przetwarzaniu platnosci wynikajace z bledow dostawcy systemu platnosci.</P>
-            <P n={25}>Potwierdzenie platnosci jest rownoznaczne z potwierdzeniem zlozenia Zamowienia.</P>
+          <Section id="s5" title="§5. Ceny i płatności">
+            <P n={22}>Ceny Badań podane są w Serwisie i wyrażone są w złotych polskich. Badania diagnostyczne są zwolnione z podatku VAT na podstawie art. 43 ust. 1 pkt 18 ustawy o podatku od towarów i usług.</P>
+            <P n={23}>Płatność za Badanie realizowana jest z góry, przed pobraniem materiału, za pośrednictwem systemu płatności online obsługiwanego przez PayU S.A. z siedzibą w Poznaniu (60-166), przy ul. Grunwaldzkiej 182, wpisaną do rejestru przedsiębiorców prowadzonego przez Sąd Rejonowy Poznań &ndash; Nowe Miasto i Wilda w Poznaniu, VIII Wydział Gospodarczy Krajowego Rejestru Sądowego pod numerem KRS 0000274399, będącą krajową instytucją płatniczą nadzorowaną przez Komisję Nadzoru Finansowego. Dostępne metody płatności: karta płatnicza (Visa, Mastercard), szybki przelew online (BLIK, przelewy bankowe). Szczegółowe zasady realizacji płatności określa regulamin PayU dostępny pod adresem: <a href="https://www.payu.pl" target="_blank" rel="noopener noreferrer" className="text-[#5B65DC] hover:underline">www.payu.pl</a>.</P>
+            <P n={24}>Operator nie ponosi odpowiedzialności za nieprawidłowości w przetwarzaniu płatności wynikające z błędów dostawcy systemu płatności.</P>
+            <P n={25}>Potwierdzenie płatności jest równoznaczne z potwierdzeniem złożenia Zamówienia.</P>
           </Section>
 
           {/* §6 */}
-          <Section id="s6" title="&sect;6. Realizacja Badania">
-            <P n={26}>Po zlozeniu Zamowienia i dokonaniu platnosci Uzytkownik zglasza sie do wskazanej Placowki referencyjnej na pobranie materialu biologicznego.</P>
-            <P n={27}>Przed pobraniem materialu Uzytkownik zobowiazany jest:</P>
+          <Section id="s6" title="§6. Realizacja Badania">
+            <P n={26}>Po złożeniu Zamówienia i dokonaniu płatności Użytkownik zgłasza się do wskazanej Placówki referencyjnej na pobranie materiału biologicznego.</P>
+            <P n={27}>Przed pobraniem materiału Użytkownik zobowiązany jest:</P>
             <Ul>
-              <li>Przebywac na czczo co najmniej 6 godzin przed pobraniem</li>
-              <li>Przez 3 dni przed pobraniem nie spozywac ryb morskich, owocow morza ani ryzu (w przypadku badania arsenu)</li>
-              <li>Poinformowac personel placowki o przyjmowanych suplementach zawierajacych badane pierwiastki</li>
+              <li>Przebywać na czczo co najmniej 6 godzin przed pobraniem</li>
+              <li>Przez 3 dni przed pobraniem nie spożywać ryb morskich, owoców morza ani ryżu (w przypadku badania arsenu)</li>
+              <li>Poinformować personel placówki o przyjmowanych suplementach zawierających badane pierwiastki</li>
             </Ul>
-            <P n={28}>Niespelnienie wymogow przygotowania do Badania moze wplynac na wiarygodnosc wynikow. Operator nie ponosi odpowiedzialnosci za bledne wyniki spowodowane nieprawidlowym przygotowaniem sie Uzytkownika do Badania.</P>
-            <P n={29}>Transport materialu do laboratorium zapewnia Operator we wlasnym zakresie.</P>
-            <P n={30}>Czas realizacji Badania wynosi do 15 dni roboczych od dnia dostarczenia materialu do laboratorium. W przypadku zamowien przekraczajacych 5 000 w miesiacu czas realizacji moze ulec proporcjonalnemu wydluzeniu, o czym Uzytkownik zostanie poinformowany e-mailem.</P>
-            <P n={31}>Wynik Badania przekazywany jest Uzytkownikowi w formie pliku PDF, zabezpieczonego haslem, na adres e-mail podany przy skladaniu Zamowienia.</P>
-            <P n={32}>Material pobrany od Uzytkownika przechowywany jest przez co najmniej 2 miesiace w temperaturze -20&deg;C.</P>
+            <P n={28}>Niespełnienie wymogów przygotowania do Badania może wpłynąć na wiarygodność wyników. Operator nie ponosi odpowiedzialności za błędne wyniki spowodowane nieprawidłowym przygotowaniem się Użytkownika do Badania.</P>
+            <P n={29}>Transport materiału do laboratorium zapewnia Operator we własnym zakresie.</P>
+            <P n={30}>Czas realizacji Badania wynosi do 15 dni roboczych od dnia dostarczenia materiału do laboratorium. W przypadku zamówień przekraczających 5 000 w miesiącu czas realizacji może ulec proporcjonalnemu wydłużeniu, o czym Użytkownik zostanie poinformowany e-mailem.</P>
+            <P n={31}>Wynik Badania przekazywany jest Użytkownikowi w formie pliku PDF, zabezpieczonego hasłem, na adres e-mail podany przy składaniu Zamówienia.</P>
+            <P n={32}>Materiał pobrany od Użytkownika przechowywany jest przez co najmniej 2 miesiące w temperaturze -20°C.</P>
           </Section>
 
           {/* §7 */}
-          <Section id="s7" title="&sect;7. Odstapienie od umowy i zwroty">
-            <P n={33}>Zgodnie z art. 38 pkt 1 ustawy z dnia 30 maja 2014 r. o prawach konsumenta (Dz.U. 2014 poz. 827 ze zm.), prawo odstapienia od umowy zawartej na odleglosc nie przysluguje Uzytkownikowi w odniesieniu do uslug w zakresie opieki zdrowotnej, ktore ze wzgledu na ich charakter nie moga zostac zwrocone lub uleglby szybkiemu zepsuciu.</P>
-            <P n={34}>W szczegolnosci: po dokonaniu pobrania materialu biologicznego i jego wysylce do laboratorium odstapienie od umowy nie jest mozliwe.</P>
-            <P n={35}>Jezeli Zamowienie nie zostalo jeszcze zrealizowane (przed pobraniem materialu), Uzytkownik moze anulowac Zamowienie kontaktujac sie z Operatorem na adres e-mail: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>. W takim przypadku Operator zwraca pelna kwote platnosci w terminie 14 dni.</P>
+          <Section id="s7" title="§7. Odstąpienie od umowy i zwroty">
+            <P n={33}>Zgodnie z art. 38 pkt 1 ustawy z dnia 30 maja 2014 r. o prawach konsumenta (Dz.U. 2014 poz. 827 ze zm.), prawo odstąpienia od umowy zawartej na odległość nie przysługuje Użytkownikowi w odniesieniu do usług w zakresie opieki zdrowotnej, które ze względu na ich charakter nie mogą zostać zwrócone lub uległyby szybkiemu zepsuciu.</P>
+            <P n={34}>W szczególności: po dokonaniu pobrania materiału biologicznego i jego wysyłce do laboratorium odstąpienie od umowy nie jest możliwe.</P>
+            <P n={35}>Jeżeli Zamówienie nie zostało jeszcze zrealizowane (przed pobraniem materiału), Użytkownik może anulować Zamówienie kontaktując się z Operatorem na adres e-mail: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>. W takim przypadku Operator zwraca pełną kwotę płatności w terminie 14 dni.</P>
           </Section>
 
           {/* §8 */}
-          <Section id="s8" title="&sect;8. Reklamacje">
-            <P n={36}>Uzytkownik ma prawo zlozyc reklamacje dotyczaca Badania lub obslugi Zamowienia za posrednictwem formularza reklamacyjnego dostepnego na stronie Serwisu lub na adres e-mail: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>.</P>
-            <P n={37}>Reklamacja powinna zawierac:</P>
+          <Section id="s8" title="§8. Reklamacje">
+            <P n={36}>Użytkownik ma prawo złożyć reklamację dotyczącą Badania lub obsługi Zamówienia za pośrednictwem formularza reklamacyjnego dostępnego na stronie Serwisu lub na adres e-mail: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>.</P>
+            <P n={37}>Reklamacja powinna zawierać:</P>
             <Ul>
-              <li>Imie i nazwisko Uzytkownika</li>
-              <li>Numer Zamowienia</li>
-              <li>Opis problemu i zadanie Uzytkownika</li>
+              <li>Imię i nazwisko Użytkownika</li>
+              <li>Numer Zamówienia</li>
+              <li>Opis problemu i żądanie Użytkownika</li>
             </Ul>
-            <P n={38}>Operator rozpatruje reklamacje w terminie 14 dni roboczych od jej otrzymania i informuje Uzytkownika o sposobie jej rozpatrzenia droga e-mail.</P>
-            <P n={39}>W przypadku uzasadnionej reklamacji dotyczacej wynikow Badania, laboratorium dokona korekty lub powtorzy Badanie w terminie do 7 dni roboczych na koszt Operatora.</P>
-            <P n={40}>Operator nie ponosi odpowiedzialnosci za wyniki spowodowane nieprawidlowym przygotowaniem sie Uzytkownika do Badania lub nieprawidlowym dostarczeniem materialu przez Placowke referencyjna.</P>
+            <P n={38}>Operator rozpatruje reklamację w terminie 14 dni roboczych od jej otrzymania i informuje Użytkownika o sposobie jej rozpatrzenia drogą e-mail.</P>
+            <P n={39}>W przypadku uzasadnionej reklamacji dotyczącej wyników Badania, laboratorium dokona korekty lub powtórzy Badanie w terminie do 7 dni roboczych na koszt Operatora.</P>
+            <P n={40}>Operator nie ponosi odpowiedzialności za wyniki spowodowane nieprawidłowym przygotowaniem się Użytkownika do Badania lub nieprawidłowym dostarczeniem materiału przez Placówkę referencyjną.</P>
           </Section>
 
           {/* §9 */}
-          <Section id="s9" title="&sect;9. Ochrona danych osobowych (RODO)">
-            <P n={41}>Administratorem danych osobowych Uzytkownikow jest Innowacyjna Medycyna sp. z o.o. z siedziba w Szczecinie (71-253), ul. Akacjowa 2.</P>
-            <P n={42}>Dane osobowe Uzytkownikow przetwarzane sa w nastepujacych celach i na nastepujacych podstawach prawnych:</P>
+          <Section id="s9" title="§9. Ochrona danych osobowych (RODO)">
+            <P n={41}>Administratorem danych osobowych Użytkowników jest Innowacyjna Medycyna sp. z o.o. z siedzibą w Szczecinie (71-253), ul. Akacjowa 2.</P>
+            <P n={42}>Dane osobowe Użytkowników przetwarzane są w następujących celach i na następujących podstawach prawnych:</P>
             <Ul>
-              <li>Realizacja Zamowienia i swiadczenie uslugi Badania &ndash; art. 6 ust. 1 lit. b RODO (wykonanie umowy)</li>
-              <li>Realizacja obowiazkow prawnych (m.in. przechowywanie dokumentacji medycznej) &ndash; art. 6 ust. 1 lit. c RODO</li>
-              <li>Kontakt w sprawie Zamowienia i obsluga reklamacji &ndash; art. 6 ust. 1 lit. b RODO</li>
-              <li>Marketing uslug wlasnych (za zgoda) &ndash; art. 6 ust. 1 lit. a RODO</li>
+              <li>Realizacja Zamówienia i świadczenie usługi Badania &ndash; art. 6 ust. 1 lit. b RODO (wykonanie umowy)</li>
+              <li>Realizacja obowiązków prawnych (m.in. przechowywanie dokumentacji medycznej) &ndash; art. 6 ust. 1 lit. c RODO</li>
+              <li>Kontakt w sprawie Zamówienia i obsługa reklamacji &ndash; art. 6 ust. 1 lit. b RODO</li>
+              <li>Marketing usług własnych (za zgodą) &ndash; art. 6 ust. 1 lit. a RODO</li>
             </Ul>
-            <P n={43}>Dane osobowe przechowywane sa przez okres niezbedny do realizacji celow przetwarzania, nie krocej niz 5 lat od realizacji Badania (wymogi przepisow dotyczacych dokumentacji medycznej).</P>
-            <P n={44}>Uzytkownikowi przysluguja nastepujace prawa:</P>
+            <P n={43}>Dane osobowe przechowywane są przez okres niezbędny do realizacji celów przetwarzania, nie krócej niż 5 lat od realizacji Badania (wymogi przepisów dotyczących dokumentacji medycznej).</P>
+            <P n={44}>Użytkownikowi przysługują następujące prawa:</P>
             <Ul>
-              <li>Prawo dostepu do swoich danych</li>
+              <li>Prawo dostępu do swoich danych</li>
               <li>Prawo do sprostowania danych</li>
-              <li>Prawo do usuniecia danych (o ile nie jest to sprzeczne z obowiazkami prawnymi)</li>
+              <li>Prawo do usunięcia danych (o ile nie jest to sprzeczne z obowiązkami prawnymi)</li>
               <li>Prawo do ograniczenia przetwarzania</li>
               <li>Prawo do przenoszenia danych</li>
-              <li>Prawo do wniesienia skargi do Prezesa Urzedu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa)</li>
+              <li>Prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa)</li>
             </Ul>
-            <P n={45}>Dane osobowe Uzytkownikow nie sa sprzedawane ani udostepniane osobom trzecim, za wyjatkiem podmiotow bezposrednio uczestniczacych w realizacji uslugi (Placowka referencyjna, laboratorium) oraz na zadanie uprawnionych organow.</P>
-            <P n={46}>W przypadku naruszenia ochrony danych osobowych Operator niezwlocznie powiadomi Uzytkownika oraz podejmie dzialania naprawcze zgodnie z obowiazujacymi przepisami.</P>
-            <P n={47}>Dane kontaktowe Inspektora Ochrony Danych (jesli dotyczy) oraz wszelkie pytania dotyczace przetwarzania danych mozna kierowac na adres: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a></P>
+            <P n={45}>Dane osobowe Użytkowników nie są sprzedawane ani udostępniane osobom trzecim, za wyjątkiem podmiotów bezpośrednio uczestniczących w realizacji usługi (Placówka referencyjna, laboratorium) oraz na żądanie uprawnionych organów.</P>
+            <P n={46}>W przypadku naruszenia ochrony danych osobowych Operator niezwłocznie powiadomi Użytkownika oraz podejmie działania naprawcze zgodnie z obowiązującymi przepisami.</P>
+            <P n={47}>Dane kontaktowe Inspektora Ochrony Danych (jeśli dotyczy) oraz wszelkie pytania dotyczące przetwarzania danych można kierować na adres: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a></P>
           </Section>
 
           {/* §10 */}
-          <Section id="s10" title="&sect;10. Polityka plikow cookies">
-            <P n={48}>Serwis wykorzystuje pliki cookies (ciasteczka) &ndash; male pliki tekstowe zapisywane na urzadzeniu Uzytkownika podczas przegladania Serwisu.</P>
-            <P n={49}>Serwis stosuje nastepujace rodzaje plikow cookies:</P>
+          <Section id="s10" title="§10. Polityka plików cookies">
+            <P n={48}>Serwis wykorzystuje pliki cookies (ciasteczka) &ndash; małe pliki tekstowe zapisywane na urządzeniu Użytkownika podczas przeglądania Serwisu.</P>
+            <P n={49}>Serwis stosuje następujące rodzaje plików cookies:</P>
             <Ul>
-              <li><strong>Niezbedne</strong> &ndash; konieczne do prawidlowego dzialania Serwisu (logowanie, koszyk, sesja)</li>
-              <li><strong>Analityczne</strong> &ndash; umozliwiajace analize ruchu i zachowania Uzytkownikow (m.in. Google Analytics)</li>
-              <li><strong>Marketingowe</strong> &ndash; umozliwiajace wyswietlanie spersonalizowanych reklam (za zgoda Uzytkownika)</li>
+              <li><strong>Niezbędne</strong> &ndash; konieczne do prawidłowego działania Serwisu (logowanie, koszyk, sesja)</li>
+              <li><strong>Analityczne</strong> &ndash; umożliwiające analizę ruchu i zachowania Użytkowników (m.in. Google Analytics)</li>
+              <li><strong>Marketingowe</strong> &ndash; umożliwiające wyświetlanie spersonalizowanych reklam (za zgodą Użytkownika)</li>
             </Ul>
-            <P n={50}>Przy pierwszej wizycie w Serwisie Uzytkownik jest informowany o stosowaniu cookies i moze wyrazic zgode na poszczegolne kategorie lub je odrzucic. Zgoda moze byc cofnieta w dowolnym momencie poprzez ustawienia przegladarki lub panel zarzadzania cookies dostepny w Serwisie.</P>
-            <P n={51}>Pliki cookies niezbedne nie wymagaja zgody Uzytkownika i sa zawsze aktywne.</P>
-            <P n={52}>Uzytkownik moze rowniez samodzielnie zarzadzac plikami cookies poprzez ustawienia przegladarki internetowej. Wylaczenie cookies moze utrudnic korzystanie z niektorych funkcji Serwisu.</P>
+            <P n={50}>Przy pierwszej wizycie w Serwisie Użytkownik jest informowany o stosowaniu cookies i może wyrazić zgodę na poszczególne kategorie lub je odrzucić. Zgoda może być cofnięta w dowolnym momencie poprzez ustawienia przeglądarki lub panel zarządzania cookies dostępny w Serwisie.</P>
+            <P n={51}>Pliki cookies niezbędne nie wymagają zgody Użytkownika i są zawsze aktywne.</P>
+            <P n={52}>Użytkownik może również samodzielnie zarządzać plikami cookies poprzez ustawienia przeglądarki internetowej. Wyłączenie cookies może utrudnić korzystanie z niektórych funkcji Serwisu.</P>
           </Section>
 
           {/* §11 */}
-          <Section id="s11" title="&sect;11. Odpowiedzialnosc Operatora">
-            <P n={53}>Operator doklada nalezytej starannosci w swiadczeniu uslug, zgodnie z zasadami wiedzy medycznej i aktualnymi standardami diagnostycznymi.</P>
-            <P n={54}>Operator nie ponosi odpowiedzialnosci za:</P>
+          <Section id="s11" title="§11. Odpowiedzialność Operatora">
+            <P n={53}>Operator dokłada należytej staranności w świadczeniu usług, zgodnie z zasadami wiedzy medycznej i aktualnymi standardami diagnostycznymi.</P>
+            <P n={54}>Operator nie ponosi odpowiedzialności za:</P>
             <Ul>
-              <li>Szkody wynikajace z nieprawidlowego przygotowania sie Uzytkownika do Badania</li>
-              <li>Nieprawidlowe wyniki spowodowane bledami po stronie Placowki referencyjnej</li>
-              <li>Opoznienia w dostarczeniu materialu spowodowane przez firme kurierska</li>
-              <li>Przerwy techniczne w dzialaniu Serwisu wynikajace z przyczyn niezaleznych od Operatora</li>
+              <li>Szkody wynikające z nieprawidłowego przygotowania się Użytkownika do Badania</li>
+              <li>Nieprawidłowe wyniki spowodowane błędami po stronie Placówki referencyjnej</li>
+              <li>Opóźnienia w dostarczeniu materiału spowodowane przez firmę kurierską</li>
+              <li>Przerwy techniczne w działaniu Serwisu wynikające z przyczyn niezależnych od Operatora</li>
             </Ul>
-            <P n={55}>Badanie jest usluga diagnostyczna. Wyniki nie stanowia diagnozy medycznej. Operator nie ponosi odpowiedzialnosci za decyzje zdrowotne podjete przez Uzytkownika na podstawie wynikow Badania bez konsultacji lekarskiej.</P>
+            <P n={55}>Badanie jest usługą diagnostyczną. Wyniki nie stanowią diagnozy medycznej. Operator nie ponosi odpowiedzialności za decyzje zdrowotne podjęte przez Użytkownika na podstawie wyników Badania bez konsultacji lekarskiej.</P>
           </Section>
 
           {/* §12 */}
-          <Section id="s12" title="&sect;12. Postanowienia koncowe">
-            <P n={56}>W sprawach nieuregulowanych niniejszym Regulaminem zastosowanie maja przepisy Kodeksu cywilnego, ustawy o prawach konsumenta oraz inne powszechnie obowiazujace przepisy prawa polskiego.</P>
-            <P n={57}>Spory wynikajace z korzystania z Serwisu beda rozstrzygane przez sad wlasciwy dla siedziby Operatora (Szczecin), z zastrzezeniem, ze dla Uzytkownikow bedacych konsumentami wlasciwym jest sad wynikajacy z przepisow Kodeksu postepowania cywilnego.</P>
-            <P n={58}>Uzytkownik bedacy konsumentem ma prawo skorzystac z pozasadowych metod rozstrzygania sporow, w szczegolnosci za posrednictwem platformy ODR (Online Dispute Resolution).</P>
-            <P n={59}>Operator zastrzega sobie prawo do zmiany Regulaminu. O kazdej zmianie Uzytkownicy zostana poinformowani z co najmniej 14-dniowym wyprzedzeniem poprzez komunikat w Serwisie lub wiadomosc e-mail. Zmiany nie dotycza Zamowien zlozonych przed data wejscia zmian w zycie.</P>
-            <P n={60}>Niewaznosc lub bezskutecznosc ktoregokolwiek postanowienia Regulaminu nie wplywa na waznosc pozostalych postanowien.</P>
-            <P n={61}>Regulamin sporzadzono w jezyku polskim. W przypadku sprzecznosci wersji jezykowych, wersja polska ma pierwszenstwo.</P>
+          <Section id="s12" title="§12. Postanowienia końcowe">
+            <P n={56}>W sprawach nieuregulowanych niniejszym Regulaminem zastosowanie mają przepisy Kodeksu cywilnego, ustawy o prawach konsumenta oraz inne powszechnie obowiązujące przepisy prawa polskiego.</P>
+            <P n={57}>Spory wynikające z korzystania z Serwisu będą rozstrzygane przez sąd właściwy dla siedziby Operatora (Szczecin), z zastrzeżeniem, że dla Użytkowników będących konsumentami właściwym jest sąd wynikający z przepisów Kodeksu postępowania cywilnego.</P>
+            <P n={58}>Użytkownik będący konsumentem ma prawo skorzystać z pozasądowych metod rozstrzygania sporów, w szczególności za pośrednictwem platformy ODR (Online Dispute Resolution) dostępnej pod adresem: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-[#5B65DC] hover:underline">https://ec.europa.eu/consumers/odr</a></P>
+            <P n={59}>Operator zastrzega sobie prawo do zmiany Regulaminu. O każdej zmianie Użytkownicy zostaną poinformowani z co najmniej 14-dniowym wyprzedzeniem poprzez komunikat w Serwisie lub wiadomość e-mail. Zmiany nie dotyczą Zamówień złożonych przed datą wejścia zmian w życie.</P>
+            <P n={60}>Nieważność lub bezskuteczność któregokolwiek postanowienia Regulaminu nie wpływa na ważność pozostałych postanowień.</P>
+            <P n={61}>Regulamin sporządzono w języku polskim. W przypadku sprzeczności wersji językowych, wersja polska ma pierwszeństwo.</P>
           </Section>
 
           {/* Footer */}
