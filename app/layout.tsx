@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} — Zbadaj ryzyko nowotworow`,
+    default: `${siteConfig.name} — Zbadaj ryzyko nowotworów`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.tagline,

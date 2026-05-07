@@ -58,7 +58,7 @@ export type SiteConfig = {
 
 export const siteConfig: SiteConfig = {
   name: 'Onkopierwiastki',
-  tagline: 'Zbadaj swoje Onkopierwiastki. Poznaj ryzyko, zanim pojawia sie objawy.',
+  tagline: 'Zbadaj swoje Onkopierwiastki. Poznaj ryzyko, zanim pojawią się objawy.',
   domain: 'https://onkopierwiastki.pl',
   owner: 'Innowacyjna Medycyna sp. z o.o.',
 
@@ -98,9 +98,9 @@ export const siteConfig: SiteConfig = {
   nav: [
     { label: 'Czym jest badanie', href: '#czym-jest-badanie' },
     { label: 'Dla kogo', href: '#dla-kogo' },
-    { label: 'Jak sie przygotowac', href: '#przygotowanie' },
-    { label: 'Placowki', href: '#placowki' },
-    { label: 'Zamow online', href: '#zamow' },
+    { label: 'Jak się przygotować', href: '#przygotowanie' },
+    { label: 'Placówki', href: '#placowki' },
+    { label: 'Zamów online', href: '#zamow' },
     { label: 'O badaniu', href: '#o-badaniu' },
   ],
 
