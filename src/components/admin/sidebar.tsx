@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingCart, Users, MapPin, Tag, Mail, Settings, X } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Users, MapPin, Tag, Mail, Settings, Download, X } from 'lucide-react';
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -59,6 +59,22 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             );
           })}
         </nav>
+
+        {/* Backup */}
+        <div className="p-3 border-t border-white/10">
+          <Link
+            href="/admin/backupy"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              isActive('/admin/backupy')
+                ? 'bg-white/15 text-white'
+                : 'text-white/60 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Download size={18} />
+            Kopie zapasowe
+          </Link>
+        </div>
 
         {/* Footer */}
         <div className="p-4 border-t border-white/10 text-white/40 text-[11px]">

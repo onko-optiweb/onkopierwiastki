@@ -14,6 +14,7 @@ import TrustSection from '@/src/components/TrustSection';
 import Pricing from '@/src/components/Pricing';
 import Facilities from '@/src/components/Facilities';
 import OrderOnline from '@/src/components/OrderOnline';
+import Professor from '@/src/components/Professor';
 import FAQ from '@/src/components/FAQ';
 import FinalCTA from '@/src/components/FinalCTA';
 import Footer from '@/src/components/Footer';
@@ -25,6 +26,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <TrustBar />
+        <Professor />
         <WhatAre />
         <CTABanner text="Jedno pobranie krwi. Wynik w 15 dni. Konkretne zalecenia, nie tylko liczby." />
         {/* <AboutTest /> */}
