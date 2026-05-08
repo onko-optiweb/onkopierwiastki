@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       hours: data.hours,
       lat: data.lat,
       lng: data.lng,
+      notes: data.notes || '',
     },
   });
 

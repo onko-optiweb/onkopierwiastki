@@ -16,6 +16,7 @@ export default async function PlacowkiPage() {
     hours: f.hours,
     lat: f.lat,
     lng: f.lng,
+    notes: f.notes,
     active: f.active,
   }));
 

@@ -4,18 +4,18 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 const questions = [
-  { q: 'Czy potrzebuję skierowania od lekarza?', a: 'Nie. Badanie onkopierwiastków możesz wykonać samodzielnie, bez skierowania.' },
-  { q: 'Czy badanie wykrywa raka?', a: 'Nie. Badanie pokazuje stężenia pierwiastków we krwi i odnosi je do zakresów referencyjnych. Nie jest to badanie diagnostyczne nowotworu. Wynik może być natomiast cennym sygnałem do dalszych konsultacji i działań profilaktycznych.' },
-  { q: 'Co dokładnie dostanę po badaniu?', a: 'Wynik w formie PDF zawiera: liczbowe stężenia każdego badanego pierwiastka, odniesienie do zakresów referencyjnych dopasowanych do Twojej płci, wieku i innych zmiennych, oraz konkretne zalecenia (dietetyczne, suplementacyjne lub kierunki dalszej diagnostyki).' },
-  { q: 'Ile trwa oczekiwanie na wynik?', a: 'Do 15 dni roboczych od dostarczenia próbki do laboratorium.' },
-  { q: 'Czy badanie boli?', a: 'Pobranie polega na standardowym nakłuciu żyły. Wystarczy 0,5 ml krwi pełnej.' },
-  { q: 'Dlaczego muszę być na czczo?', a: 'Aby wyeliminować wpływ posiłku na stężenia pierwiastków. Zalecamy co najmniej 6 godzin bez jedzenia.' },
-  { q: 'Dlaczego przez 3 dni nie wolno jeść ryb i owoców morza?', a: 'Zawierają one organiczne formy arsenu, które mogą zakłócić oznaczenie tego pierwiastka.' },
-  { q: 'Czy normy są takie same dla wszystkich?', a: 'Nie — i to kluczowa różnica tego badania. Zakresy referencyjne uwzględniają płeć, wiek, palenie tytoniu i nosicielstwo mutacji BRCA1. Normy zostały opracowane wyłącznie dla populacji polskiej.' },
-  { q: 'Co jeśli wynik jest poza normą?', a: 'Wynik poza zakresem referencyjnym jest wskazaniem do konsultacji lekarskiej, nie diagnozą. W raporcie znajdziesz zalecenia dietetyczne, suplementacyjne lub kierunki dalszej diagnostyki, które warto omówić z lekarzem prowadzącym.' },
-  { q: 'Jak długo przechowywany jest mój materiał?', a: 'Co najmniej 2 miesiące w temperaturze −20°C — umożliwia to ewentualną weryfikację wyników.' },
-  { q: 'Czy mogę wykonać badanie, jeśli mam już zdiagnozowany nowotwór?', a: 'Tak — istnieje dedykowany panel z surowicy dla pacjentów onkologicznych. Skonsultuj go z lekarzem prowadzącym.' },
-  { q: 'Czy badanie zastępuje mammografię, cytologię lub kolonoskopię?', a: 'Nie. Onkopierwiastki to badanie uzupełniające — nie zastępuje rekomendowanych badań przesiewowych. To dodatkowa informacja do podejmowania świadomych decyzji zdrowotnych.' },
+  { q: 'Czy do badania onkopierwiastków potrzebuję skierowania od lekarza?', a: 'Nie. Badanie onkopierwiastków możesz wykonać samodzielnie, bez skierowania lekarskiego. Wystarczy złożyć zamówienie przez stronę onkopierwiastki.pl i zgłosić się do wybranej placówki referencyjnej.' },
+  { q: 'Czy badanie onkopierwiastków wykrywa nowotwór?', a: 'Nie. Badanie onkopierwiastków pokazuje stężenia pierwiastków we krwi i odnosi je do zakresów referencyjnych opracowanych dla populacji polskiej. Nie jest to badanie diagnostyczne nowotworu. Wynik może być natomiast cennym sygnałem do dalszych konsultacji i działań profilaktycznych.' },
+  { q: 'Co zawiera wynik badania onkopierwiastków?', a: 'Wynik w formie PDF zawiera: liczbowe stężenia każdego badanego pierwiastka, odniesienie do zakresów referencyjnych dopasowanych do Twojej płci, wieku i innych zmiennych, oraz konkretne zalecenia dietetyczne, suplementacyjne lub kierunki dalszej diagnostyki.' },
+  { q: 'Ile trwa oczekiwanie na wynik badania onkopierwiastków?', a: 'Do 15 dni roboczych od dostarczenia próbki do laboratorium Innowacyjna Medycyna w Grzepnicy.' },
+  { q: 'Czy badanie onkopierwiastków boli?', a: 'Pobranie polega na standardowym nakłuciu żyły — tak jak przy zwykłej morfologii. Wystarczy 0,5 ml krwi pełnej.' },
+  { q: 'Dlaczego przed badaniem onkopierwiastków muszę być na czczo?', a: 'Aby wyeliminować wpływ posiłku na stężenia pierwiastków we krwi. Zalecamy co najmniej 6 godzin bez jedzenia przed pobraniem materiału.' },
+  { q: 'Dlaczego przed badaniem onkopierwiastków nie wolno jeść ryb i owoców morza?', a: 'Przez 3 dni przed pobraniem krwi należy unikać ryb morskich, owoców morza i ryżu. Zawierają one organiczne formy arsenu, które mogą zakłócić oznaczenie tego pierwiastka w badaniu.' },
+  { q: 'Czy normy onkopierwiastków są takie same dla wszystkich?', a: 'Nie — i to kluczowa różnica tego badania. Zakresy referencyjne uwzględniają płeć, wiek, palenie tytoniu i nosicielstwo mutacji BRCA1. Normy zostały opracowane wyłącznie dla populacji polskiej przez zespół prof. Lubińskiego z PUM w Szczecinie.' },
+  { q: 'Co zrobić, gdy wynik badania onkopierwiastków jest poza normą?', a: 'Wynik poza zakresem referencyjnym jest wskazaniem do konsultacji lekarskiej, nie diagnozą. W raporcie znajdziesz konkretne zalecenia dietetyczne, suplementacyjne lub kierunki dalszej diagnostyki, które warto omówić z lekarzem prowadzącym.' },
+  { q: 'Jak długo przechowywany jest materiał po badaniu onkopierwiastków?', a: 'Co najmniej 2 miesiące w temperaturze −20°C w laboratorium Innowacyjna Medycyna — umożliwia to ewentualną weryfikację wyników.' },
+  { q: 'Czy mogę wykonać badanie onkopierwiastków, jeśli mam zdiagnozowany nowotwór?', a: 'Tak — istnieje dedykowany panel onkologiczny z surowicy dla pacjentów z nowotworem. Skonsultuj wybór panelu z lekarzem prowadzącym.' },
+  { q: 'Czy badanie onkopierwiastków zastępuje mammografię, cytologię lub kolonoskopię?', a: 'Nie. Badanie onkopierwiastków to badanie uzupełniające — nie zastępuje rekomendowanych badań przesiewowych. To dodatkowa informacja wspierająca profilaktykę nowotworową i podejmowanie świadomych decyzji zdrowotnych.' },
 ];
 
 export default function FAQ() {

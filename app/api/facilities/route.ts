@@ -15,6 +15,7 @@ export async function GET() {
       hours: true,
       lat: true,
       lng: true,
+      notes: true,
     },
   });
 

@@ -14,10 +14,11 @@ interface Facility {
   hours: string;
   lat: number;
   lng: number;
+  notes: string;
   active: boolean;
 }
 
-const emptyForm = { name: '', address: '', postalCode: '', city: '', phone: '', hours: '', lat: '', lng: '' };
+const emptyForm = { name: '', address: '', postalCode: '', city: '', phone: '', hours: '', lat: '', lng: '', notes: '' };
 
 export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
   const [showForm, setShowForm] = useState(false);
@@ -49,7 +50,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
 
   const openEdit = (f: Facility) => {
     setEditId(f.id);
-    setForm({ name: f.name, address: f.address, postalCode: f.postalCode, city: f.city, phone: f.phone, hours: f.hours, lat: String(f.lat), lng: String(f.lng) });
+    setForm({ name: f.name, address: f.address, postalCode: f.postalCode, city: f.city, phone: f.phone, hours: f.hours, lat: String(f.lat), lng: String(f.lng), notes: f.notes });
     setShowForm(true);
   };
 
@@ -73,6 +74,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
       hours: form.hours,
       lat: parseFloat(form.lat) || 0,
       lng: parseFloat(form.lng) || 0,
+      notes: form.notes,
     };
 
     await fetch('/api/admin/facilities', {
@@ -166,6 +168,10 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
                 <input type="number" step="any" value={form.lng} onChange={(e) => setForm({ ...form, lng: e.target.value })} placeholder="Lng (14.5528)" className={inputCls} />
               </div>
             </div>
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-semibold text-[#122056] mb-1">Informacje dodatkowe (opcj.)</label>
+              <input value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="np. budynek Przychodni, wejście od tyłu" className={inputCls} />
+            </div>
           </div>
           <div className="flex gap-2">
             <button onClick={handleSave} disabled={loading || !form.name || !form.city} className="bg-[#5B65DC] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#4a53c7] disabled:opacity-40">
@@ -186,6 +192,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
                 <p className="font-bold text-[#122056] text-sm">{f.name}</p>
                 <p className="text-[#8a8fa6] text-xs">{f.address}, {f.postalCode} {f.city}</p>
                 <p className="text-[#8a8fa6] text-xs">{f.phone} &middot; {f.hours}</p>
+                {f.notes && <p className="text-[#5B65DC] text-xs mt-0.5">{f.notes}</p>}
               </div>
               <div className="flex items-center gap-2">
                 <button onClick={() => openEdit(f)} className="text-[#8a8fa6] hover:text-[#5B65DC] p-1" title="Edytuj">

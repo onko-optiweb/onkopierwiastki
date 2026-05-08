@@ -14,6 +14,7 @@ interface Facility {
   hours: string;
   lat: number;
   lng: number;
+  notes: string;
 }
 
 // Dynamic import — Leaflet needs window
@@ -107,6 +108,9 @@ export default function Facilities() {
                       <IconClock size={14} className={`flex-shrink-0 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
                       <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.hours}</span>
                     </div>
+                    {f.notes && (
+                      <p className={`text-[11px] italic mt-1 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]/70'}`}>{f.notes}</p>
+                    )}
                   </div>
                 </button>
               ))}
