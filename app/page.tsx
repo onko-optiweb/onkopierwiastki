@@ -15,6 +15,7 @@ import Pricing from '@/src/components/Pricing';
 import Facilities from '@/src/components/Facilities';
 import OrderOnline from '@/src/components/OrderOnline';
 import Professor from '@/src/components/Professor';
+import ProfessorVideos from '@/src/components/ProfessorVideos';
 import FAQ from '@/src/components/FAQ';
 import FinalCTA from '@/src/components/FinalCTA';
 import Footer from '@/src/components/Footer';
@@ -40,6 +41,7 @@ export default function HomePage() {
         <Pricing />
         <Facilities />
         <OrderOnline />
+        <ProfessorVideos />
         <FAQ />
         <FinalCTA />
       </main>

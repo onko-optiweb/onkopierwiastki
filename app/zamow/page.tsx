@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTruck, IconTag, IconLoader2 } from '@tabler/icons-react';
 import { createOrder } from '@/src/actions/orders';
@@ -15,6 +16,8 @@ interface Facility {
   hours: string;
   lat: number;
   lng: number;
+  supportsBlood: boolean;
+  supportsSerum: boolean;
 }
 
 type PanelType = 'profilaktyka' | 'onkologiczny';
@@ -42,11 +45,26 @@ const FacilitiesMap = dynamic(() => import('@/src/components/FacilitiesMap'), {
   ),
 });
 
-export default function OrderPage() {
+export default function OrderPageWrapper() {
+  return (
+    <Suspense>
+      <OrderPage />
+    </Suspense>
+  );
+}
+
+function OrderPage() {
+  const searchParams = useSearchParams();
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [step, setStep] = useState(1);
-  const [panelType, setPanelType] = useState<PanelType>('profilaktyka');
-  const [panelTier, setPanelTier] = useState<PanelTier>('rozszerzony');
+  const [panelType, setPanelType] = useState<PanelType>(() => {
+    const typ = searchParams.get('typ');
+    return typ === 'onkologiczny' ? 'onkologiczny' : 'profilaktyka';
+  });
+  const [panelTier, setPanelTier] = useState<PanelTier>(() => {
+    const wariant = searchParams.get('wariant');
+    return wariant === 'podstawowy' ? 'podstawowy' : 'rozszerzony';
+  });
   const [facilityId, setFacilityId] = useState<number | null>(null);
   const [isOnline, setIsOnline] = useState(false);
   const [query, setQuery] = useState('');
@@ -88,13 +106,50 @@ export default function OrderPage() {
   const finalPrice = selectedPanel.price - discount / 100;
   const selectedFacility = facilities.find((f) => f.id === facilityId);
 
+  // Deselect facility if it doesn't support the new material
+  useEffect(() => {
+    if (facilityId && selectedFacility) {
+      const material = selectedPanel.material;
+      const supported =
+        material === 'Krew pełna' ? selectedFacility.supportsBlood :
+        material === 'Surowica' ? selectedFacility.supportsSerum :
+        material === 'Surowica + krew pełna' ? (selectedFacility.supportsBlood && selectedFacility.supportsSerum) :
+        true;
+      if (!supported) {
+        setFacilityId(null);
+        setIsOnline(false);
+      }
+    }
+  }, [panelType, panelTier]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Check if facility supports selected material
+  const facilitySupported = useCallback((f: Facility) => {
+    const material = selectedPanel.material;
+    if (material === 'Krew pełna') return f.supportsBlood;
+    if (material === 'Surowica') return f.supportsSerum;
+    if (material === 'Surowica + krew pełna') return f.supportsBlood && f.supportsSerum;
+    return true;
+  }, [selectedPanel.material]);
+
+  // Facilities filtered by search query (all shown, supported first)
   const filtered = useMemo(() => {
-    if (!query) return facilities;
-    const q = query.toLowerCase();
-    return facilities.filter(
-      (f) => f.city.toLowerCase().includes(q) || f.name.toLowerCase().includes(q) || f.address.toLowerCase().includes(q)
-    );
-  }, [query, facilities]);
+    let list = facilities;
+    if (query) {
+      const q = query.toLowerCase();
+      list = list.filter(
+        (f) => f.city.toLowerCase().includes(q) || f.name.toLowerCase().includes(q) || f.address.toLowerCase().includes(q)
+      );
+    }
+    // Sort: supported first, then unsupported
+    return [...list].sort((a, b) => {
+      const aOk = facilitySupported(a) ? 0 : 1;
+      const bOk = facilitySupported(b) ? 0 : 1;
+      return aOk - bOk;
+    });
+  }, [query, facilities, facilitySupported]);
+
+  // Only supported facilities for the map
+  const mapFacilities = useMemo(() => filtered.filter(facilitySupported), [filtered, facilitySupported]);
 
   const handleSelectFacility = useCallback((id: number) => {
     setFacilityId(id);
@@ -295,7 +350,7 @@ export default function OrderPage() {
             {/* Map on mobile — top */}
             <div className="lg:hidden rounded-xl overflow-hidden border border-[#EEEFFD] h-[250px] mb-6">
               <FacilitiesMap
-                facilities={filtered}
+                facilities={mapFacilities}
                 activeId={facilityId}
                 onSelect={handleSelectFacility}
               />
@@ -318,24 +373,37 @@ export default function OrderPage() {
 
                 {/* Facility list */}
                 <div className="space-y-2 max-h-[340px] overflow-y-auto mb-4">
-                  {filtered.map((f) => (
-                    <button
-                      key={f.id}
-                      onClick={() => handleSelectFacility(f.id)}
-                      className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
-                        facilityId === f.id && !isOnline
-                          ? 'border-[#5B65DC] bg-white'
-                          : 'border-transparent bg-white hover:border-[#EEEFFD]'
-                      }`}
-                    >
-                      <p className="font-bold text-[#122056] text-sm">{f.name}</p>
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1.5 text-[#8a8fa6] text-xs">
-                        <span className="flex items-center gap-1"><IconMapPin size={12} stroke={1.5} />{f.address}, {f.postalCode} {f.city}</span>
-                        <span className="flex items-center gap-1"><IconPhone size={12} stroke={1.5} />{f.phone}</span>
-                        <span className="flex items-center gap-1"><IconClock size={12} stroke={1.5} />{f.hours}</span>
-                      </div>
-                    </button>
-                  ))}
+                  {filtered.map((f) => {
+                    const supported = facilitySupported(f);
+                    const materialLabel = selectedPanel.material === 'Krew pełna' ? 'krwi pełnej' :
+                      selectedPanel.material === 'Surowica' ? 'surowicy' : 'krwi pełnej i surowicy';
+                    return (
+                      <button
+                        key={f.id}
+                        onClick={() => supported && handleSelectFacility(f.id)}
+                        disabled={!supported}
+                        className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                          !supported
+                            ? 'border-transparent bg-neutral-50 opacity-50 cursor-not-allowed'
+                            : facilityId === f.id && !isOnline
+                              ? 'border-[#5B65DC] bg-white'
+                              : 'border-transparent bg-white hover:border-[#EEEFFD]'
+                        }`}
+                      >
+                        <p className={`font-bold text-sm ${supported ? 'text-[#122056]' : 'text-neutral-400'}`}>{f.name}</p>
+                        <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1.5 text-xs">
+                          <span className={`flex items-center gap-1 ${supported ? 'text-[#8a8fa6]' : 'text-neutral-300'}`}><IconMapPin size={12} stroke={1.5} />{f.address}, {f.postalCode} {f.city}</span>
+                          <span className={`flex items-center gap-1 ${supported ? 'text-[#8a8fa6]' : 'text-neutral-300'}`}><IconPhone size={12} stroke={1.5} />{f.phone}</span>
+                          <span className={`flex items-center gap-1 ${supported ? 'text-[#8a8fa6]' : 'text-neutral-300'}`}><IconClock size={12} stroke={1.5} />{f.hours}</span>
+                        </div>
+                        {!supported && (
+                          <p className="text-red-400 text-[11px] font-semibold mt-1.5">
+                            Placówka nie obsługuje badania z {materialLabel}
+                          </p>
+                        )}
+                      </button>
+                    );
+                  })}
                   {filtered.length === 0 && (
                     <p className="text-center text-[#8a8fa6] text-sm py-6">Nie znaleziono placówek dla &quot;{query}&quot;</p>
                   )}
@@ -370,7 +438,7 @@ export default function OrderPage() {
               {/* Right — map (desktop) */}
               <div className="hidden lg:block rounded-xl overflow-hidden border border-[#EEEFFD] h-[540px] sticky top-24">
                 <FacilitiesMap
-                  facilities={filtered}
+                  facilities={mapFacilities}
                   activeId={facilityId}
                   onSelect={handleSelectFacility}
                 />

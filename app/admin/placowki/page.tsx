@@ -17,6 +17,8 @@ export default async function PlacowkiPage() {
     lat: f.lat,
     lng: f.lng,
     notes: f.notes,
+    supportsBlood: f.supportsBlood,
+    supportsSerum: f.supportsSerum,
     active: f.active,
   }));
 

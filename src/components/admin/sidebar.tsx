@@ -32,7 +32,9 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
       <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#122056] text-white flex flex-col transition-transform duration-200 lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-white/10">
-          <img src="/logos/onkopierwiastki.svg" alt="Onkopierwiastki" className="h-12 brightness-0 invert" />
+          <a href="/" target="_blank" rel="noopener noreferrer">
+            <img src="/logos/onkopierwiastki.svg" alt="Onkopierwiastki" className="h-12 brightness-0 invert hover:opacity-80 transition-opacity" />
+          </a>
           <button onClick={onClose} className="lg:hidden text-white/60 hover:text-white">
             <X size={20} />
           </button>

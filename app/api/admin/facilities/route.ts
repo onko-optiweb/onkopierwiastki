@@ -19,6 +19,8 @@ export async function POST(request: NextRequest) {
       lat: data.lat,
       lng: data.lng,
       notes: data.notes || '',
+      supportsBlood: data.supportsBlood ?? true,
+      supportsSerum: data.supportsSerum ?? true,
     },
   });
 

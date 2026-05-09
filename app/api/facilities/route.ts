@@ -16,6 +16,8 @@ export async function GET() {
       lat: true,
       lng: true,
       notes: true,
+      supportsBlood: true,
+      supportsSerum: true,
     },
   });
 

@@ -3,7 +3,7 @@ import { IconQuote } from '@tabler/icons-react';
 
 const stats = [
   { value: '700+', label: 'publikacji naukowych' },
-  { value: '100+', label: 'patentów przyznanych i zgłoszonych' },
+  { value: 'ok. 100', label: 'patentów przyznanych i zgłoszonych' },
   { value: '30+ lat', label: 'badań nad genetyką nowotworów' },
 ];
 

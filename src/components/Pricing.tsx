@@ -155,7 +155,7 @@ export default function Pricing() {
                 <p className="text-[#8a8fa6] text-sm mb-6">{plan.desc}</p>
 
                 <a
-                  href="/zamow"
+                  href={`/zamow?typ=${tab}&wariant=${plan.name === 'Kobiety' ? 'podstawowy' : plan.name.toLowerCase()}`}
                   className={`block text-center text-sm font-semibold py-3.5 rounded-full transition-colors ${
                     plan.btnStyle === 'filled'
                       ? 'bg-[#5B65DC] text-white hover:bg-[#4a53c7]'

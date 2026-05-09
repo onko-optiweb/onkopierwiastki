@@ -15,10 +15,12 @@ interface Facility {
   lat: number;
   lng: number;
   notes: string;
+  supportsBlood: boolean;
+  supportsSerum: boolean;
   active: boolean;
 }
 
-const emptyForm = { name: '', address: '', postalCode: '', city: '', phone: '', hours: '', lat: '', lng: '', notes: '' };
+const emptyForm = { name: '', address: '', postalCode: '', city: '', phone: '', hours: '', lat: '', lng: '', notes: '', supportsBlood: true, supportsSerum: true };
 
 export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
   const [showForm, setShowForm] = useState(false);
@@ -50,7 +52,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
 
   const openEdit = (f: Facility) => {
     setEditId(f.id);
-    setForm({ name: f.name, address: f.address, postalCode: f.postalCode, city: f.city, phone: f.phone, hours: f.hours, lat: String(f.lat), lng: String(f.lng), notes: f.notes });
+    setForm({ name: f.name, address: f.address, postalCode: f.postalCode, city: f.city, phone: f.phone, hours: f.hours, lat: String(f.lat), lng: String(f.lng), notes: f.notes, supportsBlood: f.supportsBlood, supportsSerum: f.supportsSerum });
     setShowForm(true);
   };
 
@@ -75,6 +77,8 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
       lat: parseFloat(form.lat) || 0,
       lng: parseFloat(form.lng) || 0,
       notes: form.notes,
+      supportsBlood: form.supportsBlood,
+      supportsSerum: form.supportsSerum,
     };
 
     await fetch('/api/admin/facilities', {
@@ -172,6 +176,21 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
               <label className="block text-xs font-semibold text-[#122056] mb-1">Informacje dodatkowe (opcj.)</label>
               <input value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="np. budynek Przychodni, wejście od tyłu" className={inputCls} />
             </div>
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-semibold text-[#122056] mb-2">Obsługiwane materiały</label>
+              <div className="flex gap-6">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" checked={form.supportsBlood} onChange={(e) => setForm({ ...form, supportsBlood: e.target.checked })}
+                    className="w-4 h-4 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer" />
+                  <span className="text-sm text-[#122056]">Krew pełna</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" checked={form.supportsSerum} onChange={(e) => setForm({ ...form, supportsSerum: e.target.checked })}
+                    className="w-4 h-4 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer" />
+                  <span className="text-sm text-[#122056]">Surowica</span>
+                </label>
+              </div>
+            </div>
           </div>
           <div className="flex gap-2">
             <button onClick={handleSave} disabled={loading || !form.name || !form.city} className="bg-[#5B65DC] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#4a53c7] disabled:opacity-40">
@@ -193,6 +212,11 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
                 <p className="text-[#8a8fa6] text-xs">{f.address}, {f.postalCode} {f.city}</p>
                 <p className="text-[#8a8fa6] text-xs">{f.phone} &middot; {f.hours}</p>
                 {f.notes && <p className="text-[#5B65DC] text-xs mt-0.5">{f.notes}</p>}
+                <div className="flex gap-1.5 mt-1">
+                  {f.supportsBlood && <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-red-50 text-red-600">Krew</span>}
+                  {f.supportsSerum && <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-600">Surowica</span>}
+                  {!f.supportsBlood && !f.supportsSerum && <span className="text-[10px] text-red-400">Brak materiałów!</span>}
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <button onClick={() => openEdit(f)} className="text-[#8a8fa6] hover:text-[#5B65DC] p-1" title="Edytuj">
