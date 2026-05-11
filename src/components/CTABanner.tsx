@@ -45,9 +45,9 @@ export default function CTABanner({ text = 'Jedna kropla krwi. Sześć odpowiedz
       <div className="absolute bottom-0 right-[10%] w-[400px] h-[400px] bg-[#122056]/20 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h3 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight mb-10">
+        <p className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight mb-10">
           {text}
-        </h3>
+        </p>
 
         <div className="flex flex-wrap justify-center gap-4">
           <a

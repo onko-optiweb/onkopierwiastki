@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { IconFlask, IconUsers, IconMan } from '@tabler/icons-react';
 
 const elementsHealthy = [
-  { symbol: 'Se', name: 'Selen', number: 34, desc: 'Pierwiastek istotny dla odporności organizmu. Badania wskazują na związek niedoboru z podwyższonym ryzykiem nowotworów.', facts: ['Wspiera działanie enzymów antyoksydacyjnych chroniących komórki przed uszkodzeniami', 'Jest składnikiem selenoprotein, które uczestniczą w regulacji odpowiedzi immunologicznej'] },
-  { symbol: 'Zn', name: 'Cynk', number: 30, desc: 'Pierwiastek kluczowy dla wielu procesów biologicznych. Badania wiążą jego nieprawidłowe stężenie u kobiet z podwyższonym ryzykiem nowotworów.', facts: ['Bierze udział w ponad 300 reakcjach enzymatycznych w organizmie człowieka', 'Odgrywa rolę w naprawie DNA i prawidłowym podziale komórek'] },
-  { symbol: 'As', name: 'Arsen', number: 33, desc: 'Pierwiastek, którego stężenie poniżej normy u kobiet po 40. r.ż. może być według badań sygnałem do dalszej diagnostyki jelita grubego.', facts: ['W śladowych ilościach występuje naturalnie w glebie, wodzie i pożywieniu', 'Jego stężenie we krwi może być zaburzone przez spożycie ryb morskich i owoców morza'] },
-  { symbol: 'Cu', name: 'Miedź', number: 29, desc: 'Pierwiastek o znaczeniu prognostycznym u pacjentów onkologicznych. Według badań nadmiar może być markerem ryzyka.', facts: ['Uczestniczy w produkcji energii komórkowej i tworzeniu tkanki łącznej', 'Wpływa na metabolizm żelaza i prawidłowe funkcjonowanie układu nerwowego'] },
-  { symbol: 'Cd', name: 'Kadm', number: 48, desc: 'Pierwiastek związany m.in. z paleniem tytoniu i niektórymi pokarmami. Podwyższone stężenie według badań wiąże się z ryzykiem onkologicznym.', facts: ['Dym papierosowy jest jednym z głównych źródeł ekspozycji na kadm w populacji', 'Kumuluje się w organizmie — jego okres półtrwania w nerkach wynosi 10–30 lat'] },
-  { symbol: 'Pb', name: 'Ołów', number: 82, desc: 'Pierwiastek, którego nadmiar według badań wiąże się ze zwiększonym ryzykiem u nosicielek mutacji BRCA1.', facts: ['Może przenikać do organizmu z zanieczyszczonego powietrza, wody i starych instalacji', 'Nawet niskie stężenia mogą wpływać na procesy komórkowe związane z ryzykiem onkologicznym'] },
+  { symbol: 'Se', name: 'Selen', number: 34, desc: 'W organizmie wbudowany w białka w postaci selenocysteiny. Bierze udział w produkcji hormonów tarczycy, pobudza układ immunologiczny i chroni przed stresem oksydacyjnym. Zarówno niedobór, jak i nadmiar mogą niekorzystnie wpływać na organizm.', facts: ['Zarówno niedobór, jak i nadmiar selenu mogą prowadzić m.in. do zaburzeń pracy serca, tarczycy i układu odpornościowego', 'Produkty bogate w Se: rośliny strączkowe, orzechy brazylijskie, orzechy włoskie, nerkowce, grzyby'] },
+  { symbol: 'Zn', name: 'Cynk', number: 30, desc: 'Wchodzi w skład dysmutaz ponadtlenkowych (SOD) i chroni przed działaniem wolnych rodników. Wpływa na utrzymanie równowagi jonowej innych mikroelementów oraz pełni rolę detoksykacyjną w stosunku do metali ciężkich.', facts: ['Zaangażowany w procesy immunologiczne, warunkuje prawidłową funkcję skóry i błon śluzowych', 'Produkty bogate w Zn: wątroba, jagnięcina, wołowina, sery żółte, zarodki pszenne'] },
+  { symbol: 'As', name: 'Arsen', number: 33, desc: 'Pierwiastek prozapalny, indukujący produkcję reaktywnych form tlenu i wpływający na proliferację komórek oraz przebieg cyklu komórkowego. Klasyfikowany przez IARC jako bezwzględny ludzki karcynogen (grupa 1). Nawet nieznacznie podwyższone stężenia mogą zwiększać ryzyko raków, zwłaszcza u kobiet.', facts: ['3 dni przed badaniem unikaj ryb morskich, owoców morza i ryżu — mogą zawyżyć wynik arsenu we krwi', 'Produkty ubogie w As: wieprzowina, wołowina, mleko, masło, herbata, kawa'] },
+  { symbol: 'Cu', name: 'Miedź', number: 29, desc: 'Kofaktor licznych reakcji enzymatycznych, wchodzi w skład dysmutaz ponadtlenkowych (SOD). Chroni przed niekorzystnym wpływem reaktywnych form tlenu. Jest metaloestogenem — nadmiar u pacjentów onkologicznych wiąże się z gorszym rokowaniem.', facts: ['Zarówno niedobór, jak i nadmiar miedzi mogą być niekorzystne — kluczowe jest utrzymanie optymalnego zakresu', 'Produkty bogate w Cu: wątroba, płatki zbożowe, fasola, orzechy, awokado'] },
+  { symbol: 'Cd', name: 'Kadm', number: 48, desc: 'Bezpośrednio uszkadza DNA — powoduje mutacje, fragmentację nici i aberracje chromosomowe. Indukuje stres oksydacyjny, hamuje naprawę DNA oraz metylację, co może przyczyniać się do aktywacji protoonkogenów. Klasyfikowany przez IARC jako bezwzględny karcynogen (grupa 1).', facts: ['Stężenie kadmu we krwi jest silnie skorelowane z paleniem wyrobów tytoniowych — głównym źródłem ekspozycji', 'Produkty bogate w Cd: nasiona słonecznika, wątroba, orzechy, chleb, makarony, sałata'] },
+  { symbol: 'Pb', name: 'Ołów', number: 82, desc: 'Generuje reaktywne formy tlenu, upośledza działanie układu immunologicznego i zaburza pracę enzymów. Jest metaloestogenem. Według badań podwyższone stężenie wiąże się ze zwiększonym ryzykiem raków u kobiet, mężczyzn oraz nosicielek mutacji BRCA1.', facts: ['Toksyczność ołowiu prowadzi do zmiany aktywności wielu enzymów oraz zaburzeń białek w komórce', 'Produkty bogate w Pb: koktajle owocowe, czekolada, morele, bataty, ogórki kiszone, wino'] },
 ];
 
 export default function Elements() {
@@ -71,14 +71,14 @@ export default function Elements() {
                 <span className="text-lg sm:text-2xl font-bold -mt-0.5">{elementsHealthy[active].symbol}</span>
               </div>
               <div className="min-w-0">
-                <h3 className="font-[family-name:var(--font-funnel)] font-bold text-black text-lg sm:text-2xl">{elementsHealthy[active].name}</h3>
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-black text-lg sm:text-2xl">{elementsHealthy[active].name}</p>
                 <p className="text-[#8a8fa6] text-xs">Pierwiastek nr {elementsHealthy[active].number} w układzie okresowym</p>
               </div>
             </div>
             <p className="text-[#8a8fa6] text-sm leading-relaxed mb-5">{elementsHealthy[active].desc}</p>
 
             {/* Facts */}
-            <p className="text-[#122056] text-xs font-bold uppercase tracking-wider mb-2">Ciekawostki</p>
+            <p className="text-[#122056] text-xs font-bold uppercase tracking-wider mb-2">Warto wiedzieć</p>
             <div className="space-y-2.5">
               {elementsHealthy[active].facts.map((fact, i) => (
                 <div key={i} className="flex items-start gap-3 bg-white rounded-xl px-3 sm:px-4 py-3">

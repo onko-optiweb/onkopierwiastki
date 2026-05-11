@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Save, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, Save, Eye, EyeOff, Upload, X, Image as ImageIcon } from 'lucide-react';
+import { WysiwygEditor } from './wysiwyg-editor';
 import Link from 'next/link';
 
 interface BlogPostData {
@@ -45,6 +46,8 @@ export function BlogEditor({ post }: { post?: BlogPostData }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [slugManual, setSlugManual] = useState(!!post);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const isEdit = !!post;
@@ -177,13 +180,10 @@ export function BlogEditor({ post }: { post?: BlogPostData }) {
             </div>
 
             <div>
-              <label className={labelClass}>Treść (HTML)</label>
-              <textarea
-                value={form.content}
-                onChange={(e) => updateField('content', e.target.value)}
-                placeholder="<p>Treść wpisu...</p>"
-                rows={20}
-                className={`${inputClass} font-mono text-xs`}
+              <label className={labelClass}>Treść</label>
+              <WysiwygEditor
+                content={form.content}
+                onChange={(html) => setForm((prev) => ({ ...prev, content: html }) as typeof prev)}
               />
             </div>
           </div>
@@ -206,16 +206,73 @@ export function BlogEditor({ post }: { post?: BlogPostData }) {
             </div>
 
             <div>
-              <label className={labelClass}>Obrazek wyróżniający (URL)</label>
+              <label className={labelClass}>Obrazek wyróżniający</label>
               <input
-                type="text"
-                value={form.coverImage}
-                onChange={(e) => updateField('coverImage', e.target.value)}
-                placeholder="/images/blog/obrazek.jpg"
-                className={inputClass}
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                className="hidden"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  setUploading(true);
+                  const fd = new FormData();
+                  fd.append('file', file);
+                  try {
+                    const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+                    const data = await res.json();
+                    if (res.ok) {
+                      setForm((prev) => ({ ...prev, coverImage: data.url }) as typeof prev);
+                    } else {
+                      alert(data.error || 'Błąd uploadu');
+                    }
+                  } catch {
+                    alert('Błąd połączenia');
+                  }
+                  setUploading(false);
+                  if (fileInputRef.current) fileInputRef.current.value = '';
+                }}
               />
+              {form.coverImage ? (
+                <div className="relative mt-1">
+                  <img src={form.coverImage} alt="" className="rounded-lg w-full h-40 object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setForm((prev) => ({ ...prev, coverImage: '' }) as typeof prev)}
+                    className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-colors"
+                    title="Usuń obrazek"
+                  >
+                    <X size={14} />
+                  </button>
+                  <p className="text-xs text-[#8a8fa6] mt-1.5">{form.coverImage}</p>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="mt-1 w-full flex flex-col items-center justify-center gap-2 py-8 border-2 border-dashed border-neutral-200 rounded-lg text-[#8a8fa6] hover:border-[#5B65DC] hover:text-[#5B65DC] transition-colors disabled:opacity-50"
+                >
+                  {uploading ? (
+                    <span className="text-sm">Konwertuję na WebP...</span>
+                  ) : (
+                    <>
+                      <ImageIcon size={24} />
+                      <span className="text-sm">Kliknij aby dodać zdjęcie</span>
+                      <span className="text-[11px]">JPG, PNG, WebP — auto konwersja na WebP</span>
+                    </>
+                  )}
+                </button>
+              )}
               {form.coverImage && (
-                <img src={form.coverImage} alt="" className="mt-2 rounded-lg w-full h-32 object-cover" />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="mt-2 text-xs text-[#5B65DC] hover:underline disabled:opacity-50"
+                >
+                  {uploading ? 'Konwertuję...' : 'Zmień obrazek'}
+                </button>
               )}
             </div>
 

@@ -25,7 +25,7 @@ export default function OrderOnline() {
           ].map((step) => (
             <div key={step.title} className="bg-[#122056] p-6 lg:p-8 text-center">
               <span className="text-[#5B65DC] font-bold text-sm tracking-widest">{step.number}</span>
-              <h3 className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mt-2 mb-1">{step.title}</h3>
+              <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mt-2 mb-1">{step.title}</p>
               <p className="text-white/40 text-sm">{step.desc}</p>
             </div>
           ))}

@@ -16,5 +16,22 @@ export const metadata: Metadata = {
 };
 
 export default function ZamowLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: siteConfig.domain },
+      { '@type': 'ListItem', position: 2, name: 'Zamów badanie', item: `${siteConfig.domain}/zamow` },
+    ],
+  };
+
+  return (
+    <>
+      {children}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+    </>
+  );
 }

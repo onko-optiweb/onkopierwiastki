@@ -3,7 +3,7 @@ import { IconQuote } from '@tabler/icons-react';
 
 const stats = [
   { value: '700+', label: 'publikacji naukowych' },
-  { value: 'ok. 100', label: 'patentów przyznanych i zgłoszonych' },
+  { value: 'ok. 100', label: 'zgłoszonych lub przyznanych patentów' },
   { value: '30+ lat', label: 'badań nad genetyką nowotworów' },
 ];
 
@@ -39,17 +39,13 @@ export default function Professor() {
               <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-1">
                 Prof. dr hab. n. med. Jan Lubiński
               </h2>
-              <p className="text-[#8a8fa6] text-sm">
-                Założyciel Międzynarodowego Centrum Nowotworów Dziedzicznych, PUM Szczecin
-              </p>
             </div>
 
             {/* Bio card */}
             <div className="bg-white rounded-xl p-5 border border-[#EEEFFD]">
               <p className="text-[#122056] text-sm leading-relaxed">
                 Uznany ekspert w dziedzinie genetyki klinicznej nowotworów, autor ponad 700 publikacji naukowych
-                w renomowanych czasopismach międzynarodowych. W 2023 roku zajął <strong>drugie miejsce w rankingu
-                najlepszych naukowców w dyscyplinie medycyna wśród Polaków</strong> i 1962 na świecie (Research.com).
+                w renomowanych czasopismach międzynarodowych. <strong>Najwyżej cytowany w świecie wśród polskich genetyków onkologów.</strong>
                 Główny współautor blisko 100 polskich zgłoszeń patentowych oraz 40 przyznanych
                 i skomercjalizowanych patentów wykorzystywanych w codziennej diagnostyce.
               </p>
@@ -75,7 +71,7 @@ export default function Professor() {
                 dietę lub suplementację.
               </p>
               <p className="mt-3 text-white/50 text-xs">
-                Prof. Jan Lubiński, PUM Szczecin
+                Prof. Jan Lubiński
               </p>
             </div>
           </div>

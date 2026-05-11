@@ -90,11 +90,11 @@ export default function Facilities() {
                       : 'bg-[#EEEFFD]/30 border-[#EEEFFD] hover:border-[#5B65DC]/30'
                   }`}
                 >
-                  <h3 className={`font-bold text-sm mb-2 ${
+                  <p className={`font-bold text-sm mb-2 ${
                     activeId === f.id ? 'text-white' : 'text-[#122056]'
                   }`}>
                     {f.name}
-                  </h3>
+                  </p>
                   <div className="space-y-1.5">
                     <div className="flex items-start gap-2">
                       <IconMapPin size={14} className={`flex-shrink-0 mt-0.5 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />

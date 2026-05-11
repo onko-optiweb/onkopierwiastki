@@ -93,7 +93,10 @@ export const siteConfig: SiteConfig = {
 
   googleMapsEmbedUrl: '',
 
-  social: {},
+  social: {
+    facebook: 'https://www.facebook.com/readgenecom',
+    instagram: 'https://www.instagram.com/readgenepl',
+  },
 
   nav: [
     { label: 'Czym jest badanie', href: '/#czym-jest-badanie' },

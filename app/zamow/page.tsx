@@ -272,7 +272,16 @@ function OrderPage() {
         </div>
       </header>
 
-      <main className={`mx-auto px-4 sm:px-6 py-10 ${step === 2 ? 'max-w-7xl' : 'max-w-3xl'}`}>
+      {/* Breadcrumbs */}
+      <div className={`mx-auto px-4 sm:px-6 pt-6 ${step === 2 ? 'max-w-7xl' : 'max-w-3xl'}`}>
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
+          <a href="/" className="hover:text-[#122056] transition-colors">Strona główna</a>
+          <span className="text-[10px]">›</span>
+          <span className="text-[#122056] font-medium">Zamów badanie</span>
+        </nav>
+      </div>
+
+      <main className={`mx-auto px-4 sm:px-6 py-8 ${step === 2 ? 'max-w-7xl' : 'max-w-3xl'}`}>
         {/* Step 1 — wybor panelu */}
         {step === 1 && (
           <div>

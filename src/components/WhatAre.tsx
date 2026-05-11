@@ -30,7 +30,7 @@ const slides = [
     image: '/images/mit-brak-objawow.webp',
     alt: 'Kobieta trzymająca się za kark z bólu — niedobory pierwiastków rzadko dają objawy',
     myth: '„Zauważę, jeśli coś będzie nie tak"',
-    fact: 'Istotne klinicznie niedobory i nadmiary pierwiastków rzadko dają objawy.',
+    fact: 'Objawy kliniczne związane z niedoborem lub nadmiarem pierwiastków wiążą się tylko ze skrajnymi stężeniami.',
     conclusion: 'Wykrywa je tylko badanie laboratoryjne.',
   },
 ];

@@ -8,12 +8,12 @@ const groups = [
   {
     emoji: '👤',
     title: 'Każda dorosła osoba',
-    desc: 'Profilaktycznie, aby znać swój poziom ryzyka — szczególnie po 40. roku życia.',
+    desc: 'Profilaktycznie, aby znać swój poziom ryzyka zachorowania na nowotwory złośliwe oraz zgonu niezależnie od przyczyny w młodszym wieku.',
   },
   {
     emoji: '👨‍👩‍👧',
     title: 'Osoby z wywiadem rodzinnym',
-    desc: 'Jeśli w Twojej rodzinie występowały nowotwory, badanie pozwoli ocenić indywidualne ryzyko.',
+    desc: 'W Twojej rodzinie występowały nowotwory, badanie pozwoli ocenić indywidualne ryzyko.',
   },
   {
     emoji: '🧬',
@@ -23,17 +23,17 @@ const groups = [
   {
     emoji: '🚬',
     title: 'Osoby palące',
-    desc: 'Kadm i selen mają inne zakresy referencyjne dla palaczy — wynik uwzględnia ten czynnik.',
+    desc: 'Niektóre pierwiastki mają inne zakresy referencyjne dla palaczy - wynik uwzględnia ten czynnik.',
   },
   {
     emoji: '🩺',
     title: 'Pacjenci onkologiczni',
-    desc: 'Monitoring ryzyka kolejnego nowotworu pierwotnego na podstawie stężeń pierwiastków.',
+    desc: 'Zebrane przez nas dane zdecydowanie wskazują, że pierwiastki takie jak selen i cynk mają istotne znaczenie dla prognozowania przeżyć chorych z nowotworami złośliwymi o różnej lokalizacji. ',
   },
   {
     emoji: '🥗',
     title: 'Osoby na dietach eliminacyjnych',
-    desc: 'Weganie i wegetarianie mają istotnie wyższe stężenie kadmu we krwi.',
+    desc: 'Weganie i wegetarianie mogą mieć istotnie wyższe stężenie selenu i kadmu we krwi.',
   },
 ];
 
@@ -123,9 +123,9 @@ export default function ForWhom() {
                   onClick={() => scrollTo(i)}
                 >
                   <span className="text-2xl mb-4 block">{g.emoji}</span>
-                  <h3 className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mb-2">
+                  <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mb-2">
                     {g.title}
-                  </h3>
+                  </p>
                   <p className={`text-sm leading-relaxed ${
                     selectedIndex === i ? 'text-white/70' : 'text-white/45'
                   }`}>
@@ -137,8 +137,13 @@ export default function ForWhom() {
           </div>
         </div>
 
+        {/* Warning */}
+        <p className="mt-8 text-white font-bold text-xs text-center max-w-3xl mx-auto leading-relaxed">
+          UWAGA!!! Brak dotąd danych, które by udowodniły poprawę przeżyć chorych z nowotworami złośliwymi w wyniku optymalizacji stężeń pierwiastków.
+        </p>
+
         {/* Dots */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-2 mt-6">
           {groups.map((_, i) => (
             <button
               key={i}

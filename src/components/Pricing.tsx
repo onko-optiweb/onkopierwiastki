@@ -140,9 +140,9 @@ export default function Pricing() {
 
               {/* Top section */}
               <div className="p-8 pb-6">
-                <h3 className="font-[family-name:var(--font-funnel)] font-bold text-black text-xl mb-4">
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-black text-xl mb-4">
                   {plan.name}
-                </h3>
+                </p>
 
                 <p className="text-[#8a8fa6] text-xs mb-1">Cena od</p>
                 <div className="flex items-baseline gap-1.5 mb-3">

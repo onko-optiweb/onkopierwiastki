@@ -35,7 +35,7 @@ export default function FAQ() {
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="w-full flex items-center justify-between px-6 py-5 text-left"
               >
-                <span className="font-medium text-[#122056] text-sm pr-4">{item.q}</span>
+                <h3 className="font-medium text-[#122056] text-sm pr-4">{item.q}</h3>
                 <ChevronDown
                   size={20}
                   className={`text-[#8a8fa6] flex-shrink-0 transition-transform duration-200 ${openIndex === i ? 'rotate-180' : ''}`}

@@ -80,6 +80,8 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
 
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [testEmail, setTestEmail] = useState('');
+  const [testStatus, setTestStatus] = useState<{ loading: string | null; message: string; error: boolean }>({ loading: null, message: '', error: false });
 
   const handleField = (name: string, value: string) => {
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -173,6 +175,55 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
         </div>
         <Field label="Nadawca (From)" name="smtpFrom" value={form.smtpFrom} onChange={handleField} placeholder="Onkopierwiastki <noreply@onkopierwiastki.pl>" />
         <Toggle label="SSL/TLS (port 465)" description="Włącz jeśli używasz portu 465 z pełnym szyfrowaniem" checked={form.smtpSecure} onChange={(v) => handleToggle('smtpSecure', v)} />
+      </Section>
+
+      {/* Test e-mail */}
+      <Section title="Testowanie e-maili" description="Wyślij testowe e-maile żeby sprawdzić konfigurację SMTP i wygląd wiadomości">
+        <div>
+          <label className="block text-xs font-semibold text-[#122056] mb-1">Adres e-mail do testu</label>
+          <input
+            type="email"
+            value={testEmail}
+            onChange={(e) => setTestEmail(e.target.value)}
+            placeholder="twoj@email.com"
+            className="w-full px-3 py-2 rounded-lg border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm"
+          />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {([
+            { type: 'connection', label: 'Test połączenia SMTP', desc: 'Sprawdza czy dane SMTP są poprawne' },
+            { type: 'confirmation', label: 'Potwierdzenie zamówienia', desc: 'Mail który dostaje klient po zamówieniu' },
+            { type: 'notification', label: 'Powiadomienie o zamówieniu', desc: 'Mail który dostaje admin o nowym zamówieniu' },
+          ] as const).map((test) => (
+            <button
+              key={test.type}
+              disabled={testStatus.loading !== null || (test.type !== 'connection' && !testEmail)}
+              onClick={async () => {
+                setTestStatus({ loading: test.type, message: '', error: false });
+                try {
+                  const res = await fetch('/api/admin/test-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ to: testEmail, type: test.type }),
+                  });
+                  const data = await res.json();
+                  setTestStatus({ loading: null, message: data.message || data.error, error: !res.ok });
+                } catch {
+                  setTestStatus({ loading: null, message: 'Błąd połączenia z serwerem', error: true });
+                }
+              }}
+              className="px-4 py-2 rounded-lg text-sm font-medium border border-[#EEEFFD] text-[#122056] hover:bg-[#EEEFFD] transition-colors disabled:opacity-40"
+              title={test.desc}
+            >
+              {testStatus.loading === test.type ? 'Wysyłam...' : test.label}
+            </button>
+          ))}
+        </div>
+        {testStatus.message && (
+          <p className={`text-sm font-medium ${testStatus.error ? 'text-red-500' : 'text-emerald-600'}`}>
+            {testStatus.message}
+          </p>
+        )}
       </Section>
 
       {/* Save */}

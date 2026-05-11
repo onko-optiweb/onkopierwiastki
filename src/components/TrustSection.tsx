@@ -55,9 +55,9 @@ export default function TrustSection() {
               <div className="w-12 h-12 rounded-xl bg-[#122056] flex items-center justify-center mb-5">
                 <b.icon size={22} className="text-white" stroke={1.5} />
               </div>
-              <h3 className="font-[family-name:var(--font-funnel)] font-bold text-[#122056] text-base mb-2 leading-snug">
+              <p className="font-[family-name:var(--font-funnel)] font-bold text-[#122056] text-base mb-2 leading-snug">
                 {b.title}
-              </h3>
+              </p>
               <p className="text-[#8a8fa6] text-sm leading-relaxed">{b.desc}</p>
             </div>
           ))}

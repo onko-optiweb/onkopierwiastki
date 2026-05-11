@@ -52,9 +52,9 @@ export default function Preparation() {
             <div key={step.title} className="bg-[#122056] p-6 lg:p-8">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-[#5B65DC] font-bold text-xs tracking-widest">{step.number}</span>
-                <h3 className="font-[family-name:var(--font-funnel)] font-bold text-white text-base">
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-base">
                   {step.title}
-                </h3>
+                </p>
               </div>
               <div className="space-y-0">
                 {step.items.map((item) => (
