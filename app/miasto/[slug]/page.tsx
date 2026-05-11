@@ -416,7 +416,7 @@ export default async function CityPage({ params }: Props) {
         </section>
 
         {/* ====== DŁUGI TEKST SEO — rozwijany ====== */}
-        <section className="py-16 lg:py-20 bg-[#FAFAFD]">
+        <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <CollapsibleContent title={`Badanie onkopierwiastków ${city.name} — kompletny przewodnik`}>
               <div dangerouslySetInnerHTML={{ __html: city.seoText }} />
