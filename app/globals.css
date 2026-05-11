@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 @plugin "daisyui" {
   themes: business --default;
 }
@@ -70,7 +71,7 @@
 }
 
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
@@ -78,7 +79,7 @@ body {
   font-family: var(--font-sans);
   color: var(--color-primary);
   background: var(--color-background);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {

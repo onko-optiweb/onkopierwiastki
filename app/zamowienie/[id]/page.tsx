@@ -1,6 +1,12 @@
+import { Metadata } from "next";
 import { prisma } from "@/src/lib/prisma";
 import { formatPrice } from "@/src/lib/format-price";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: 'Status zamówienia',
+  robots: { index: false, follow: false },
+};
 
 const statusMap: Record<string, { label: string; color: string; bg: string }> = {
   PENDING: { label: "Oczekuje na płatność", color: "text-amber-700", bg: "bg-amber-50" },

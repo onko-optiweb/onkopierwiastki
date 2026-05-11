@@ -96,12 +96,12 @@ export const siteConfig: SiteConfig = {
   social: {},
 
   nav: [
-    { label: 'Czym jest badanie', href: '#czym-jest-badanie' },
-    { label: 'Dla kogo', href: '#dla-kogo' },
-    { label: 'Jak się przygotować', href: '#przygotowanie' },
-    { label: 'Placówki', href: '#placowki' },
-    { label: 'Zamów online', href: '#zamow' },
-    { label: 'O badaniu', href: '#o-badaniu' },
+    { label: 'Czym jest badanie', href: '/#czym-jest-badanie' },
+    { label: 'Dla kogo', href: '/#dla-kogo' },
+    { label: 'Jak się przygotować', href: '/#przygotowanie' },
+    { label: 'Placówki', href: '/#placowki' },
+    { label: 'Zamów online', href: '/#zamow' },
+    { label: 'O badaniu', href: '/#o-badaniu' },
   ],
 
   logo: {

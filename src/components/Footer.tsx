@@ -4,19 +4,20 @@ import { siteConfig } from '@/src/siteConfig';
 import { ArrowRight, MapPin } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Czym jest badanie', href: '#czym-jest-badanie' },
-  { label: 'Dla kogo', href: '#dla-kogo' },
-  { label: 'Jak się przygotować', href: '#przygotowanie' },
-  { label: 'Placówki', href: '#placowki' },
-  { label: 'Zamów online', href: '#zamow' },
-  { label: 'O badaniu', href: '#o-badaniu' },
+  { label: 'Czym jest badanie', href: '/#czym-jest-badanie' },
+  { label: 'Dla kogo', href: '/#dla-kogo' },
+  { label: 'Jak się przygotować', href: '/#przygotowanie' },
+  { label: 'Placówki', href: '/#placowki' },
+  { label: 'Zamów online', href: '/#zamow' },
+  { label: 'O badaniu', href: '/#o-badaniu' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 const legalLinks = [
   { label: 'Polityka prywatności', href: '/polityka-prywatnosci' },
   { label: 'Regulamin', href: '/regulamin' },
-  { label: 'Cennik', href: '#cennik' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Cennik', href: '/#cennik' },
+  { label: 'FAQ', href: '/#faq' },
   { label: 'Ustawienia cookies', href: '#cookies', onClick: true },
 ];
 
@@ -31,13 +32,13 @@ export default function Footer() {
             Zbadaj swoje onkopierwiastki
           </h3>
           <div className="flex flex-wrap gap-3">
-            <a href="#placowki" className="inline-flex items-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold pl-5 pr-2 py-2 rounded-full hover:bg-[#4a53c7] transition-colors">
+            <a href="/#placowki" className="inline-flex items-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold pl-5 pr-2 py-2 rounded-full hover:bg-[#4a53c7] transition-colors">
               Znajdź placówkę
               <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
                 <MapPin size={13} />
               </span>
             </a>
-            <a href="#cennik" className="inline-flex items-center gap-2 bg-white/10 text-white text-sm font-semibold pl-5 pr-2 py-2 rounded-full hover:bg-white/15 transition-colors border border-white/10">
+            <a href="/#cennik" className="inline-flex items-center gap-2 bg-white/10 text-white text-sm font-semibold pl-5 pr-2 py-2 rounded-full hover:bg-white/15 transition-colors border border-white/10">
               Zamów badanie
               <span className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
                 <ArrowRight size={13} />

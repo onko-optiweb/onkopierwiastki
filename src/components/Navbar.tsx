@@ -27,12 +27,18 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
+              <a
+                href="/blog"
+                className="text-[13px] text-neutral-400 hover:text-[#122056] transition-colors"
+              >
+                Blog
+              </a>
             </div>
           </div>
 
           {/* Right — text link + CTA */}
           <div className="hidden lg:flex items-center gap-6">
-            <a href="#cennik" className="text-[13px] text-neutral-400 hover:text-[#122056] transition-colors">
+            <a href="/#cennik" className="text-[13px] text-neutral-400 hover:text-[#122056] transition-colors">
               Cennik
             </a>
             <a
@@ -66,6 +72,13 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
+          <a
+            href="/blog"
+            onClick={() => setOpen(false)}
+            className="block py-3 text-sm text-neutral-400 hover:text-[#122056] border-b border-neutral-50"
+          >
+            Blog
+          </a>
           <a
             href="/zamow"
             onClick={() => setOpen(false)}

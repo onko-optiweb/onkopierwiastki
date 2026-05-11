@@ -1,6 +1,12 @@
+import { Metadata } from "next";
 import { prisma } from "@/src/lib/prisma";
 import { notFound } from "next/navigation";
 import { PrintButton } from "./print-button";
+
+export const metadata: Metadata = {
+  title: 'Potwierdzenie zamówienia',
+  robots: { index: false, follow: false },
+};
 
 export default async function PotwierdzeniePage({
   params,

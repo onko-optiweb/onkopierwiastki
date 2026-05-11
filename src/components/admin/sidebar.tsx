@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ShoppingCart, Users, MapPin, Tag, Mail, Settings, Download, X } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Users, MapPin, Tag, Mail, Settings, Download, X, FileText } from 'lucide-react';
 
 const navItems = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -10,6 +10,7 @@ const navItems = [
   { href: '/admin/klienci', label: 'Klienci', icon: Users },
   { href: '/admin/placowki', label: 'Placówki', icon: MapPin },
   { href: '/admin/kody-rabatowe', label: 'Kody rabatowe', icon: Tag },
+  { href: '/admin/blog', label: 'Blog', icon: FileText },
   { href: '/admin/szablony-email', label: 'Szablony e-mail', icon: Mail },
   { href: '/admin/ustawienia', label: 'Ustawienia', icon: Settings },
 ];

@@ -1,9 +1,20 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { siteConfig } from '@/src/siteConfig';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Regulamin serwisu | Onkopierwiastki.pl',
+  title: 'Regulamin serwisu',
   description: 'Regulamin serwisu internetowego onkopierwiastki.pl — zasady składania zamówień, płatności, realizacji badań i ochrony danych osobowych.',
+  alternates: { canonical: '/regulamin' },
+  openGraph: {
+    title: `Regulamin serwisu | ${siteConfig.name}`,
+    description: 'Zasady składania zamówień, płatności, realizacji badań i ochrony danych osobowych.',
+    url: `${siteConfig.domain}/regulamin`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: 'website',
+  },
 };
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
@@ -44,6 +55,13 @@ export default function RegulaminPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+        {/* Breadcrumbs */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6] mb-6">
+          <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
+          <ChevronRight size={14} />
+          <span className="text-[#122056] font-medium">Regulamin</span>
+        </nav>
+
         <div className="mb-8">
           <h1 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-[#122056] mb-2">
             Regulamin serwisu internetowego
@@ -224,6 +242,18 @@ export default function RegulaminPage() {
 
         </div>
       </main>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Strona główna', item: siteConfig.domain },
+            { '@type': 'ListItem', position: 2, name: 'Regulamin', item: `${siteConfig.domain}/regulamin` },
+          ],
+        }) }}
+      />
     </div>
   );
 }

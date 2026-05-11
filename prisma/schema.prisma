@@ -173,6 +173,26 @@ enum DiscountType {
 }
 
 // ============================================
+// BLOG
+// ============================================
+
+model BlogPost {
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  excerpt        String   @default("") // krótki opis do listy i meta description
+  content        String   // HTML content
+  coverImage     String   @default("") // URL obrazka wyróżniającego
+  published      Boolean  @default(false)
+  publishedAt    DateTime?
+  metaTitle      String   @default("") // SEO title (jeśli inny niż title)
+  metaDescription String  @default("") // SEO description (jeśli inny niż excerpt)
+  tags           String   @default("") // tagi oddzielone przecinkami
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ============================================
 // USTAWIENIA SERWISU
 // ============================================
 

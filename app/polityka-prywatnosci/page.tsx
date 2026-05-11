@@ -1,9 +1,20 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { siteConfig } from '@/src/siteConfig';
+import { ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Polityka prywatności | Onkopierwiastki.pl',
+  title: 'Polityka prywatności',
   description: 'Polityka prywatności serwisu onkopierwiastki.pl — informacje o przetwarzaniu danych osobowych, prawach użytkowników i plikach cookies.',
+  alternates: { canonical: '/polityka-prywatnosci' },
+  openGraph: {
+    title: `Polityka prywatności | ${siteConfig.name}`,
+    description: 'Informacje o przetwarzaniu danych osobowych, prawach użytkowników i plikach cookies.',
+    url: `${siteConfig.domain}/polityka-prywatnosci`,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: 'website',
+  },
 };
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
@@ -38,6 +49,13 @@ export default function PolitykaPrywatnosciPage() {
       </header>
 
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
+        {/* Breadcrumbs */}
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6] mb-6">
+          <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
+          <ChevronRight size={14} />
+          <span className="text-[#122056] font-medium">Polityka prywatności</span>
+        </nav>
+
         <div className="mb-8">
           <h1 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-[#122056] mb-2">
             Polityka prywatności
@@ -172,6 +190,18 @@ export default function PolitykaPrywatnosciPage() {
 
         </div>
       </main>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Strona główna', item: siteConfig.domain },
+            { '@type': 'ListItem', position: 2, name: 'Polityka prywatności', item: `${siteConfig.domain}/polityka-prywatnosci` },
+          ],
+        }) }}
+      />
     </div>
   );
 }
