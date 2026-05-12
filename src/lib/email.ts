@@ -1,6 +1,15 @@
 import nodemailer from "nodemailer";
 import { prisma } from "@/src/lib/prisma";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 async function getSmtpSettings() {
   const settings = await prisma.siteSettings.findUnique({
     where: { id: "main" },
@@ -75,14 +84,14 @@ export async function sendOrderNotification(order: {
     await transporter.sendMail({
       from: settings.smtpFrom || settings.smtpUser,
       to: settings.notificationEmail,
-      subject: `Nowe zamówienie — ${order.firstName} ${order.lastName} (${finalPrice} zł)`,
+      subject: `Nowe zamówienie — ${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)} (${finalPrice} zł)`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #122056;">Nowe zamówienie</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-            <tr><td style="padding: 8px 0; color: #8a8fa6;">Klient</td><td style="padding: 8px 0;"><strong>${order.firstName} ${order.lastName}</strong></td></tr>
-            <tr><td style="padding: 8px 0; color: #8a8fa6;">E-mail</td><td style="padding: 8px 0;">${order.email}</td></tr>
-            <tr><td style="padding: 8px 0; color: #8a8fa6;">Telefon</td><td style="padding: 8px 0;">${order.phone}</td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">Klient</td><td style="padding: 8px 0;"><strong>${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}</strong></td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">E-mail</td><td style="padding: 8px 0;">${escapeHtml(order.email)}</td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">Telefon</td><td style="padding: 8px 0;">${escapeHtml(order.phone)}</td></tr>
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Panel</td><td style="padding: 8px 0;">${panelLabel}</td></tr>
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Placówka</td><td style="padding: 8px 0;">${placowka}</td></tr>
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Kwota</td><td style="padding: 8px 0;"><strong>${finalPrice} zł</strong></td></tr>
@@ -160,7 +169,7 @@ export async function sendOrderConfirmation(order: {
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #122056;">${introText.split('.')[0]}!</h2>
-          <p>Cześć ${order.firstName},</p>
+          <p>Cześć ${escapeHtml(order.firstName)},</p>
           <p>${introText}</p>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 20px 0;">
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Panel badawczy</td><td style="padding: 8px 0;"><strong>${panelLabel}</strong></td></tr>

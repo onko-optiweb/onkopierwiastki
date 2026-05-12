@@ -1,4 +1,5 @@
 import { prisma } from "@/src/lib/prisma";
+import { autoCancelStaleOrders } from "@/src/actions/orders";
 import Link from "next/link";
 
 const statusColors: Record<string, string> = {
@@ -27,6 +28,9 @@ export default async function ZamowieniaPage({
   searchParams: Promise<{ status?: string }>;
 }) {
   const { status: filterStatus } = await searchParams;
+
+  // Auto-anuluj zamówienia PENDING starsze niż 1h
+  await autoCancelStaleOrders();
 
   const where = filterStatus && filterStatus !== "ALL"
     ? { status: filterStatus as any }

@@ -184,6 +184,26 @@ export async function getPaymentMethods(): Promise<PayuPayMethod[]> {
   return methods.filter((m) => m.status === "ENABLED");
 }
 
+// ─── Check order status ───
+export async function getPayuOrderStatus(payuOrderId: string): Promise<string | null> {
+  try {
+    const config = getPayuConfig();
+    const token = await getPayuToken();
+    const baseUrl = getBaseUrl(config.sandbox);
+
+    const res = await fetch(`${baseUrl}/api/v2_1/orders/${payuOrderId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.orders?.[0]?.status || null;
+  } catch {
+    return null;
+  }
+}
+
 // ─── Verify webhook signature ───
 export function verifyPayuSignature(
   rawBody: string,
@@ -201,12 +221,20 @@ export function verifyPayuSignature(
 
   if (!incomingSignature) return false;
 
+  function safeCompare(a: string, b: string): boolean {
+    try {
+      return crypto.timingSafeEqual(Buffer.from(a, "hex"), Buffer.from(b, "hex"));
+    } catch {
+      return false;
+    }
+  }
+
   if (algorithm.toUpperCase() === "MD5") {
     const expected = crypto
       .createHash("md5")
       .update(rawBody + md5Key)
       .digest("hex");
-    return expected === incomingSignature;
+    return safeCompare(expected, incomingSignature);
   }
 
   if (algorithm.toUpperCase() === "SHA-256" || algorithm.toUpperCase() === "SHA256") {
@@ -214,7 +242,7 @@ export function verifyPayuSignature(
       .createHash("sha256")
       .update(rawBody + md5Key)
       .digest("hex");
-    return expected === incomingSignature;
+    return safeCompare(expected, incomingSignature);
   }
 
   return false;

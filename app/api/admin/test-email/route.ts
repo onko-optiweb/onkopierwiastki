@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/src/lib/auth";
+import { requireAdmin } from "@/src/lib/auth-guard";
 import nodemailer from "nodemailer";
 import { prisma } from "@/src/lib/prisma";
 
 export async function POST(request: NextRequest) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { error: authError } = await requireAdmin();
+  if (authError) return authError;
 
   const { to, type } = await request.json();
   if (!to) return NextResponse.json({ error: "Brak adresu e-mail" }, { status: 400 });

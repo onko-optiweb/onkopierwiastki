@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '@/src/lib/prisma';
 import { siteConfig } from '@/src/siteConfig';
+import { sanitizeHtml } from '@/src/lib/sanitize';
 import { getCityBySlug, getAllCitySlugs } from '@/src/data/cities';
 import Navbar from '@/src/components/Navbar';
 import Footer from '@/src/components/Footer';
@@ -419,7 +420,7 @@ export default async function CityPage({ params }: Props) {
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <CollapsibleContent title={`Badanie onkopierwiastków ${city.name} — kompletny przewodnik`}>
-              <div dangerouslySetInnerHTML={{ __html: city.seoText }} />
+              <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(city.seoText) }} />
             </CollapsibleContent>
           </div>
         </section>

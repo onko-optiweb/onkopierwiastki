@@ -1,15 +1,27 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/src/lib/auth";
+import { requireAdmin } from "@/src/lib/auth-guard";
 import { prisma } from "@/src/lib/prisma";
 import { createClient } from "@supabase/supabase-js";
+
+const SENSITIVE_SETTINGS_KEYS = ["smtpPassword"];
+
+function redactSettings(settings: Record<string, unknown>[]) {
+  return settings.map((s) => {
+    const safe = { ...s };
+    for (const key of SENSITIVE_SETTINGS_KEYS) {
+      if (key in safe) safe[key] = "***REDACTED***";
+    }
+    return safe;
+  });
+}
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 // GET — download fresh backup OR list stored backups
 export async function GET(request: Request) {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { error: authError } = await requireAdmin();
+  if (authError) return authError;
 
   const { searchParams } = new URL(request.url);
   const action = searchParams.get("action");
@@ -65,7 +77,7 @@ export async function GET(request: Request) {
   const backup = {
     version: 1,
     createdAt: new Date().toISOString(),
-    data: { facilities, promoCodes, orders, users, siteSettings },
+    data: { facilities, promoCodes, orders, users, siteSettings: redactSettings(siteSettings as unknown as Record<string, unknown>[]) },
   };
 
   return new NextResponse(JSON.stringify(backup, null, 2), {
@@ -78,8 +90,8 @@ export async function GET(request: Request) {
 
 // POST — create manual backup and store in Supabase
 export async function POST() {
-  const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { error: authError } = await requireAdmin();
+  if (authError) return authError;
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
@@ -94,7 +106,7 @@ export async function POST() {
   const backup = {
     version: 1,
     createdAt: new Date().toISOString(),
-    data: { facilities, promoCodes, orders, users, siteSettings },
+    data: { facilities, promoCodes, orders, users, siteSettings: redactSettings(siteSettings as unknown as Record<string, unknown>[]) },
   };
 
   const fileName = `backup-${new Date().toISOString().slice(0, 16).replace(/:/g, "-")}.json`;

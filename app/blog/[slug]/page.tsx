@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { prisma } from '@/src/lib/prisma';
 import { siteConfig } from '@/src/siteConfig';
+import { sanitizeHtml } from '@/src/lib/sanitize';
 import Navbar from '@/src/components/Navbar';
 import Footer from '@/src/components/Footer';
 import { BlogTableOfContents } from '@/src/components/blog-toc';
@@ -162,7 +163,7 @@ export default async function BlogPostPage({ params }: Props) {
                 prose-table:text-sm
                 prose-th:bg-[#EEEFFD] prose-th:text-[#122056] prose-th:font-semibold prose-th:px-4 prose-th:py-2.5
                 prose-td:px-4 prose-td:py-2.5 prose-td:text-[#122056] prose-td:border-neutral-200"
-              dangerouslySetInnerHTML={{ __html: post.content }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
             />
 
             {/* Bottom CTA */}

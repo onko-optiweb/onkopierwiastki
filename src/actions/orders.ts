@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/src/lib/prisma";
-import { createPayuOrder, isPayuEnabled } from "@/src/lib/payu";
+import { createPayuOrder, isPayuEnabled, getPayuOrderStatus } from "@/src/lib/payu";
 import { sendOrderNotification, sendOrderConfirmation } from "@/src/lib/email";
 import { headers } from "next/headers";
 import { z } from "zod";
@@ -34,6 +34,16 @@ const createOrderSchema = z.object({
 
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 
+// ─── Cennik serwerowy (źródło prawdy) ───
+const SERVER_PRICES: Record<string, Record<string, number>> = {
+  PROFILAKTYKA: { PODSTAWOWY: 20000, ROZSZERZONY: 23000 },
+  ONKOLOGICZNY: { PODSTAWOWY: 20000, ROZSZERZONY: 23000 },
+};
+
+function getValidPrice(panelType: string, panelTier: string): number | null {
+  return SERVER_PRICES[panelType]?.[panelTier] ?? null;
+}
+
 // ─── Generowanie numeru zamówienia ───
 async function generateOrderNumber(): Promise<string> {
   const year = new Date().getFullYear();
@@ -64,13 +74,13 @@ export async function validatePromoCode(code: string, price: number) {
     });
 
     if (!promo) return { valid: false, error: "Nieprawidłowy kod rabatowy" };
-    if (!promo.active) return { valid: false, error: "Kod jest nieaktywny" };
+    if (!promo.active) return { valid: false, error: "Nieprawidłowy kod rabatowy" };
     if (promo.validUntil && promo.validUntil < new Date())
-      return { valid: false, error: "Kod wygasł" };
+      return { valid: false, error: "Nieprawidłowy kod rabatowy" };
     if (promo.validFrom > new Date())
-      return { valid: false, error: "Kod jeszcze nie jest aktywny" };
+      return { valid: false, error: "Nieprawidłowy kod rabatowy" };
     if (promo.maxUses && promo.usedCount >= promo.maxUses)
-      return { valid: false, error: "Kod został już wykorzystany" };
+      return { valid: false, error: "Nieprawidłowy kod rabatowy" };
 
     let discount = 0;
     if (promo.type === "PERCENT") {
@@ -96,7 +106,7 @@ export async function validatePromoCode(code: string, price: number) {
   }
 }
 
-// ──��� Tworzenie zamówienia ───
+// ─── Tworzenie zamówienia ───
 export async function createOrder(data: CreateOrderInput) {
   try {
     const parsed = createOrderSchema.safeParse(data);
@@ -113,6 +123,26 @@ export async function createOrder(data: CreateOrderInput) {
       promoCode,
       ...orderData
     } = parsed.data;
+
+    // Walidacja ceny — serwer wyznacza cenę, nie klient
+    const validPrice = getValidPrice(orderData.panelType, orderData.panelTier);
+    if (!validPrice) {
+      return { success: false, error: "Nieprawidłowy typ panelu" };
+    }
+    if (orderData.price !== validPrice) {
+      console.error(`Price tampering: client=${orderData.price}, expected=${validPrice}`);
+      orderData.price = validPrice;
+    }
+
+    // Walidacja placówki
+    if (orderData.facilityId) {
+      const facility = await prisma.facility.findUnique({
+        where: { id: orderData.facilityId },
+      });
+      if (!facility || !facility.active) {
+        return { success: false, error: "Wybrana placówka jest niedostępna" };
+      }
+    }
 
     // Walidacja kodu rabatowego
     let promoCodeId: string | null = null;
@@ -253,6 +283,53 @@ export async function createOrder(data: CreateOrderInput) {
   }
 }
 
+// ─── Auto-anulowanie starych zamówień ───
+const AUTO_CANCEL_AFTER_MS = 60 * 60 * 1000; // 1 godzina
+
+async function autoCancelIfStale(order: {
+  id: string;
+  status: string;
+  createdAt: Date;
+  payuOrderId?: string | null;
+}): Promise<"CANCELLED" | "PAID" | null> {
+  if (order.status !== "PENDING") return null;
+
+  const age = Date.now() - new Date(order.createdAt).getTime();
+  if (age < AUTO_CANCEL_AFTER_MS) return null;
+
+  // Sprawdź w PayU czy przypadkiem nie opłacone
+  if (order.payuOrderId) {
+    const payuStatus = await getPayuOrderStatus(order.payuOrderId);
+    if (payuStatus === "COMPLETED") {
+      await prisma.order.update({
+        where: { id: order.id },
+        data: { status: "PAID", paidAt: new Date() },
+      });
+      return "PAID";
+    }
+  }
+
+  await prisma.order.update({
+    where: { id: order.id },
+    data: { status: "CANCELLED" },
+  });
+
+  return "CANCELLED";
+}
+
+// Batch: anuluj wszystkie stare PENDING zamówienia
+export async function autoCancelStaleOrders() {
+  const cutoff = new Date(Date.now() - AUTO_CANCEL_AFTER_MS);
+  const staleOrders = await prisma.order.findMany({
+    where: { status: "PENDING", createdAt: { lt: cutoff } },
+    select: { id: true, status: true, createdAt: true, payuOrderId: true },
+  });
+
+  for (const order of staleOrders) {
+    await autoCancelIfStale(order);
+  }
+}
+
 // ─── Status zamówienia (publiczny) ───
 export async function getOrderStatus(id: string) {
   try {
@@ -267,6 +344,7 @@ export async function getOrderStatus(id: string) {
         discount: true,
         createdAt: true,
         paidAt: true,
+        payuOrderId: true,
         payments: {
           select: {
             payuOrderId: true,
@@ -279,6 +357,12 @@ export async function getOrderStatus(id: string) {
     });
 
     if (!order) return { success: false, error: "Zamówienie nie znalezione" };
+
+    // Auto-anuluj jeśli PENDING > 1h
+    const cancelled = await autoCancelIfStale(order);
+    if (cancelled) {
+      order.status = "CANCELLED";
+    }
 
     return { success: true, data: order };
   } catch {
