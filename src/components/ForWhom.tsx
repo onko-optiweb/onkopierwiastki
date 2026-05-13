@@ -2,36 +2,37 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { IconChevronLeft, IconChevronRight, IconUser, IconUsers, IconDna, IconSmoking, IconStethoscope, IconSalad } from '@tabler/icons-react';
+import { type ReactNode } from 'react';
 
-const groups = [
+const groups: { icon: ReactNode; title: string; desc: string }[] = [
   {
-    emoji: '👤',
+    icon: <IconUser size={22} stroke={1.5} />,
     title: 'Każda dorosła osoba',
     desc: 'Profilaktycznie, aby znać swój poziom ryzyka zachorowania na nowotwory złośliwe oraz zgonu niezależnie od przyczyny w młodszym wieku.',
   },
   {
-    emoji: '👨‍👩‍👧',
+    icon: <IconUsers size={22} stroke={1.5} />,
     title: 'Osoby z wywiadem rodzinnym',
     desc: 'W Twojej rodzinie występowały nowotwory, badanie pozwoli ocenić indywidualne ryzyko.',
   },
   {
-    emoji: '🧬',
+    icon: <IconDna size={22} stroke={1.5} />,
     title: 'Nosicielki mutacji BRCA1',
     desc: 'Normy opracowane specjalnie dla tej grupy na podstawie wieloletnich badań.',
   },
   {
-    emoji: '🚬',
+    icon: <IconSmoking size={22} stroke={1.5} />,
     title: 'Osoby palące',
     desc: 'Niektóre pierwiastki mają inne zakresy referencyjne dla palaczy - wynik uwzględnia ten czynnik.',
   },
   {
-    emoji: '🩺',
+    icon: <IconStethoscope size={22} stroke={1.5} />,
     title: 'Pacjenci onkologiczni',
     desc: 'Zebrane przez nas dane zdecydowanie wskazują, że pierwiastki takie jak selen i cynk mają istotne znaczenie dla prognozowania przeżyć chorych z nowotworami złośliwymi o różnej lokalizacji. ',
   },
   {
-    emoji: '🥗',
+    icon: <IconSalad size={22} stroke={1.5} />,
     title: 'Osoby na dietach eliminacyjnych',
     desc: 'Weganie i wegetarianie mogą mieć istotnie wyższe stężenie selenu i kadmu we krwi.',
   },
@@ -122,7 +123,9 @@ export default function ForWhom() {
                   }`}
                   onClick={() => scrollTo(i)}
                 >
-                  <span className="text-2xl mb-4 block">{g.emoji}</span>
+                  <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white mb-4">
+                    {g.icon}
+                  </div>
                   <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mb-2">
                     {g.title}
                   </p>

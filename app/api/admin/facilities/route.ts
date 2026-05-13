@@ -12,6 +12,7 @@ const facilitySchema = z.object({
   hours: z.string().max(200).default(""),
   lat: z.number().min(-90).max(90).default(0),
   lng: z.number().min(-180).max(180).default(0),
+  email: z.string().max(255).default(""),
   notes: z.string().max(1000).default(""),
   supportsBlood: z.boolean().default(true),
   supportsSerum: z.boolean().default(true),

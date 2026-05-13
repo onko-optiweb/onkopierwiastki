@@ -2,7 +2,7 @@
 
 import { prisma } from "@/src/lib/prisma";
 import { createPayuOrder, isPayuEnabled, getPayuOrderStatus } from "@/src/lib/payu";
-import { sendOrderNotification, sendOrderConfirmation } from "@/src/lib/email";
+
 import { headers } from "next/headers";
 import { z } from "zod";
 
@@ -241,33 +241,7 @@ export async function createOrder(data: CreateOrderInput) {
       }
     }
 
-    // E-mail notifications (fire and forget)
-    const facility = orderData.facilityId
-      ? await prisma.facility.findUnique({
-          where: { id: orderData.facilityId },
-          select: { name: true, address: true, postalCode: true, city: true, phone: true, hours: true },
-        })
-      : null;
-
-    const emailData = {
-      id: order.id,
-      firstName: orderData.firstName,
-      lastName: orderData.lastName,
-      email: orderData.email,
-      phone: orderData.phone,
-      panelType: orderData.panelType,
-      panelTier: orderData.panelTier,
-      price: orderData.price,
-      discount,
-      isOnline: orderData.isOnline,
-      facilityName: facility?.name,
-      facilityAddress: facility ? `${facility.address}, ${facility.postalCode} ${facility.city}` : undefined,
-      facilityPhone: facility?.phone,
-      facilityHours: facility?.hours,
-    };
-
-    sendOrderNotification(emailData).catch(() => {});
-    sendOrderConfirmation(emailData).catch(() => {});
+    // Emails are sent from PayU callback (after payment is confirmed)
 
     return {
       success: true,

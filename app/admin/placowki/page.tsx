@@ -16,6 +16,7 @@ export default async function PlacowkiPage() {
     hours: f.hours,
     lat: f.lat,
     lng: f.lng,
+    email: f.email,
     notes: f.notes,
     supportsBlood: f.supportsBlood,
     supportsSerum: f.supportsSerum,

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/src/lib/prisma";
 import { verifyPayuSignature } from "@/src/lib/payu";
+import { sendOrderConfirmation, sendOrderNotification, sendFacilityNotification } from "@/src/lib/email";
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,6 +69,50 @@ export async function POST(request: NextRequest) {
           ...(orderStatus === "PAID" ? { paidAt: new Date() } : {}),
         },
       });
+
+      // Send emails on successful payment
+      if (orderStatus === "PAID") {
+        const order = await prisma.order.findUnique({
+          where: { id: payment.orderId },
+          include: {
+            facility: {
+              select: { name: true, address: true, postalCode: true, city: true, phone: true, hours: true, email: true },
+            },
+          },
+        });
+
+        if (order) {
+          const emailData = {
+            id: order.id,
+            firstName: order.firstName,
+            lastName: order.lastName,
+            email: order.email,
+            phone: order.phone,
+            panelType: order.panelType,
+            panelTier: order.panelTier,
+            price: order.price,
+            discount: order.discount,
+            isOnline: order.isOnline,
+            facilityName: order.facility?.name,
+            facilityAddress: order.facility ? `${order.facility.address}, ${order.facility.postalCode} ${order.facility.city}` : undefined,
+            facilityPhone: order.facility?.phone,
+            facilityHours: order.facility?.hours,
+          };
+
+          // 1. Mail do klienta
+          sendOrderConfirmation(emailData).catch(() => {});
+          // 2. Mail do admina
+          sendOrderNotification(emailData).catch(() => {});
+          // 3. Mail do placówki (tylko jeśli nie online i placówka ma email)
+          if (!order.isOnline && order.facility?.email) {
+            sendFacilityNotification({
+              ...emailData,
+              facilityEmail: order.facility.email,
+              facilityName: order.facility.name,
+            }).catch(() => {});
+          }
+        }
+      }
     }
 
     return NextResponse.json({ status: "OK" });

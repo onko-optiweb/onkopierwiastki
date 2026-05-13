@@ -189,3 +189,57 @@ export async function sendOrderConfirmation(order: {
     console.error("Order confirmation email error:", e);
   }
 }
+
+export async function sendFacilityNotification(order: {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  panelType: string;
+  panelTier: string;
+  price: number;
+  discount: number;
+  facilityEmail: string;
+  facilityName: string;
+}) {
+  try {
+    const settings = await getSmtpSettings();
+    if (!settings?.emailNotificationsEnabled) return;
+    if (!settings.smtpHost || !settings.smtpUser || !settings.smtpPassword) return;
+    if (!order.facilityEmail) return;
+
+    const transporter = createTransporter({
+      smtpHost: settings.smtpHost,
+      smtpPort: settings.smtpPort || 587,
+      smtpUser: settings.smtpUser,
+      smtpPassword: settings.smtpPassword,
+      smtpSecure: settings.smtpSecure,
+    });
+
+    const finalPrice = ((order.price - order.discount) / 100).toFixed(2);
+    const panelLabel = `${order.panelType === "PROFILAKTYKA" ? "Profilaktyczny" : "Onkologiczny"} — ${order.panelTier.toLowerCase()}`;
+
+    await transporter.sendMail({
+      from: settings.smtpFrom || settings.smtpUser,
+      to: order.facilityEmail,
+      subject: `Nowe badanie onkopierwiastków — ${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #122056;">Nowe badanie do realizacji</h2>
+          <p style="color: #8a8fa6; font-size: 14px;">Pacjent opłacił zamówienie na badanie onkopierwiastków i powinien skontaktować się z Państwa placówką w celu umówienia terminu pobrania krwi.</p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 20px 0;">
+            <tr><td style="padding: 8px 0; color: #8a8fa6; width: 120px;">Pacjent</td><td style="padding: 8px 0;"><strong>${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}</strong></td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">Telefon</td><td style="padding: 8px 0;">${escapeHtml(order.phone)}</td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">E-mail</td><td style="padding: 8px 0;">${escapeHtml(order.email)}</td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">Panel</td><td style="padding: 8px 0;">${panelLabel}</td></tr>
+            <tr><td style="padding: 8px 0; color: #8a8fa6;">Kwota</td><td style="padding: 8px 0;"><strong>${finalPrice} zł</strong></td></tr>
+          </table>
+          <p style="color: #8a8fa6; font-size: 12px; margin-top: 30px;">Wiadomość wygenerowana automatycznie przez system onkopierwiastki.pl</p>
+        </div>
+      `,
+    });
+  } catch (e) {
+    console.error("Facility notification email error:", e);
+  }
+}

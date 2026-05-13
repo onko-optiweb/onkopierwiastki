@@ -100,14 +100,18 @@ export default function Facilities() {
                       <IconMapPin size={14} className={`flex-shrink-0 mt-0.5 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
                       <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.address}, {f.postalCode} {f.city}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <IconPhone size={14} className={`flex-shrink-0 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
-                      <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.phone}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <IconClock size={14} className={`flex-shrink-0 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
-                      <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.hours}</span>
-                    </div>
+                    {f.phone && (
+                      <div className="flex items-center gap-2">
+                        <IconPhone size={14} className={`flex-shrink-0 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
+                        <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.phone}</span>
+                      </div>
+                    )}
+                    {f.hours && (
+                      <div className="flex items-center gap-2">
+                        <IconClock size={14} className={`flex-shrink-0 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]'}`} stroke={1.5} />
+                        <span className={`text-xs ${activeId === f.id ? 'text-white/80' : 'text-[#8a8fa6]'}`}>{f.hours}</span>
+                      </div>
+                    )}
                     {f.notes && (
                       <p className={`text-[11px] italic mt-1 ${activeId === f.id ? 'text-white/60' : 'text-[#5B65DC]/70'}`}>{f.notes}</p>
                     )}

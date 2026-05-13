@@ -14,13 +14,14 @@ interface Facility {
   hours: string;
   lat: number;
   lng: number;
+  email: string;
   notes: string;
   supportsBlood: boolean;
   supportsSerum: boolean;
   active: boolean;
 }
 
-const emptyForm = { name: '', address: '', postalCode: '', city: '', phone: '', hours: '', lat: '', lng: '', notes: '', supportsBlood: true, supportsSerum: true };
+const emptyForm = { name: '', address: '', postalCode: '', city: '', phone: '', hours: '', lat: '', lng: '', email: '', notes: '', supportsBlood: true, supportsSerum: true };
 
 function FacilityForm({ editId, form, setForm, loading, geocoding, onSave, onClose, onGeocode }: {
   editId: number | null;
@@ -64,6 +65,10 @@ function FacilityForm({ editId, form, setForm, loading, geocoding, onSave, onClo
         <div>
           <label className="block text-xs font-semibold text-[#122056] mb-1">Telefon</label>
           <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+48 91 000 00 00" className={inputCls} />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold text-[#122056] mb-1">E-mail</label>
+          <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="recepcja@polmed.pl" className={inputCls} />
         </div>
         <div>
           <label className="block text-xs font-semibold text-[#122056] mb-1">Godziny</label>
@@ -143,7 +148,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
 
   const openEdit = (f: Facility) => {
     setEditId(f.id);
-    setForm({ name: f.name, address: f.address, postalCode: f.postalCode, city: f.city, phone: f.phone, hours: f.hours, lat: String(f.lat), lng: String(f.lng), notes: f.notes, supportsBlood: f.supportsBlood, supportsSerum: f.supportsSerum });
+    setForm({ name: f.name, address: f.address, postalCode: f.postalCode, city: f.city, phone: f.phone, hours: f.hours, lat: String(f.lat), lng: String(f.lng), email: f.email, notes: f.notes, supportsBlood: f.supportsBlood, supportsSerum: f.supportsSerum });
     setShowForm(true);
   };
 
@@ -167,6 +172,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
       hours: form.hours,
       lat: parseFloat(form.lat) || 0,
       lng: parseFloat(form.lng) || 0,
+      email: form.email,
       notes: form.notes,
       supportsBlood: form.supportsBlood,
       supportsSerum: form.supportsSerum,
@@ -253,6 +259,7 @@ export function FacilitiesManager({ facilities }: { facilities: Facility[] }) {
                   <p className="font-bold text-[#122056] text-sm">{f.name}</p>
                   <p className="text-[#8a8fa6] text-xs">{f.address}, {f.postalCode} {f.city}</p>
                   <p className="text-[#8a8fa6] text-xs">{f.phone} &middot; {f.hours}</p>
+                  {f.email && <p className="text-[#8a8fa6] text-xs">{f.email}</p>}
                   {f.notes && <p className="text-[#5B65DC] text-xs mt-0.5">{f.notes}</p>}
                   <div className="flex gap-1.5 mt-1">
                     {f.supportsBlood && <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-red-50 text-red-600">Krew</span>}
