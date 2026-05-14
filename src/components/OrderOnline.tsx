@@ -8,7 +8,7 @@ export default function OrderOnline() {
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4">
-            Zamów badanie online
+            Zamów badanie onkopierwiastków online
           </h2>
           <p className="text-white/50 text-sm lg:text-base max-w-xl mx-auto">
             Wybierz panel, zapłać online, a my skierujemy Cię do najbliższej placówki referencyjnej.

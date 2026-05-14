@@ -3,7 +3,7 @@ import { Funnel_Display, DM_Sans } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/src/siteConfig';
 import CookieConsent from '@/src/components/CookieConsent';
-import GoogleConsentMode from '@/src/components/GoogleConsentMode';
+import { PostHogProvider } from '@/src/components/PostHogProvider';
 import { getSettings } from '@/src/lib/get-settings';
 
 const funnelDisplay = Funnel_Display({
@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} — Zbadaj ryzyko nowotworów`,
+    default: `${siteConfig.name} — Onkopakiet | Zbadaj ryzyko nowotworów`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.tagline,
@@ -83,8 +83,9 @@ export default async function RootLayout({
   return (
     <html lang={siteConfig.language} data-theme='business' suppressHydrationWarning>
       <body className={`${funnelDisplay.variable} ${dmSans.variable} font-sans antialiased`} suppressHydrationWarning>
-        <GoogleConsentMode ga4Id={settings.ga4Id} gtmId={settings.gtmId} />
-        {children}
+        <PostHogProvider>
+          {children}
+        </PostHogProvider>
         <CookieConsent />
 
         <script

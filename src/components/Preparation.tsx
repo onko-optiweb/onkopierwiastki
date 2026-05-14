@@ -39,7 +39,7 @@ export default function Preparation() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4">
-            Jak się przygotować do badania?
+            Jak się przygotować do badania onkopierwiastków?
           </h2>
           <p className="text-white/50 text-sm lg:text-base max-w-xl mx-auto">
             Trzy proste kroki — od przygotowania do odbioru wyniku.

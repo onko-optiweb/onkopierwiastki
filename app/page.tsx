@@ -18,6 +18,7 @@ import Professor from '@/src/components/Professor';
 import ProfessorVideos from '@/src/components/ProfessorVideos';
 import FAQ from '@/src/components/FAQ';
 import FinalCTA from '@/src/components/FinalCTA';
+import CityLinks from '@/src/components/CityLinks';
 import Footer from '@/src/components/Footer';
 
 export default function HomePage() {
@@ -44,6 +45,7 @@ export default function HomePage() {
         <ProfessorVideos />
         <FAQ />
         <FinalCTA />
+        <CityLinks />
       </main>
       <Footer />
     </>

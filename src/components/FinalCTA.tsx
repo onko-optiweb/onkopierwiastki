@@ -27,7 +27,7 @@ export default function FinalCTA() {
             </div>
             <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-xl mb-3">Zbadaj się teraz</p>
             <p className="text-white/60 text-sm leading-relaxed">
-              Otrzymujesz spersonalizowany profil pierwiastkowy + konkretne zalecenia. Zyskujesz wiedzę, którą możesz wykorzystać do działań profilaktycznych.
+              Zbadaj swoje onkopierwiastki i otrzymaj spersonalizowany profil pierwiastkowy + konkretne zalecenia. Zyskujesz wiedzę, którą możesz wykorzystać do działań profilaktycznych.
             </p>
           </div>
         </div>

@@ -92,7 +92,7 @@ export default function Pricing() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-5xl text-black mb-4">
-            Wybierz odpowiedni panel
+            Wybierz odpowiedni panel onkopierwiastków
           </h2>
           <p className="text-[#8a8fa6] text-sm lg:text-base max-w-xl mx-auto">
             Dwa rodzaje badania dopasowane do Twojej sytuacji zdrowotnej.
