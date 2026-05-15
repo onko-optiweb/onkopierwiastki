@@ -13,7 +13,7 @@ import { CollapsibleContent } from '@/src/components/CollapsibleContent';
 import { FacilityDescription } from '@/src/components/FacilityDescription';
 import {
   ChevronRight, MapPin, Phone, Clock, ArrowRight, ShieldCheck,
-  FlaskConical, FileText, Calendar, AlertTriangle, Check, Mail,
+  FlaskConical, AlertTriangle, Check, Mail,
   Microscope, Users, TestTube,
 } from 'lucide-react';
 import {
@@ -118,7 +118,7 @@ export default async function CityPage({ params }: Props) {
       <Navbar />
       <main>
         {/* Breadcrumbs */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-2">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
             <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
             <ChevronRight size={14} />
@@ -131,43 +131,90 @@ export default async function CityPage({ params }: Props) {
             ============================================================ */}
 
         {/* ====== HERO (unique) ====== */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 lg:py-16">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
-            <div className="lg:flex-1">
-              <div className="flex items-center gap-2 mb-4">
-                <MapPin size={16} className="text-[#5B65DC]" />
-                <span className="text-[#5B65DC] text-sm font-semibold">{city.name} · {city.region}</span>
-              </div>
-              <h1 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-[42px] text-[#122056] leading-tight mb-5">
-                {city.heroText}
-              </h1>
-              <p className="text-[#4a4f65] text-[15px] leading-relaxed mb-4">
-                {city.introText}
-              </p>
-              <p className="text-[#4a4f65] text-[15px] leading-relaxed mb-8">
-                Wystarczy jedno pobranie krwi w certyfikowanej placówce {city.nameLocative} — otrzymasz spersonalizowany wynik z zaleceniami oparty na normach opracowanych wyłącznie dla polskiej populacji.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/zamow" className="inline-flex items-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold px-6 py-3 rounded-full hover:bg-[#4a53c7] transition-colors">
-                  Zamów badanie {city.nameLocative} <ArrowRight size={14} />
-                </Link>
-                <a href="#placowki" className="inline-flex items-center gap-2 bg-white text-[#122056] text-sm font-semibold px-6 py-3 rounded-full border border-neutral-200 hover:border-[#5B65DC] transition-colors">
-                  <MapPin size={14} /> Placówka {city.nameLocative}
-                </a>
-              </div>
-            </div>
-            <div className="mt-10 lg:mt-0 lg:w-[320px] lg:shrink-0 space-y-3">
-              {[
-                { icon: FlaskConical, label: '6 pierwiastków', sub: 'z jednego pobrania krwi' },
-                { icon: FileText, label: 'Wynik w 15 dni roboczych', sub: 'spersonalizowany raport PDF' },
-                { icon: ShieldCheck, label: '20+ patentów', sub: 'badania PUM w Szczecinie' },
-                { icon: Calendar, label: 'Bez skierowania', sub: 'zamów i umów termin pobrania' },
-              ].map((b) => (
-                <div key={b.label} className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-neutral-100">
-                  <b.icon size={18} className="text-[#122056] shrink-0" />
-                  <span className="text-sm"><strong className="text-[#122056]">{b.label}</strong> <span className="text-[#8a8fa6]">{b.sub}</span></span>
+        <section className="pt-4 pb-0 bg-white">
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-12">
+            <div className="relative">
+              <div className="grid lg:grid-cols-2 gap-4">
+
+                {/* LEFT — city content */}
+                <div className="relative bg-[#EEEFFD] rounded-2xl lg:rounded-none p-8 sm:p-10 lg:p-14 flex flex-col justify-center items-center min-h-[400px] lg:min-h-[85vh] card-mask-left order-2 lg:order-1">
+                  <div className="flex flex-col items-center text-center">
+                    <div className="flex items-center gap-2 mb-3">
+                      <MapPin size={14} className="text-[#5B65DC]" />
+                      <span className="text-[#5B65DC] text-xs font-semibold uppercase tracking-wider">{city.name} · {city.region}</span>
+                    </div>
+                    <h1 className="font-[family-name:var(--font-funnel)] font-bold text-[2rem] sm:text-4xl lg:text-[3rem] leading-[1.1] tracking-tight text-black mb-3">
+                      {city.heroText}
+                    </h1>
+                    <p className="text-[#8a8fa6] text-[13px] lg:text-sm leading-relaxed mb-6 max-w-lg">
+                      {city.introText} Wystarczy jedno pobranie krwi — otrzymasz <span className="text-[#122056] font-semibold">spersonalizowany wynik z zaleceniami w 15 dni roboczych</span>, oparty na normach opracowanych dla polskiej populacji.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-3">
+                      <a href="#placowki" className="group inline-flex items-center gap-2.5 bg-white/80 text-black font-semibold px-6 py-3.5 rounded-full hover:bg-white transition-all text-sm">
+                        <MapPin size={16} className="text-[#122056]" />
+                        Placówka {city.nameLocative}
+                      </a>
+                      <Link href="/zamow" className="group inline-flex items-center gap-2.5 bg-black text-white font-semibold pl-6 pr-2 py-2 rounded-full hover:bg-[#122056] transition-all text-sm">
+                        Zamów badanie
+                        <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                          <ArrowRight size={14} />
+                        </span>
+                      </Link>
+                    </div>
+                  </div>
+                  {/* Social proof */}
+                  <div className="mt-10 w-full max-w-md">
+                    <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-5 border border-white/50">
+                      <p className="text-[#122056] font-bold text-sm">Ponad 15 000 przebadanych pacjentów w Polsce</p>
+                      <div className="flex items-center gap-1 mt-1.5">
+                        {[1,2,3,4,5].map((star) => (
+                          <svg key={star} className="w-3.5 h-3.5 text-[#5B65DC] fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                        <span className="text-[#8a8fa6] text-[11px] ml-1">5.0 / 5.0</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ))}
+
+                {/* RIGHT — video (identical to homepage) */}
+                <div className="relative rounded-2xl lg:rounded-none overflow-hidden lg:overflow-visible min-h-[350px] lg:min-h-[85vh] card-mask-right order-1 lg:order-2">
+                  <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover rounded-2xl lg:rounded-none">
+                    <source src="/videos/loop-dna.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#122056]/40 via-transparent to-transparent rounded-2xl lg:rounded-none" />
+                  <div className="absolute top-5 left-5 bg-white/70 backdrop-blur-xl rounded-2xl p-4 max-w-[240px] border border-white/40">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="flex -space-x-2">
+                        {['bg-[#5B65DC]', 'bg-[#7a82e5]', 'bg-[#122056]'].map((bg, i) => (
+                          <div key={i} className={`w-8 h-8 rounded-full ${bg} border-2 border-white flex items-center justify-center text-white text-[10px] font-bold`}>
+                            {['JL', 'PU', 'MC'][i]}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-[#EEEFFD] flex items-center justify-center">
+                        <ShieldCheck size={14} className="text-[#122056]" />
+                      </div>
+                    </div>
+                    <p className="text-[#122056] font-semibold text-xs">20+ lat badań naukowych</p>
+                    <p className="text-[#122056]/50 text-[11px]">READ-GENE S.A. &bull; PUM Szczecin</p>
+                  </div>
+                  {[
+                    { symbol: 'As', name: 'Arsen', pos: 'top-[12%] right-[15%]', anim: 'animate-float' },
+                    { symbol: 'Se', name: 'Selen', pos: 'top-[28%] right-[5%]', anim: 'animate-float-delayed' },
+                    { symbol: 'Zn', name: 'Cynk', pos: 'top-[42%] right-[20%]', anim: 'animate-float-slow' },
+                    { symbol: 'Cu', name: 'Miedź', pos: 'top-[55%] right-[8%]', anim: 'animate-float' },
+                    { symbol: 'Cd', name: 'Kadm', pos: 'top-[68%] right-[22%]', anim: 'animate-float-delayed' },
+                    { symbol: 'Pb', name: 'Ołów', pos: 'top-[80%] right-[12%]', anim: 'animate-float-slow' },
+                  ].map((el) => (
+                    <div key={el.symbol} className={`absolute ${el.pos} bg-white/70 backdrop-blur-xl rounded-full px-3.5 py-1.5 border border-white/40 flex items-center gap-2 ${el.anim}`}>
+                      <span className="text-[#122056] font-bold text-[11px]">{el.symbol}</span>
+                      <span className="text-[#122056]/50 text-[11px]">{el.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
