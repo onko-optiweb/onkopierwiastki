@@ -13,7 +13,7 @@ import { CollapsibleContent } from '@/src/components/CollapsibleContent';
 import { FacilityDescription } from '@/src/components/FacilityDescription';
 import {
   ChevronRight, MapPin, Phone, Clock, ArrowRight, ShieldCheck,
-  FlaskConical, AlertTriangle, Check, Mail,
+  FlaskConical, AlertTriangle, Check,
   Microscope, Users, TestTube,
 } from 'lucide-react';
 import {
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const city = getCityBySlug(slug);
   if (!city) return {};
   return {
-    title: city.metaTitle,
+    title: { absolute: city.metaTitle },
     description: city.metaDescription,
     alternates: { canonical: `/miasto/${slug}` },
     openGraph: {
@@ -118,7 +118,7 @@ export default async function CityPage({ params }: Props) {
       <Navbar />
       <main>
         {/* Breadcrumbs */}
-        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
+        <div className="bg-white max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
             <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
             <ChevronRight size={14} />
@@ -143,7 +143,7 @@ export default async function CityPage({ params }: Props) {
                       <MapPin size={14} className="text-[#5B65DC]" />
                       <span className="text-[#5B65DC] text-xs font-semibold uppercase tracking-wider">{city.name} · {city.region}</span>
                     </div>
-                    <h1 className="font-[family-name:var(--font-funnel)] font-bold text-[2rem] sm:text-4xl lg:text-[3rem] leading-[1.1] tracking-tight text-black mb-3">
+                    <h1 className="font-[family-name:var(--font-funnel)] font-bold text-[26px] lg:text-[32px] leading-[1.2] tracking-tight text-black mb-3">
                       {city.heroText}
                     </h1>
                     <p className="text-[#8a8fa6] text-[13px] lg:text-sm leading-relaxed mb-6 max-w-lg">
@@ -223,7 +223,7 @@ export default async function CityPage({ params }: Props) {
         <section id="placowki" className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Gdzie zrobić onkopakiet {city.nameLocative}? Punkt pobrań i placówka
+              Gdzie zrobić onkopakiet {city.nameLocative}?<br />Punkt pobrań i placówka
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
               Badanie onkopierwiastków {city.nameLocative} wymaga pobrania materiału w certyfikowanej placówce referencyjnej — tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
@@ -268,12 +268,6 @@ export default async function CityPage({ params }: Props) {
                         <div className="flex items-center gap-2">
                           <Clock size={15} className="text-[#5B65DC] shrink-0" />
                           <span className="text-[#4a4f65]">{f.hours}</span>
-                        </div>
-                      )}
-                      {f.email && (
-                        <div className="flex items-center gap-2">
-                          <Mail size={15} className="text-[#5B65DC] shrink-0" />
-                          <a href={`mailto:${f.email}`} className="text-[#5B65DC] font-semibold hover:underline">{f.email}</a>
                         </div>
                       )}
                     </div>

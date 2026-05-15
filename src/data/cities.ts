@@ -34,7 +34,7 @@ export const cities: CityData[] = [
     nameLocative: 'we Wrocławiu',
     nameGenitive: 'Wrocławia',
     region: 'Dolny Śląsk',
-    metaTitle: 'Badanie onkopierwiastków Wrocław — gdzie się zbadać?',
+    metaTitle: 'Badanie onkopierwiastków Wrocław | Onkopakiet Wrocław | Onkopierwiastki.pl',
     metaDescription: 'Onkopakiet we Wrocławiu: cena, przygotowanie do badania, wynik PDF i informacje o placówkach lub pobraniu materiału. Badanie onkopierwiastków Wrocław.',
     heroText: 'Onkopakiet Wrocław — badanie 6 pierwiastków w certyfikowanej placówce',
     introText: 'Wrocław to jedno z miast, w którym możesz wykonać badanie onkopierwiastków w certyfikowanej placówce referencyjnej. Badanie obejmuje oznaczenie 6 pierwiastków śladowych — selenu, cynku, arsenu, miedzi, kadmu i ołowiu — których stężenie we krwi ma udowodniony związek z ryzykiem nowotworów złośliwych.',
