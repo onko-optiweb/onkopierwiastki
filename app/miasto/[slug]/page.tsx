@@ -188,7 +188,11 @@ export default async function CityPage({ params }: Props) {
                     {/* Logo + Name */}
                     <div className="mb-5 pb-5 border-b border-neutral-100">
                       {f.logo
-                        ? <img src={f.logo} alt={f.name} className="h-16 object-contain mb-3" />
+                        ? <img
+                            src={f.logo}
+                            alt={f.name}
+                            className={`object-contain mb-3 ${f.name === 'Centrum Medyczne Polmed' ? 'h-14 w-48' : 'h-14 w-auto'}`}
+                          />
                         : <div className="w-10 h-10 rounded-full bg-[#EEEFFD] flex items-center justify-center mb-3"><FlaskConical size={18} className="text-[#5B65DC]" /></div>
                       }
                       <p className="font-bold text-[#122056] text-base leading-tight">{f.name}</p>
