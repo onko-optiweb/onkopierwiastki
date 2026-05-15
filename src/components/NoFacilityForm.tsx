@@ -57,7 +57,7 @@ export default function NoFacilityForm() {
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className={iconInputCls} />
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="relative">
                   <IconMapPin size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8a8fa6]" />
                   <input type="text" placeholder="Kod pocztowy" value={form.postalCode}
