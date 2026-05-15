@@ -323,12 +323,12 @@ export default async function CityPage({ params }: Props) {
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { symbol: 'Se', name: 'Selen', desc: 'Wbudowany w selenoproteiny chroniące komórki przed stresem oksydacyjnym. Wspiera odporność i reguluje pracę tarczycy.' },
-                { symbol: 'Zn', name: 'Cynk', desc: 'Składnik dysmutaz ponadtlenkowych (SOD). Neutralizuje wolne rodniki i pełni funkcję detoksykacyjną wobec metali ciężkich.' },
-                { symbol: 'As', name: 'Arsen', desc: 'Karcynogen grupy 1 (IARC). Pierwiastek prozapalny — nawet niewielki wzrost stężenia może podnosić ryzyko nowotworu.' },
-                { symbol: 'Cu', name: 'Miedź', desc: 'Kofaktor enzymatyczny i metaloestrogen. Nadmiar miedzi u pacjentów onkologicznych koreluje z gorszym rokowaniem.' },
-                { symbol: 'Cd', name: 'Kadm', desc: 'Bezpośrednio uszkadza DNA powodując mutacje i aberracje chromosomowe. Karcynogen grupy 1, silnie powiązany z paleniem.' },
-                { symbol: 'Pb', name: 'Ołów', desc: 'Generuje reaktywne formy tlenu i upośledza układ immunologiczny. Metaloestrogen zwiększający ryzyko u kobiet i mężczyzn.' },
+                { symbol: 'Se', name: 'Selen', desc: 'Mikroelement niezbędny do produkcji enzymów antyoksydacyjnych i hormonów tarczycy. Jego optymalne stężenie chroni DNA i zmniejsza ryzyko nowotworów złośliwych — zarówno niedobór, jak i nadmiar są szkodliwe.' },
+                { symbol: 'Zn', name: 'Cynk', desc: 'Pierwiastek wspierający odporność, naprawę DNA i gospodarkę hormonalną. Nieprawidłowe stężenie cynku wiąże się z kilkukrotnie wyższym ryzykiem zachorowania na nowotwory złośliwe.' },
+                { symbol: 'As', name: 'Arsen', desc: 'Pierwiastek prozapalny powszechnie obecny w środowisku, żywności i wodzie. Naśladuje działanie estrogenów, indukuje wolne rodniki i zwiększa ryzyko nowotworowe nawet przy umiarkowanych stężeniach.' },
+                { symbol: 'Cu', name: 'Miedź', desc: 'Niezbędna do pracy enzymów i transportu żelaza, lecz jej nadmiar u pacjentów onkologicznych pogarsza rokowanie. Metaloestrogen o udowodnionym wpływie na ryzyko nowotworów złośliwych.' },
+                { symbol: 'Cd', name: 'Kadm', desc: 'Silny karcynogen grupy 1, uszkadzający DNA i hamujący jego naprawę. Główne źródło ekspozycji to palenie tytoniu oraz dieta — jego stężenie w organizmie rośnie przez całe życie.' },
+                { symbol: 'Pb', name: 'Ołów', desc: 'Metal ciężki upośledzający układ odpornościowy i wywołujący stres oksydacyjny. Jako metaloestrogen zwiększa ryzyko nowotworów hormonozależnych u kobiet i mężczyzn.' },
               ].map((el) => (
                 <div key={el.symbol} className="bg-[#FAFAFD] rounded-xl p-6 border border-[#EEEFFD]">
                   <div className="flex items-center gap-3 mb-3">
