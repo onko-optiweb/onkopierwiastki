@@ -191,7 +191,7 @@ export default async function CityPage({ params }: Props) {
                         ? <img
                             src={f.logo}
                             alt={f.name}
-                            className={`block object-contain mb-3 ${f.name === 'Centrum Medyczne Polmed' ? 'h-14 w-48' : 'h-14 w-auto'}`}
+                            className="block h-12 w-auto object-contain mb-3"
                           />
                         : <div className="w-10 h-10 rounded-full bg-[#EEEFFD] flex items-center justify-center mb-3"><FlaskConical size={18} className="text-[#5B65DC]" /></div>
                       }
