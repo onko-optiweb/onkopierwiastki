@@ -118,12 +118,14 @@ export default async function CityPage({ params }: Props) {
       <Navbar />
       <main>
         {/* Breadcrumbs */}
-        <div className="bg-white max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
-            <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
-            <ChevronRight size={14} />
-            <span className="text-[#122056] font-medium">Onkopierwiastki {city.name}</span>
-          </nav>
+        <div className="bg-white w-full">
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-2">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
+              <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
+              <ChevronRight size={14} />
+              <span className="text-[#122056] font-medium">Onkopierwiastki {city.name}</span>
+            </nav>
+          </div>
         </div>
 
         {/* ============================================================
