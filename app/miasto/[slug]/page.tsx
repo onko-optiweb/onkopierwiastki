@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { prisma } from '@/src/lib/prisma';
 import { siteConfig } from '@/src/siteConfig';
 import { sanitizeHtml } from '@/src/lib/sanitize';
-import { getCityBySlug, getAllCitySlugs } from '@/src/data/cities';
+import { getCityBySlug, getAllCitySlugs, standardFaq } from '@/src/data/cities';
 import Navbar from '@/src/components/Navbar';
 import Footer from '@/src/components/Footer';
 import Pricing from '@/src/components/Pricing';
@@ -12,11 +12,12 @@ import { ExpandableText } from '@/src/components/ExpandableText';
 import { CollapsibleContent } from '@/src/components/CollapsibleContent';
 import {
   ChevronRight, MapPin, Phone, Clock, ArrowRight, ShieldCheck,
-  FlaskConical, FileText, Calendar, AlertTriangle, Check,
+  FlaskConical, FileText, Calendar, AlertTriangle, Check, Mail,
+  Microscope, Users, TestTube,
 } from 'lucide-react';
 import {
   IconAlertTriangle, IconReportMedical, IconSalad, IconPill,
-  IconHeartRateMonitor, IconShieldCheck, IconArrowRight,
+  IconHeartRateMonitor, IconShieldCheck,
 } from '@tabler/icons-react';
 
 type Props = {
@@ -53,18 +54,21 @@ export default async function CityPage({ params }: Props) {
 
   const facilities = await prisma.facility.findMany({
     where: { city: { contains: city.name, mode: 'insensitive' }, active: true },
-    orderBy: { name: 'asc' },
+    orderBy: { createdAt: 'asc' },
   });
 
-  // Logo mapping per facility name
   const facilityLogos: Record<string, string> = {
     'Dolnośląskie Centrum Medyczne DOLMED S.A.': '/images/dolmed logo.png',
+    'Centrum Medyczne Polmed': '/images/Logo300x300_Medistore.png',
   };
 
   const facilitiesWithLogo = facilities.map((f) => ({
     ...f,
     logo: facilityLogos[f.name] || null,
   }));
+
+  // Combine city-specific + standard FAQ
+  const allFaq = [...city.cityFaq, ...standardFaq];
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -89,7 +93,7 @@ export default async function CityPage({ params }: Props) {
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: city.faq.map((item) => ({
+    mainEntity: allFaq.map((item) => ({
       '@type': 'Question',
       name: item.q,
       acceptedAnswer: { '@type': 'Answer', text: item.a },
@@ -109,7 +113,11 @@ export default async function CityPage({ params }: Props) {
           </nav>
         </div>
 
-        {/* ====== HERO ====== */}
+        {/* ============================================================
+            UNIQUE CONTENT — specific to each city
+            ============================================================ */}
+
+        {/* ====== HERO (unique) ====== */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 lg:py-16">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
             <div className="lg:flex-1">
@@ -151,33 +159,20 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== TRUST BAR ====== */}
-        <section className="py-10 lg:py-14 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid sm:grid-cols-3 gap-4">
-              {[
-                { value: '1 badanie', label: 'Sześć pierwiastków oznaczanych jednocześnie' },
-                { value: '15 dni', label: 'Raport PDF z indywidualnymi zaleceniami' },
-                { value: '100%', label: 'Wyłącznie w certyfikowanych placówkach' },
-              ].map((item) => (
-                <div key={item.value} className="bg-[#EEEFFD]/50 rounded-2xl p-6 border border-[#EEEFFD]">
-                  <span className="font-[family-name:var(--font-funnel)] font-bold text-3xl text-black">{item.value}</span>
-                  <p className="text-[#8a8fa6] text-sm mt-2">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ====== PLACÓWKI ====== */}
+        {/* ====== PLACÓWKI (unique — data from DB) ====== */}
         <section id="placowki" className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
               Gdzie zrobić onkopakiet {city.nameLocative}? Punkt pobrań i placówka
             </h2>
-            <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-10">
+            <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
               Badanie onkopierwiastków {city.nameLocative} wymaga pobrania materiału w certyfikowanej placówce referencyjnej — tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
+            {city.facilityDescription && (
+              <p className="text-[#4a4f65] text-sm max-w-3xl mx-auto text-center mb-10 leading-relaxed">
+                {city.facilityDescription}
+              </p>
+            )}
             {facilities.length === 0 ? (
               <div className="bg-white rounded-2xl p-8 border border-neutral-100 text-center max-w-xl mx-auto">
                 <p className="text-[#8a8fa6] mb-4">Aktualnie brak placówek referencyjnych {city.nameLocative}.</p>
@@ -186,32 +181,70 @@ export default async function CityPage({ params }: Props) {
                 </Link>
               </div>
             ) : (
-              <div className="space-y-4 max-w-3xl mx-auto">
+              <div className={`grid gap-5 ${facilitiesWithLogo.length === 1 ? 'max-w-xl mx-auto' : 'sm:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto'}`}>
                 {facilitiesWithLogo.map((f) => (
-                  <div key={f.id} className="bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100">
-                    <div className="flex items-center gap-4 mb-4">
-                      {f.logo && <img src={f.logo} alt={f.name} className="h-10 object-contain" />}
-                      <p className="font-bold text-[#122056] text-lg">{f.name}</p>
+                  <div key={f.id} className="bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
+                    {/* Logo + Name */}
+                    <div className="flex items-center gap-3 mb-5 pb-5 border-b border-neutral-100">
+                      {f.logo
+                        ? <img src={f.logo} alt={f.name} className="h-10 object-contain" />
+                        : <div className="w-10 h-10 rounded-full bg-[#EEEFFD] flex items-center justify-center shrink-0"><FlaskConical size={18} className="text-[#5B65DC]" /></div>
+                      }
+                      <p className="font-bold text-[#122056] text-base leading-tight">{f.name}</p>
                     </div>
-                    <div className="grid sm:grid-cols-3 gap-4 text-sm">
+
+                    {/* Details */}
+                    <div className="space-y-3 text-sm flex-1">
                       <div className="flex items-start gap-2">
                         <MapPin size={15} className="text-[#5B65DC] shrink-0 mt-0.5" />
                         <span className="text-[#4a4f65]">{f.address}, {f.postalCode} {f.city}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Phone size={15} className="text-[#5B65DC] shrink-0" />
-                        <a href={`tel:${f.phone.replace(/\s/g, '')}`} className="text-[#5B65DC] font-semibold hover:underline">{f.phone}</a>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock size={15} className="text-[#5B65DC] shrink-0" />
-                        <span className="text-[#4a4f65]">{f.hours}</span>
-                      </div>
+                      {f.phone && (
+                        <div className="flex items-center gap-2">
+                          <Phone size={15} className="text-[#5B65DC] shrink-0" />
+                          <a href={`tel:${f.phone.replace(/\s/g, '')}`} className="text-[#5B65DC] font-semibold hover:underline">{f.phone}</a>
+                        </div>
+                      )}
+                      {f.hours && (
+                        <div className="flex items-center gap-2">
+                          <Clock size={15} className="text-[#5B65DC] shrink-0" />
+                          <span className="text-[#4a4f65]">{f.hours}</span>
+                        </div>
+                      )}
+                      {f.email && (
+                        <div className="flex items-center gap-2">
+                          <Mail size={15} className="text-[#5B65DC] shrink-0" />
+                          <a href={`mailto:${f.email}`} className="text-[#5B65DC] font-semibold hover:underline">{f.email}</a>
+                        </div>
+                      )}
                     </div>
+
+                    {/* Badges */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {f.supportsBlood && (
+                        <span className="inline-flex items-center gap-1.5 bg-[#EEEFFD] text-[#122056] text-xs font-medium px-3 py-1.5 rounded-full">
+                          <TestTube size={12} /> Krew pełna
+                        </span>
+                      )}
+                      {f.supportsSerum && (
+                        <span className="inline-flex items-center gap-1.5 bg-[#EEEFFD] text-[#122056] text-xs font-medium px-3 py-1.5 rounded-full">
+                          <FlaskConical size={12} /> Surowica
+                        </span>
+                      )}
+                    </div>
+
                     {f.notes && <p className="text-[#8a8fa6] text-xs mt-3 italic">{f.notes}</p>}
-                    <div className="mt-5">
-                      <Link href="/zamow" className="inline-flex items-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#4a53c7] transition-colors">
-                        Zamów badanie w tej placówce <ArrowRight size={14} />
+
+                    {/* CTA */}
+                    <div className="mt-5 flex flex-col sm:flex-row gap-2">
+                      <Link href="/zamow" className="inline-flex items-center justify-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#4a53c7] transition-colors flex-1 text-center">
+                        Zamów badanie <ArrowRight size={14} />
                       </Link>
+                      {f.phone && (
+                        <a href={`tel:${f.phone.replace(/\s/g, '')}`} className="inline-flex items-center justify-center gap-2 bg-white text-[#122056] text-sm font-semibold px-5 py-2.5 rounded-full border border-neutral-200 hover:border-[#5B65DC] transition-colors">
+                          <Phone size={14} /> Zadzwoń
+                        </a>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -220,14 +253,98 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== JAKIE PIERWIASTKI BADAMY ====== */}
+        {/* ============================================================
+            STANDARD CONTENT — same on every city page
+            ============================================================ */}
+
+        {/* ====== LABORATORIUM I METODA (standard) ====== */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Badanie 6 pierwiastków we krwi {city.nameLocative} — co obejmuje onkopakiet?
+              Laboratorium i metoda badania
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-10">
-              Onkopakiet dostępny {city.nameLocative} oznacza stężenia sześciu pierwiastków śladowych, których poziom we krwi — według wieloletnich badań — wiąże się z ryzykiem nowotworów.
+              Każda próbka pobrana {city.nameLocative} trafia do specjalistycznego laboratorium.
+            </p>
+            <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+              <div className="bg-[#FAFAFD] rounded-2xl p-7 border border-[#EEEFFD]">
+                <div className="w-12 h-12 rounded-xl bg-[#122056] flex items-center justify-center mb-5">
+                  <Microscope size={22} className="text-white" />
+                </div>
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-[#122056] text-base mb-2">Metoda ICP-MS</p>
+                <p className="text-[#8a8fa6] text-sm leading-relaxed">Spektrometria mas z plazmą indukcyjnie sprzężoną (ICP-MS) — najdokładniejsza dostępna technika oznaczania pierwiastków śladowych we krwi. Wykrywa stężenia rzędu części na miliard.</p>
+              </div>
+              <div className="bg-[#FAFAFD] rounded-2xl p-7 border border-[#EEEFFD]">
+                <div className="w-12 h-12 rounded-xl bg-[#122056] flex items-center justify-center mb-5">
+                  <Users size={22} className="text-white" />
+                </div>
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-[#122056] text-base mb-2">Zespół prof. Lubińskiego</p>
+                <p className="text-[#8a8fa6] text-sm leading-relaxed">Analizę wykonuje laboratorium Innowacyjna Medycyna we współpracy z Pomorskim Uniwersytetem Medycznym w Szczecinie. Ponad 20 lat badań, 20+ patentów, 30+ publikacji w PubMed.</p>
+              </div>
+              <div className="bg-[#FAFAFD] rounded-2xl p-7 border border-[#EEEFFD]">
+                <div className="w-12 h-12 rounded-xl bg-[#122056] flex items-center justify-center mb-5">
+                  <ShieldCheck size={22} className="text-white" />
+                </div>
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-[#122056] text-base mb-2">Normy dla Polaków</p>
+                <p className="text-[#8a8fa6] text-sm leading-relaxed">Spersonalizowane zakresy referencyjne opracowane wyłącznie dla polskiej populacji. Uwzględniają płeć, wiek, palenie i mutację BRCA1 — to nie są uniwersalne normy laboratoryjne.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ====== TABELA PANELI (standard) ====== */}
+        <section className="py-16 lg:py-20 bg-[#FAFAFD]">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
+              Panele badań — profilaktyczny i onkologiczny
+            </h2>
+            <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
+              Wybierz panel odpowiedni do swojej sytuacji zdrowotnej.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-[#122056] text-white">
+                    <th className="px-4 py-3 text-left font-semibold rounded-tl-xl">Panel</th>
+                    <th className="px-4 py-3 text-left font-semibold">Dla kogo</th>
+                    <th className="px-4 py-3 text-left font-semibold">Materiał</th>
+                    <th className="px-4 py-3 text-left font-semibold">Pierwiastki</th>
+                    <th className="px-4 py-3 text-left font-semibold rounded-tr-xl">Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-white border-b border-neutral-100">
+                    <td className="px-4 py-4 font-semibold text-[#122056]">Profilaktyczny<br /><span className="text-xs text-[#8a8fa6] font-normal">Panel dla osób zdrowych</span></td>
+                    <td className="px-4 py-4 text-[#4a4f65]">Dorośli bez aktywnego nowotworu — profilaktyka</td>
+                    <td className="px-4 py-4 text-[#4a4f65]">Krew pełna</td>
+                    <td className="px-4 py-4 text-[#4a4f65]">Se, Zn, As, Cu, Cd, Pb</td>
+                    <td className="px-4 py-4 font-semibold text-[#122056]">od 200 zł</td>
+                  </tr>
+                  <tr className="bg-white">
+                    <td className="px-4 py-4 font-semibold text-[#122056]">Onkologiczny<br /><span className="text-xs text-[#8a8fa6] font-normal">Panel dla pacjentów onkologicznych</span></td>
+                    <td className="px-4 py-4 text-[#4a4f65]">Pacjenci z aktywnym lub przebytym nowotworem</td>
+                    <td className="px-4 py-4 text-[#4a4f65]">Surowica</td>
+                    <td className="px-4 py-4 text-[#4a4f65]">Se, Zn, As, Cu, Cd, Pb</td>
+                    <td className="px-4 py-4 font-semibold text-[#122056]">od 200 zł</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="flex items-start gap-3 bg-white rounded-xl px-5 py-4 mt-6 border border-neutral-100">
+              <AlertTriangle size={18} className="text-[#5B65DC] shrink-0 mt-0.5" />
+              <p className="text-[#8a8fa6] text-sm"><strong className="text-[#122056]">UWAGA!</strong> Brak dotąd danych, które by udowodniły poprawę przeżyć chorych z nowotworami złośliwymi w wyniku optymalizacji stężeń pierwiastków.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ====== JAKIE PIERWIASTKI BADAMY (standard) ====== */}
+        <section className="py-16 lg:py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
+              Badanie 6 pierwiastków we krwi — co obejmuje onkopakiet?
+            </h2>
+            <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-10">
+              Onkopakiet oznacza stężenia sześciu pierwiastków śladowych, których poziom we krwi — według wieloletnich badań — wiąże się z ryzykiem nowotworów.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -250,7 +367,7 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== DLA KOGO ====== */}
+        {/* ====== DLA KOGO (standard) ====== */}
         <section className="py-16 lg:py-20 bg-[#122056] relative overflow-hidden">
           <div className="absolute inset-0">
             <img src="/images/2150471457.webp" alt="" className="w-full h-full object-cover opacity-50" />
@@ -258,10 +375,10 @@ export default async function CityPage({ params }: Props) {
           </div>
           <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4 text-center">
-              Dla kogo jest badanie onkopierwiastków {city.nameLocative}?
+              Komu szczególnie polecamy badanie onkopierwiastków?
             </h2>
             <p className="text-white/50 text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
-              Onkopakiet {city.name} jest przeznaczony dla wszystkich dorosłych osób z polskiej populacji. Szczególną korzyść odniosą:
+              Onkopakiet jest przeznaczony dla wszystkich dorosłych osób z polskiej populacji. Szczególną korzyść odniosą:
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -285,11 +402,11 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== PRZYGOTOWANIE DO BADANIA ====== */}
+        {/* ====== PRZYGOTOWANIE DO BADANIA (standard) ====== */}
         <section className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Jak przygotować się do badania pierwiastków we krwi {city.nameLocative}?
+              Jak przygotować się do badania pierwiastków we krwi?
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
               Przygotowanie jest proste — trzy kroki dzielą Cię od wyniku.
@@ -318,19 +435,19 @@ export default async function CityPage({ params }: Props) {
             </div>
             <div className="flex items-start gap-3 bg-white rounded-xl px-5 py-4 mt-6 max-w-4xl mx-auto border border-neutral-100">
               <AlertTriangle size={18} className="text-[#5B65DC] shrink-0 mt-0.5" />
-              <p className="text-[#8a8fa6] text-sm"><strong className="text-[#122056]">Co może zaburzyć wynik?</strong> Transfuzja krwi, badanie z kontrastem, niestosowanie się do zaleceń. W razie wątpliwości skonsultuj się z personelem placówki {city.nameLocative}.</p>
+              <p className="text-[#8a8fa6] text-sm"><strong className="text-[#122056]">Ważne:</strong> Próbki wysyłane do laboratorium od poniedziałku do czwartku. Planuj pobranie odpowiednio, aby materiał dotarł w optymalnym czasie.</p>
             </div>
           </div>
         </section>
 
-        {/* ====== CENNIK — komponent ze strony głównej ====== */}
+        {/* ====== CENNIK (standard — komponent ze strony głównej) ====== */}
         <Pricing />
 
-        {/* ====== CO ZYSKASZ ====== */}
+        {/* ====== CO ZYSKASZ (standard) ====== */}
         <section className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Co zyskasz dzięki onkopakietowi {city.nameLocative}?
+              Co zyskasz dzięki onkopakietowi?
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
               To nie kolejne badanie krwi. To spersonalizowana informacja, która zmienia podejście do profilaktyki.
@@ -356,36 +473,18 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== OPINIE ====== */}
-        <section className="py-16 lg:py-20 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-10 text-center">
-              Opinie pacjentów o badaniu onkopierwiastków
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                { text: 'Zamówiłam online, pobranie trwało chwilę, a wynik przyszedł z konkretnymi wskazówkami — wreszcie wiem, nad czym pracować ze swoim lekarzem.', name: 'Anna K.', role: 'Nauczycielka' },
-                { text: 'Z mutacją BRCA1 szukałam czegoś więcej niż morfologia. Onkopierwiastki pokazały mi dane, których żadne inne badanie wcześniej nie dostarczyło.', name: 'Magdalena W.', role: 'Farmaceutka' },
-                { text: 'Jako wieloletni palacz badanie kadmu otworzyło mi oczy. Mam plan — konkretna dieta, konsultacja z lekarzem, kontrola za pół roku.', name: 'Krzysztof M.', role: 'Przedsiębiorca' },
-              ].map((t) => (
-                <div key={t.name} className="bg-[#FAFAFD] rounded-xl p-6 border border-neutral-100">
-                  <p className="text-[#4a4f65] text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>
-                  <p className="font-semibold text-[#122056] text-sm">{t.name}</p>
-                  <p className="text-[#8a8fa6] text-xs">{t.role}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ============================================================
+            MIXED — city-specific FAQ + standard FAQ
+            ============================================================ */}
 
         {/* ====== FAQ ====== */}
-        <section className="py-16 lg:py-20 bg-[#FAFAFD]">
+        <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-10 text-center">
               Najczęściej zadawane pytania — onkopierwiastki {city.name}
             </h2>
             <div className="space-y-3">
-              {city.faq.map((item, i) => (
+              {allFaq.map((item, i) => (
                 <ExpandableText key={i} title={item.q}>
                   <p>{item.a}</p>
                 </ExpandableText>
@@ -395,7 +494,7 @@ export default async function CityPage({ params }: Props) {
         </section>
 
         {/* ====== CTA ====== */}
-        <section className="py-16 lg:py-20 bg-white">
+        <section className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="bg-[#EEEFFD] rounded-2xl p-8 lg:p-10 text-center">
               <h2 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-[#122056] mb-3">
@@ -416,7 +515,7 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== DŁUGI TEKST SEO — rozwijany ====== */}
+        {/* ====== DŁUGI TEKST SEO — rozwijany (unique) ====== */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <CollapsibleContent title={`Badanie onkopierwiastków ${city.name} — kompletny przewodnik`}>
