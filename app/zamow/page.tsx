@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTag, IconLoader2 } from '@tabler/icons-react';
@@ -106,6 +106,14 @@ function OrderPage() {
   const discount = promoResult?.valid ? promoResult.discount! : 0;
   const finalPrice = selectedPanel.price - discount / 100;
   const selectedFacility = facilities.find((f) => f.id === facilityId);
+  const nextBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Scroll to Dalej button when facility selected
+  useEffect(() => {
+    if (facilityId !== null) {
+      setTimeout(() => nextBtnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    }
+  }, [facilityId]);
 
   // Deselect facility if it doesn't support the new material
   useEffect(() => {
@@ -382,7 +390,7 @@ function OrderPage() {
                 </div>
 
                 {/* Facility list */}
-                <div className="space-y-2 flex-1 overflow-y-auto mb-4">
+                <div className="space-y-2 max-h-[45vh] lg:max-h-none lg:flex-1 overflow-y-auto mb-4">
                   {filtered.map((f) => {
                     const supported = facilitySupported(f);
                     const materialLabel = selectedPanel.material === 'Krew pełna' ? 'krwi pełnej' :
@@ -430,6 +438,27 @@ function OrderPage() {
                 />
               </div>
             </div>
+
+            {/* Navigation — above NoFacilityForm */}
+            <div className="flex items-center justify-between mt-8">
+              <button
+                onClick={() => setStep(step - 1)}
+                className="flex items-center gap-2 text-[#8a8fa6] text-sm font-semibold hover:text-[#122056] transition-colors"
+              >
+                <IconArrowLeft size={16} stroke={2} />
+                Wstecz
+              </button>
+              <button
+                ref={nextBtnRef}
+                onClick={() => canProceed() && setStep(step + 1)}
+                disabled={!canProceed()}
+                className="flex items-center gap-2 bg-[#5B65DC] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#4a53c7] transition-colors text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Dalej
+                <IconArrowRight size={16} stroke={2} />
+              </button>
+            </div>
+
             <NoFacilityForm />
           </div>
         )}
@@ -740,7 +769,7 @@ function OrderPage() {
         )}
 
         {/* Navigation */}
-        {step < STEPS && (
+        {step < STEPS && step !== 2 && (
           <div className="flex items-center justify-between mt-10">
             <button
               onClick={() => step > 1 ? setStep(step - 1) : window.location.href = '/'}
