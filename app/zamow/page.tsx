@@ -108,13 +108,6 @@ function OrderPage() {
   const selectedFacility = facilities.find((f) => f.id === facilityId);
   const nextBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Scroll to Dalej button when facility selected
-  useEffect(() => {
-    if (facilityId !== null) {
-      setTimeout(() => nextBtnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
-    }
-  }, [facilityId]);
-
   // Deselect facility if it doesn't support the new material
   useEffect(() => {
     if (facilityId && selectedFacility) {
@@ -418,6 +411,17 @@ function OrderPage() {
                           <p className="text-red-400 text-[11px] font-semibold mt-1.5">
                             Placówka nie obsługuje badania z {materialLabel}
                           </p>
+                        )}
+                        {supported && facilityId === f.id && (
+                          <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+                            <button
+                              onClick={() => setStep(step + 1)}
+                              className="w-full flex items-center justify-center gap-2 bg-[#5B65DC] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#4a53c7] transition-colors"
+                            >
+                              Wybieram tę placówkę
+                              <IconArrowRight size={13} stroke={2} />
+                            </button>
+                          </div>
                         )}
                       </button>
                     );
