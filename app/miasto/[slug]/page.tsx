@@ -149,10 +149,10 @@ export default async function CityPage({ params }: Props) {
                 { icon: FlaskConical, text: '6 pierwiastków z jednego pobrania krwi' },
                 { icon: FileText, text: 'Spersonalizowany wynik w 15 dni roboczych' },
                 { icon: ShieldCheck, text: '20+ patentów — badania PUM w Szczecinie' },
-                { icon: Calendar, text: 'Bez skierowania — zamów i przyjdź' },
+                { icon: Calendar, text: 'Bez skierowania — zamów i umów termin pobrania' },
               ].map((b) => (
                 <div key={b.text} className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-neutral-100">
-                  <b.icon size={18} className="text-[#5B65DC] shrink-0" />
+                  <b.icon size={18} className="text-[#122056] shrink-0" />
                   <span className="text-[#122056] text-sm">{b.text}</span>
                 </div>
               ))}
