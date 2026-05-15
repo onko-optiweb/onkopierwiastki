@@ -60,7 +60,7 @@ export default async function CityPage({ params }: Props) {
 
   const facilityLogos: Record<string, string> = {
     'Dolnośląskie Centrum Medyczne DOLMED S.A.': '/images/dolmed logo.png',
-    'Centrum Medyczne Polmed': '/images/Logo300x300_Medistore.png',
+    'Centrum Medyczne Polmed': '/images/polmed-logo.png',
   };
 
   const facilitiesWithLogo = facilities.map((f) => ({
