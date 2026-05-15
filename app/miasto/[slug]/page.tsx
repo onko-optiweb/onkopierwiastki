@@ -182,7 +182,7 @@ export default async function CityPage({ params }: Props) {
                 </Link>
               </div>
             ) : (
-              <div className={`grid gap-5 ${facilitiesWithLogo.length === 1 ? 'max-w-xl mx-auto' : 'grid-cols-2 max-w-5xl mx-auto'}`}>
+              <div className={`grid gap-5 ${facilitiesWithLogo.length === 1 ? 'max-w-xl mx-auto' : 'grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto'}`}>
                 {facilitiesWithLogo.map((f) => (
                   <div key={f.id} className="bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
                     {/* Logo + Name */}
