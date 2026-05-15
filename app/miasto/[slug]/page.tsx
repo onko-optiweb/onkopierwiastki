@@ -10,6 +10,7 @@ import Footer from '@/src/components/Footer';
 import Pricing from '@/src/components/Pricing';
 import { ExpandableText } from '@/src/components/ExpandableText';
 import { CollapsibleContent } from '@/src/components/CollapsibleContent';
+import { FacilityDescription } from '@/src/components/FacilityDescription';
 import {
   ChevronRight, MapPin, Phone, Clock, ArrowRight, ShieldCheck,
   FlaskConical, FileText, Calendar, AlertTriangle, Check, Mail,
@@ -61,6 +62,17 @@ export default async function CityPage({ params }: Props) {
   const facilityLogos: Record<string, string> = {
     'Dolnośląskie Centrum Medyczne DOLMED S.A.': '/images/dolmed logo.png',
     'Centrum Medyczne Polmed': '/images/polmed-logo.png',
+  };
+
+  const facilityDescriptions: Record<string, { teaser: string; full: string }> = {
+    'Dolnośląskie Centrum Medyczne DOLMED S.A.': {
+      teaser: 'DOLMED to jedna z największych prywatnych placówek medycznych na Dolnym Śląsku, oferująca kompleksową diagnostykę i specjalistyczną opiekę zdrowotną.',
+      full: 'Dolnośląskie Centrum Medyczne DOLMED S.A. działa od ponad 30 lat i obsługuje pacjentów z Wrocławia oraz całego regionu dolnośląskiego. Placówka zatrudnia ponad 400 specjalistów i dysponuje nowoczesnym zapleczem diagnostycznym. Punkt pobrań działa od wczesnych godzin rannych, co umożliwia pobranie materiału na czczo przed pracą. DOLMED posiada certyfikat jakości i stosuje ścisłe procedury przechowywania i transportu próbek, wymagane przez laboratorium Innowacyjna Medycyna. Placówka jest doskonale skomunikowana z centrum Wrocławia — tramwaj i autobus zatrzymują się w bezpośrednim sąsiedztwie.',
+    },
+    'Centrum Medyczne Polmed': {
+      teaser: 'Centrum Medyczne Polmed to ogólnopolska sieć przychodni oferująca szeroki zakres usług medycznych, w tym diagnostykę laboratoryjną i specjalistyczne konsultacje.',
+      full: 'Centrum Medyczne Polmed to jedna z największych sieci prywatnych placówek medycznych w Polsce, działająca w kilkunastu miastach. Wrocławska placówka przy ul. Grabiszyńskiej 208 oferuje pełen zakres diagnostyki laboratoryjnej, w tym pobrania krwi zgodnie z wyspecjalizowanymi protokołami. Personel jest przeszkolony w zakresie obsługi specjalnych próbówek wymaganych do badania onkopierwiastków. Placówka przyjmuje pacjentów w szerokich godzinach, a rejestracja dostępna jest zarówno online, jak i telefonicznie.',
+    },
   };
 
   const facilitiesWithLogo = facilities.map((f) => ({
@@ -169,11 +181,6 @@ export default async function CityPage({ params }: Props) {
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
               Badanie onkopierwiastków {city.nameLocative} wymaga pobrania materiału w certyfikowanej placówce referencyjnej — tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
-            {city.facilityDescription && (
-              <p className="text-[#4a4f65] text-sm max-w-3xl mx-auto text-center mb-10 leading-relaxed">
-                {city.facilityDescription}
-              </p>
-            )}
             {facilities.length === 0 ? (
               <div className="bg-white rounded-2xl p-8 border border-neutral-100 text-center max-w-xl mx-auto">
                 <p className="text-[#8a8fa6] mb-4">Aktualnie brak placówek referencyjnych {city.nameLocative}.</p>
@@ -239,6 +246,14 @@ export default async function CityPage({ params }: Props) {
                     </div>
 
                     {f.notes && <p className="text-[#8a8fa6] text-xs mt-3 italic">{f.notes}</p>}
+
+                    {/* Description expandable */}
+                    {facilityDescriptions[f.name] && (
+                      <FacilityDescription
+                        teaser={facilityDescriptions[f.name].teaser}
+                        full={facilityDescriptions[f.name].full}
+                      />
+                    )}
 
                     {/* CTA */}
                     <div className="mt-5 flex flex-col sm:flex-row gap-2">
