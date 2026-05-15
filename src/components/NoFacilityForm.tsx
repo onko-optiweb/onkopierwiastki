@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { IconPhone, IconMapPin, IconUser, IconCheck, IconLoader2 } from '@tabler/icons-react';
+import { IconPhone, IconMapPin, IconUser, IconCheck, IconLoader2, IconBuilding } from '@tabler/icons-react';
 
 export default function NoFacilityForm() {
   const [form, setForm] = useState({ name: '', postalCode: '', city: '', phone: '' });
@@ -64,9 +64,12 @@ export default function NoFacilityForm() {
                     onChange={(e) => setForm({ ...form, postalCode: e.target.value })}
                     className={iconInputCls} />
                 </div>
-                <input type="text" placeholder="Miasto *" required value={form.city}
-                  onChange={(e) => setForm({ ...form, city: e.target.value })}
-                  className={inputCls} />
+                <div className="relative">
+                  <IconBuilding size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8a8fa6]" />
+                  <input type="text" placeholder="Miasto *" required value={form.city}
+                    onChange={(e) => setForm({ ...form, city: e.target.value })}
+                    className={iconInputCls} />
+                </div>
               </div>
               <div className="relative">
                 <IconPhone size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8a8fa6]" />
