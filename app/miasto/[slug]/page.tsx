@@ -292,51 +292,6 @@ export default async function CityPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ====== TABELA PANELI (standard) ====== */}
-        <section className="py-16 lg:py-20 bg-[#FAFAFD]">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Panele badań — profilaktyczny i onkologiczny
-            </h2>
-            <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
-              Wybierz panel odpowiedni do swojej sytuacji zdrowotnej.
-            </p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm border-collapse">
-                <thead>
-                  <tr className="bg-[#122056] text-white">
-                    <th className="px-4 py-3 text-left font-semibold rounded-tl-xl">Panel</th>
-                    <th className="px-4 py-3 text-left font-semibold">Dla kogo</th>
-                    <th className="px-4 py-3 text-left font-semibold">Materiał</th>
-                    <th className="px-4 py-3 text-left font-semibold">Pierwiastki</th>
-                    <th className="px-4 py-3 text-left font-semibold rounded-tr-xl">Cena</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-white border-b border-neutral-100">
-                    <td className="px-4 py-4 font-semibold text-[#122056]">Profilaktyczny<br /><span className="text-xs text-[#8a8fa6] font-normal">Panel dla osób zdrowych</span></td>
-                    <td className="px-4 py-4 text-[#4a4f65]">Dorośli bez aktywnego nowotworu — profilaktyka</td>
-                    <td className="px-4 py-4 text-[#4a4f65]">Krew pełna</td>
-                    <td className="px-4 py-4 text-[#4a4f65]">Se, Zn, As, Cu, Cd, Pb</td>
-                    <td className="px-4 py-4 font-semibold text-[#122056]">od 200 zł</td>
-                  </tr>
-                  <tr className="bg-white">
-                    <td className="px-4 py-4 font-semibold text-[#122056]">Onkologiczny<br /><span className="text-xs text-[#8a8fa6] font-normal">Panel dla pacjentów onkologicznych</span></td>
-                    <td className="px-4 py-4 text-[#4a4f65]">Pacjenci z aktywnym lub przebytym nowotworem</td>
-                    <td className="px-4 py-4 text-[#4a4f65]">Surowica</td>
-                    <td className="px-4 py-4 text-[#4a4f65]">Se, Zn, As, Cu, Cd, Pb</td>
-                    <td className="px-4 py-4 font-semibold text-[#122056]">od 200 zł</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="flex items-start gap-3 bg-white rounded-xl px-5 py-4 mt-6 border border-neutral-100">
-              <AlertTriangle size={18} className="text-[#5B65DC] shrink-0 mt-0.5" />
-              <p className="text-[#8a8fa6] text-sm"><strong className="text-[#122056]">UWAGA!</strong> Brak dotąd danych, które by udowodniły poprawę przeżyć chorych z nowotworami złośliwymi w wyniku optymalizacji stężeń pierwiastków.</p>
-            </div>
-          </div>
-        </section>
-
         {/* ====== JAKIE PIERWIASTKI BADAMY (standard) ====== */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
