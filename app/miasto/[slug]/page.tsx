@@ -146,14 +146,14 @@ export default async function CityPage({ params }: Props) {
             </div>
             <div className="mt-10 lg:mt-0 lg:w-[320px] lg:shrink-0 space-y-3">
               {[
-                { icon: FlaskConical, text: '6 pierwiastków z jednego pobrania krwi' },
-                { icon: FileText, text: 'Spersonalizowany wynik w 15 dni roboczych' },
-                { icon: ShieldCheck, text: '20+ patentów — badania PUM w Szczecinie' },
-                { icon: Calendar, text: 'Bez skierowania — zamów i umów termin pobrania' },
+                { icon: FlaskConical, label: '6 pierwiastków', sub: 'z jednego pobrania krwi' },
+                { icon: FileText, label: 'Wynik w 15 dni roboczych', sub: 'spersonalizowany raport PDF' },
+                { icon: ShieldCheck, label: '20+ patentów', sub: 'badania PUM w Szczecinie' },
+                { icon: Calendar, label: 'Bez skierowania', sub: 'zamów i umów termin pobrania' },
               ].map((b) => (
-                <div key={b.text} className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-neutral-100">
+                <div key={b.label} className="flex items-center gap-3 bg-white rounded-xl px-4 py-3 border border-neutral-100">
                   <b.icon size={18} className="text-[#122056] shrink-0" />
-                  <span className="text-[#122056] text-sm">{b.text}</span>
+                  <span className="text-sm"><strong className="text-[#122056]">{b.label}</strong> <span className="text-[#8a8fa6]">{b.sub}</span></span>
                 </div>
               ))}
             </div>
