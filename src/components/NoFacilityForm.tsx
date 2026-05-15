@@ -35,7 +35,7 @@ export default function NoFacilityForm() {
             Zostaw kontakt —<br />odezwiemy się do Ciebie
           </h3>
           <p className="text-[#8a8fa6] text-sm leading-relaxed">
-            Sieć placówek stale się rozrasta. Zostaw swoje miasto i numer telefonu, a skontaktujemy się z Tobą, gdy pojawi się certyfikowana placówka w Twoim rejonie — lub wskażemy najbliższą dostępną opcję.
+            Zostaw swoje miasto i numer telefonu — zadzwonimy i postaramy się pomóc lub wskażemy najbliższą dostępną opcję.
           </p>
         </div>
 
