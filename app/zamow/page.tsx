@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTag, IconLoader2 } from '@tabler/icons-react';
+import NoFacilityForm from '@/src/components/NoFacilityForm';
 import { createOrder } from '@/src/actions/orders';
 
 interface Facility {
@@ -418,14 +419,6 @@ function OrderPage() {
                   )}
                 </div>
 
-                {/* No facility note */}
-                <p className="text-[#8a8fa6] text-xs text-center mt-2">
-                  Nie ma placówki w Twoim mieście?{' '}
-                  <a href="/#placowki" className="text-[#5B65DC] font-semibold hover:underline">
-                    Zostaw kontakt na stronie głównej
-                  </a>{' '}
-                  — odezwiemy się do Ciebie.
-                </p>
               </div>
 
               {/* Right — map (desktop) */}
@@ -437,6 +430,7 @@ function OrderPage() {
                 />
               </div>
             </div>
+            <NoFacilityForm />
           </div>
         )}
 
