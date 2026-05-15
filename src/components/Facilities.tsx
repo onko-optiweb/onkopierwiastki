@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { IconSearch, IconMapPin, IconPhone, IconClock } from '@tabler/icons-react';
+import NoFacilityForm from '@/src/components/NoFacilityForm';
 
 interface Facility {
   id: number;
@@ -141,18 +142,7 @@ export default function Facilities() {
           </div>
         </div>
 
-        {/* Online CTA */}
-        <div className="mt-10 bg-[#EEEFFD]/50 rounded-2xl p-8 text-center border border-[#EEEFFD]">
-          <p className="text-[#122056] text-sm lg:text-base mb-4">
-            <span className="font-bold">Nie ma placówki w Twoim mieście?</span>
-          </p>
-          <a
-            href="#cennik"
-            className="inline-flex items-center gap-2 bg-[#5B65DC] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#4a53c7] transition-colors text-sm"
-          >
-            Zamów badanie online — kurier odbierze materiał z wybranego punktu
-          </a>
-        </div>
+        <NoFacilityForm />
       </div>
     </section>
   );

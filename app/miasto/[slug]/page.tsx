@@ -6,6 +6,7 @@ import { siteConfig } from '@/src/siteConfig';
 import { sanitizeHtml } from '@/src/lib/sanitize';
 import { getCityBySlug, getAllCitySlugs, standardFaq } from '@/src/data/cities';
 import Navbar from '@/src/components/Navbar';
+import NoFacilityForm from '@/src/components/NoFacilityForm';
 import Footer from '@/src/components/Footer';
 import Pricing from '@/src/components/Pricing';
 import { ExpandableText } from '@/src/components/ExpandableText';
@@ -239,14 +240,8 @@ export default async function CityPage({ params }: Props) {
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
               Onkopakiet — badanie pierwiastków, które bywa potocznie określane jako onkopakiet — wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
-            {facilities.length === 0 ? (
-              <div className="bg-white rounded-2xl p-8 border border-neutral-100 text-center max-w-xl mx-auto">
-                <p className="text-[#8a8fa6] mb-4">Aktualnie brak certyfikowanych placówek {city.nameLocative}.</p>
-                <Link href="/zamow" className="inline-flex items-center gap-2 text-[#5B65DC] text-sm font-semibold hover:underline">
-                  Zamów badanie online — kurier odbierze materiał <ArrowRight size={14} />
-                </Link>
-              </div>
-            ) : (
+            {facilities.length === 0 && <NoFacilityForm />}
+            {facilities.length > 0 && (
               <div className={`grid gap-5 ${facilitiesWithLogo.length === 1 ? 'max-w-xl mx-auto' : 'grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto'}`}>
                 {facilitiesWithLogo.map((f) => (
                   <div key={f.id} className="bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">

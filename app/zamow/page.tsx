@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTruck, IconTag, IconLoader2 } from '@tabler/icons-react';
+import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTag, IconLoader2 } from '@tabler/icons-react';
 import { createOrder } from '@/src/actions/orders';
 
 interface Facility {
@@ -163,7 +163,7 @@ function OrderPage() {
 
   const canProceed = () => {
     if (step === 1) return true;
-    if (step === 2) return facilityId !== null || isOnline;
+    if (step === 2) return facilityId !== null;
     if (step === 3) {
       const peselOk = noPesel || isValidPesel(pesel);
       const invoiceOk = !needInvoice || (companyName.trim().length >= 2 && nip.trim().length >= 10);
@@ -418,30 +418,14 @@ function OrderPage() {
                   )}
                 </div>
 
-                {/* Separator */}
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex-1 h-px bg-[#EEEFFD]" />
-                  <span className="text-[#8a8fa6] text-xs font-semibold">lub</span>
-                  <div className="flex-1 h-px bg-[#EEEFFD]" />
-                </div>
-
-                {/* Online option */}
-                <button
-                  onClick={() => { setIsOnline(true); setFacilityId(null); }}
-                  className={`w-full text-left p-5 rounded-xl border-2 transition-all ${
-                    isOnline ? 'border-[#5B65DC] bg-white' : 'border-transparent bg-white hover:border-[#EEEFFD]'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#5B65DC]/10 flex items-center justify-center flex-shrink-0">
-                      <IconTruck size={20} className="text-[#5B65DC]" stroke={1.5} />
-                    </div>
-                    <div>
-                      <p className="font-bold text-[#122056] text-sm">Zamów badanie online</p>
-                      <p className="text-[#8a8fa6] text-xs mt-0.5">Nie ma placówki w Twoim mieście? Skierujemy Cię do najbliższego punktu — kurier odbierze materiał.</p>
-                    </div>
-                  </div>
-                </button>
+                {/* No facility note */}
+                <p className="text-[#8a8fa6] text-xs text-center mt-2">
+                  Nie ma placówki w Twoim mieście?{' '}
+                  <a href="/#placowki" className="text-[#5B65DC] font-semibold hover:underline">
+                    Zostaw kontakt na stronie głównej
+                  </a>{' '}
+                  — odezwiemy się do Ciebie.
+                </p>
               </div>
 
               {/* Right — map (desktop) */}
@@ -653,9 +637,7 @@ function OrderPage() {
               <div className="flex items-center justify-between pb-4 border-b border-[#EEEFFD]">
                 <div>
                   <p className="text-[#8a8fa6] text-xs mb-0.5">Placówka</p>
-                  {isOnline ? (
-                    <p className="text-[#122056] font-bold text-sm">Zamówienie online — kurier</p>
-                  ) : selectedFacility ? (
+                  {selectedFacility ? (
                     <>
                       <p className="text-[#122056] font-bold text-sm">{selectedFacility.name}</p>
                       <p className="text-[#8a8fa6] text-xs mt-0.5">{selectedFacility.address}</p>
