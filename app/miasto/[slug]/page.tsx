@@ -18,6 +18,7 @@ import {
 import {
   IconAlertTriangle, IconReportMedical, IconSalad, IconPill,
   IconHeartRateMonitor, IconShieldCheck,
+  IconUser, IconUsers, IconDna, IconSmoking, IconStethoscope,
 } from '@tabler/icons-react';
 
 type Props = {
@@ -337,16 +338,18 @@ export default async function CityPage({ params }: Props) {
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { emoji: '👤', title: 'Dorośli po 40. roku życia', desc: 'Ryzyko nowotworów rośnie z wiekiem — profilaktyka przynosi największe efekty właśnie w tym okresie.' },
-                { emoji: '👨‍👩‍👧', title: 'Osoby z rakiem w rodzinie', desc: 'Dziedziczne predyspozycje nowotworowe zwiększają rolę profilaktyki pierwiastkowej w ocenie ryzyka.' },
-                { emoji: '🧬', title: 'Nosicielki mutacji BRCA1', desc: 'Zakresy optymalne opracowane specjalnie dla nosicielek — na podstawie lat obserwacji w Ośrodku w Szczecinie.' },
-                { emoji: '🚬', title: 'Osoby palące papierosy', desc: 'Palenie znacząco zaburza poziom kadmu i selenu — wynik uwzględnia ten czynnik w zakresach referencyjnych.' },
-                { emoji: '🩺', title: 'Chorzy onkologicznie', desc: 'Stężenia selenu i cynku mają udowodnione znaczenie prognostyczne dla przeżyć pacjentów z nowotworami.' },
-                { emoji: '🥗', title: 'Wegetarianie i weganie', desc: 'Diety eliminacyjne mogą prowadzić do zmian stężeń pierwiastków — badanie weryfikuje rzeczywisty stan.' },
+                { icon: <IconUser size={22} stroke={1.5} />, title: 'Każda dorosła osoba', desc: 'Profilaktycznie, aby znać swój poziom ryzyka zachorowania na nowotwory złośliwe oraz zgonu niezależnie od przyczyny w młodszym wieku.' },
+                { icon: <IconUsers size={22} stroke={1.5} />, title: 'Osoby z wywiadem rodzinnym', desc: 'Dziedziczne predyspozycje nowotworowe zwiększają rolę profilaktyki pierwiastkowej w ocenie indywidualnego ryzyka.' },
+                { icon: <IconDna size={22} stroke={1.5} />, title: 'Nosicielki mutacji BRCA1', desc: 'Zakresy optymalne opracowane specjalnie dla tej grupy na podstawie wieloletnich badań w Ośrodku w Szczecinie.' },
+                { icon: <IconSmoking size={22} stroke={1.5} />, title: 'Osoby palące papierosy', desc: 'Palenie znacząco zaburza poziom kadmu i selenu — wynik uwzględnia ten czynnik w zakresach referencyjnych.' },
+                { icon: <IconStethoscope size={22} stroke={1.5} />, title: 'Pacjenci onkologiczni', desc: 'Selen i cynk mają istotne znaczenie dla prognozowania przeżyć chorych z nowotworami złośliwymi o różnej lokalizacji.' },
+                { icon: <IconSalad size={22} stroke={1.5} />, title: 'Osoby na dietach eliminacyjnych', desc: 'Weganie i wegetarianie mogą mieć istotnie wyższe stężenie selenu i kadmu we krwi — badanie to weryfikuje.' },
               ].map((g) => (
-                <div key={g.title} className="bg-white/10 rounded-xl p-6">
-                  <span className="text-2xl mb-3 block">{g.emoji}</span>
-                  <p className="font-bold text-white text-sm mb-2">{g.title}</p>
+                <div key={g.title} className="bg-white/10 hover:bg-white/15 rounded-xl p-6 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-white mb-4">
+                    {g.icon}
+                  </div>
+                  <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-base mb-2">{g.title}</p>
                   <p className="text-white/50 text-sm leading-relaxed">{g.desc}</p>
                 </div>
               ))}
