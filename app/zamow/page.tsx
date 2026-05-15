@@ -368,9 +368,9 @@ function OrderPage() {
 
             <div className="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
               {/* Left — search + list */}
-              <div>
+              <div className="lg:h-[540px] flex flex-col">
                 {/* Search */}
-                <div className="relative mb-4">
+                <div className="relative mb-4 flex-shrink-0">
                   <IconSearch size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a8fa6]" stroke={1.5} />
                   <input
                     type="text"
@@ -382,7 +382,7 @@ function OrderPage() {
                 </div>
 
                 {/* Facility list */}
-                <div className="space-y-2 max-h-[340px] overflow-y-auto mb-4">
+                <div className="space-y-2 flex-1 overflow-y-auto mb-4">
                   {filtered.map((f) => {
                     const supported = facilitySupported(f);
                     const materialLabel = selectedPanel.material === 'Krew pełna' ? 'krwi pełnej' :
