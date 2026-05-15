@@ -185,10 +185,10 @@ export default async function CityPage({ params }: Props) {
                 {facilitiesWithLogo.map((f) => (
                   <div key={f.id} className="bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
                     {/* Logo + Name */}
-                    <div className="flex items-center gap-3 mb-5 pb-5 border-b border-neutral-100">
+                    <div className="mb-5 pb-5 border-b border-neutral-100">
                       {f.logo
-                        ? <img src={f.logo} alt={f.name} className="h-14 object-contain" />
-                        : <div className="w-10 h-10 rounded-full bg-[#EEEFFD] flex items-center justify-center shrink-0"><FlaskConical size={18} className="text-[#5B65DC]" /></div>
+                        ? <img src={f.logo} alt={f.name} className="h-16 object-contain mb-3" />
+                        : <div className="w-10 h-10 rounded-full bg-[#EEEFFD] flex items-center justify-center mb-3"><FlaskConical size={18} className="text-[#5B65DC]" /></div>
                       }
                       <p className="font-bold text-[#122056] text-base leading-tight">{f.name}</p>
                     </div>
