@@ -223,7 +223,7 @@ export default async function CityPage({ params }: Props) {
         <section id="placowki" className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Gdzie zrobić onkopakiet {city.nameLocative}?<br />Punkt pobrań i placówka
+              Onkopakiet {city.name}.<br />Punkty pobrań i placówki
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
               Badanie onkopierwiastków {city.nameLocative} wymaga pobrania materiału w certyfikowanej placówce referencyjnej — tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.

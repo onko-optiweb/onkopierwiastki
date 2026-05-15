@@ -36,7 +36,7 @@ export const cities: CityData[] = [
     region: 'Dolny Śląsk',
     metaTitle: 'Badanie onkopierwiastków Wrocław | Onkopakiet Wrocław | Onkopierwiastki.pl',
     metaDescription: 'Onkopakiet we Wrocławiu: cena, przygotowanie do badania, wynik PDF i informacje o placówkach lub pobraniu materiału. Badanie onkopierwiastków Wrocław.',
-    heroText: 'Onkopakiet Wrocław — badanie 6 pierwiastków w certyfikowanej placówce',
+    heroText: 'Onkopierwiastki Wrocław — badanie 6 pierwiastków w certyfikowanych placówkach.',
     introText: 'Wrocław to jedno z miast, w którym możesz wykonać badanie onkopierwiastków w certyfikowanej placówce referencyjnej. Badanie obejmuje oznaczenie 6 pierwiastków śladowych — selenu, cynku, arsenu, miedzi, kadmu i ołowiu — których stężenie we krwi ma udowodniony związek z ryzykiem nowotworów złośliwych.',
     facilityDescription: 'Placówka referencyjna DOLMED przy ul. Legnickiej 40 we Wrocławiu jest doskonale skomunikowana z centrum miasta — dojedziesz tramwajem lub autobusem. Placówka pobiera krew pełną zgodnie z protokołem laboratorium Innowacyjna Medycyna. Region dolnośląski charakteryzuje się specyficznym profilem środowiskowym — wieloletnia działalność przemysłowa, w tym górnictwo miedzi w Legnicko-Głogowskim Okręgu Miedziowym, może wpływać na ekspozycję mieszkańców na metale ciężkie.',
     cityFaq: [
