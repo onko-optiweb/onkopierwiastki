@@ -226,11 +226,11 @@ export default async function CityPage({ params }: Props) {
               Onkopakiet {city.name}.<br />Punkty pobrań i placówki
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
-              Badanie onkopierwiastków {city.nameLocative} wymaga pobrania materiału w certyfikowanej placówce referencyjnej — tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
+              Onkopakiet — badanie pierwiastków, które bywa potocznie określane jako onkopakiet — wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
             {facilities.length === 0 ? (
               <div className="bg-white rounded-2xl p-8 border border-neutral-100 text-center max-w-xl mx-auto">
-                <p className="text-[#8a8fa6] mb-4">Aktualnie brak placówek referencyjnych {city.nameLocative}.</p>
+                <p className="text-[#8a8fa6] mb-4">Aktualnie brak certyfikowanych placówek {city.nameLocative}.</p>
                 <Link href="/zamow" className="inline-flex items-center gap-2 text-[#5B65DC] text-sm font-semibold hover:underline">
                   Zamów badanie online — kurier odbierze materiał <ArrowRight size={14} />
                 </Link>
