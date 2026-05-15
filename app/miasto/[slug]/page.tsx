@@ -216,6 +216,15 @@ export default async function CityPage({ params }: Props) {
                 </div>
               </div>
             </div>
+
+            {/* Mouse scroll indicator */}
+            <div className="hidden lg:flex absolute -bottom-2 left-1/2 -translate-x-1/2 z-30">
+              <a href="#placowki" className="block">
+                <div className="w-7 h-11 rounded-full border-2 border-black/25 flex justify-center pt-2">
+                  <div className="w-1 h-2.5 rounded-full bg-black animate-bounce" />
+                </div>
+              </a>
+            </div>
           </div>
         </section>
 
