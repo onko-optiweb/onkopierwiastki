@@ -231,7 +231,7 @@ export async function createOrder(data: CreateOrderInput) {
             language: "pl",
           },
           continueUrl: `${siteUrl}/zamowienie/${order.id}`,
-          notifyUrl: `${siteUrl}/api/payu/notify`,
+          notifyUrl: `${siteUrl}/api/payu/notify/`,
           customerIp: ip,
           description: `Onkopierwiastki — ${panelName}`,
         });
@@ -409,7 +409,7 @@ export async function retryPayment(orderId: string) {
         language: "pl",
       },
       continueUrl: `${siteUrl}/zamowienie/${order.id}`,
-      notifyUrl: `${siteUrl}/api/payu/notify`,
+      notifyUrl: `${siteUrl}/api/payu/notify/`,
       customerIp: ip,
       description: `Onkopierwiastki — ${panelName}`,
     });
