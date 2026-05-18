@@ -361,3 +361,72 @@ export async function getOrderStatus(id: string) {
     return { success: false, error: "Błąd pobierania zamówienia" };
   }
 }
+
+// ─── Ponowna płatność ───
+export async function retryPayment(orderId: string) {
+  try {
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+      include: { payments: { take: 1 } },
+    });
+
+    if (!order) return { success: false, error: "Zamówienie nie znalezione" };
+    if (order.status !== "PENDING") return { success: false, error: "Zamówienie nie oczekuje na płatność" };
+    if (!isPayuEnabled()) return { success: false, error: "PayU nie jest skonfigurowane" };
+
+    const headersList = await headers();
+    const ip = headersList.get("x-forwarded-for")?.split(",")[0]?.trim()
+      || headersList.get("x-real-ip")
+      || "127.0.0.1";
+
+    const siteUrl = headersList.get("x-forwarded-proto") && headersList.get("host")
+      ? `${headersList.get("x-forwarded-proto")}://${headersList.get("host")}`
+      : process.env.NEXTAUTH_URL || "http://localhost:3000";
+
+    const finalPrice = order.price - order.discount;
+    const panelName = `${order.panelType === "PROFILAKTYKA" ? "Profilaktyczny" : "Onkologiczny"} — ${order.panelTier.toLowerCase()}`;
+
+    const payuResult = await createPayuOrder({
+      orderNumber: order.id,
+      totalAmount: finalPrice,
+      products: [{
+        name: `Panel ${panelName}`,
+        unitPrice: String(finalPrice),
+        quantity: "1",
+      }],
+      buyer: {
+        email: order.email,
+        phone: order.phone,
+        firstName: order.firstName,
+        lastName: order.lastName,
+        language: "pl",
+      },
+      continueUrl: `${siteUrl}/zamowienie/${order.id}`,
+      notifyUrl: `${siteUrl}/api/payu/notify`,
+      customerIp: ip,
+      description: `Onkopierwiastki — ${panelName}`,
+    });
+
+    // Update payment record
+    if (order.payments[0]) {
+      await prisma.payment.update({
+        where: { id: order.payments[0].id },
+        data: { payuOrderId: payuResult.orderId, status: "NEW", amount: finalPrice },
+      });
+    } else {
+      await prisma.payment.create({
+        data: { orderId: order.id, payuOrderId: payuResult.orderId, status: "NEW", amount: finalPrice, method: "PAYU" },
+      });
+    }
+
+    await prisma.order.update({
+      where: { id: order.id },
+      data: { payuOrderId: payuResult.orderId },
+    });
+
+    return { success: true, redirectUrl: payuResult.redirectUri };
+  } catch (e) {
+    console.error("retryPayment error:", e);
+    return { success: false, error: "Nie udało się utworzyć płatności" };
+  }
+}

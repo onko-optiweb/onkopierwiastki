@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { prisma } from "@/src/lib/prisma";
 import { formatPrice } from "@/src/lib/format-price";
 import { notFound } from "next/navigation";
+import { RetryPaymentButton } from "@/src/components/RetryPaymentButton";
 
 export const metadata: Metadata = {
   title: 'Status zamówienia',
@@ -107,6 +108,11 @@ export default async function OrderStatusPage({
             {order.paidAt && <span>Opłacone: {order.paidAt.toLocaleDateString("pl-PL")}</span>}
           </div>
         </div>
+
+        {/* Opłać ponownie — tylko PENDING */}
+        {order.status === "PENDING" && (
+          <RetryPaymentButton orderId={order.id} />
+        )}
 
         {/* Skontaktuj się z placówką — po opłaceniu */}
         {(order.status === "PAID" || order.status === "PROCESSING" || order.status === "COMPLETED") && order.facility && !order.isOnline && (
