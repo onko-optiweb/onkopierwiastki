@@ -16,6 +16,11 @@ const promoCodeUpdateSchema = z.object({
   active: z.boolean().optional(),
   maxUses: z.number().int().positive().nullable().optional(),
   value: z.number().int().positive().max(10000000).optional(),
+  code: z.string().min(2).max(50).optional(),
+  type: z.enum(["PERCENT", "FIXED"]).optional(),
+  source: z.string().max(200).nullable().optional(),
+  validUntil: z.string().nullable().optional(),
+  usedCount: z.number().int().min(0).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -57,13 +62,19 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message || "Błąd walidacji" }, { status: 400 });
   }
 
+  const updateData: Record<string, unknown> = {};
+  if (parsed.data.active !== undefined) updateData.active = parsed.data.active;
+  if (parsed.data.maxUses !== undefined) updateData.maxUses = parsed.data.maxUses || null;
+  if (parsed.data.value !== undefined) updateData.value = parsed.data.value;
+  if (parsed.data.code) updateData.code = parsed.data.code.toUpperCase();
+  if (parsed.data.type) updateData.type = parsed.data.type;
+  if (parsed.data.source !== undefined) updateData.source = parsed.data.source || null;
+  if (parsed.data.validUntil !== undefined) updateData.validUntil = parsed.data.validUntil ? new Date(parsed.data.validUntil) : null;
+  if (parsed.data.usedCount !== undefined) updateData.usedCount = parsed.data.usedCount;
+
   await prisma.promoCode.update({
     where: { id },
-    data: {
-      ...(parsed.data.active !== undefined ? { active: parsed.data.active } : {}),
-      ...(parsed.data.maxUses !== undefined ? { maxUses: parsed.data.maxUses || null } : {}),
-      ...(parsed.data.value !== undefined ? { value: parsed.data.value } : {}),
-    },
+    data: updateData,
   });
 
   return NextResponse.json({ success: true });

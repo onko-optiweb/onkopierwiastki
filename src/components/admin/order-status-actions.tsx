@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Mail, Building2 } from 'lucide-react';
 
 const transitions: Record<string, { label: string; next: string; color: string }[]> = {
   PENDING: [
@@ -21,9 +21,28 @@ const transitions: Record<string, { label: string; next: string; color: string }
   REFUNDED: [],
 };
 
-export function OrderStatusActions({ orderId, currentStatus }: { orderId: string; currentStatus: string }) {
+export function OrderStatusActions({ orderId, currentStatus, hasFacilityEmail }: { orderId: string; currentStatus: string; hasFacilityEmail?: boolean }) {
   const [loading, setLoading] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<string | null>(null);
   const router = useRouter();
+
+  const handleResendEmail = async (target: 'customer' | 'facility') => {
+    setLoading(true);
+    setEmailStatus(null);
+    const res = await fetch(`/api/admin/orders/${orderId}/resend-email/`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ target }),
+    });
+    if (res.ok) {
+      setEmailStatus(`Mail wysłany do ${target === 'customer' ? 'klienta' : 'placówki'}`);
+    } else {
+      const data = await res.json();
+      setEmailStatus(data.error || 'Błąd wysyłki');
+    }
+    setLoading(false);
+    setTimeout(() => setEmailStatus(null), 4000);
+  };
 
   const actions = transitions[currentStatus] || [];
 
@@ -79,6 +98,36 @@ export function OrderStatusActions({ orderId, currentStatus }: { orderId: string
           <Trash2 size={14} />
           Usuń zamówienie
         </button>
+      </div>
+
+      {/* Ponowne wysyłanie maili */}
+      <div className="mt-4 pt-4 border-t border-[#EEEFFD]">
+        <h3 className="text-xs font-semibold text-[#8a8fa6] mb-2">Wyślij ponownie maila</h3>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => handleResendEmail('customer')}
+            disabled={loading}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#EEEFFD] text-[#122056] hover:bg-[#e0e2f8] transition-colors disabled:opacity-50"
+          >
+            <Mail size={13} />
+            Mail do klienta
+          </button>
+          {hasFacilityEmail && (
+            <button
+              onClick={() => handleResendEmail('facility')}
+              disabled={loading}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#EEEFFD] text-[#122056] hover:bg-[#e0e2f8] transition-colors disabled:opacity-50"
+            >
+              <Building2 size={13} />
+              Mail do placówki
+            </button>
+          )}
+        </div>
+        {emailStatus && (
+          <p className={`text-xs mt-2 ${emailStatus.startsWith('Błąd') ? 'text-red-500' : 'text-emerald-600'}`}>
+            {emailStatus}
+          </p>
+        )}
       </div>
     </div>
   );

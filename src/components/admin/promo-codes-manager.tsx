@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { Plus, Trash2, BarChart3 } from 'lucide-react';
-import { useMemo } from 'react';
+import { Plus, Trash2, BarChart3, Pencil, X, Check } from 'lucide-react';
 
 interface PromoCode {
   id: string;
@@ -37,7 +36,44 @@ export function PromoCodesManager({ codes, monthlyStats = {} }: { codes: PromoCo
   const [form, setForm] = useState({ code: '', type: 'PERCENT' as 'PERCENT' | 'FIXED', value: '', maxUses: '', source: '', validUntil: '', unlimited: true, noExpiry: true });
   const [loading, setLoading] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState('ALL');
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState({ code: '', type: 'PERCENT' as 'PERCENT' | 'FIXED', value: '', maxUses: '', source: '', validUntil: '', usedCount: '' });
   const router = useRouter();
+
+  const startEdit = (c: PromoCode) => {
+    setEditingId(c.id);
+    setEditForm({
+      code: c.code,
+      type: c.type as 'PERCENT' | 'FIXED',
+      value: c.type === 'FIXED' ? String(c.value / 100) : String(c.value),
+      maxUses: c.maxUses ? String(c.maxUses) : '',
+      source: c.source || '',
+      validUntil: c.validUntil ? c.validUntil.split('T')[0] : '',
+      usedCount: String(c.usedCount),
+    });
+  };
+
+  const handleUpdate = async () => {
+    if (!editingId) return;
+    setLoading(true);
+    await fetch('/api/admin/promo-codes', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: editingId,
+        code: editForm.code,
+        type: editForm.type,
+        value: editForm.type === 'FIXED' ? Math.round(parseFloat(editForm.value) * 100) : parseInt(editForm.value),
+        maxUses: editForm.maxUses ? parseInt(editForm.maxUses) : null,
+        source: editForm.source || null,
+        validUntil: editForm.validUntil || null,
+        usedCount: parseInt(editForm.usedCount) || 0,
+      }),
+    });
+    setEditingId(null);
+    setLoading(false);
+    router.refresh();
+  };
 
   const months = useMemo(() => Object.keys(monthlyStats).sort().reverse(), [monthlyStats]);
 
@@ -67,7 +103,7 @@ export function PromoCodesManager({ codes, monthlyStats = {} }: { codes: PromoCo
       body: JSON.stringify({
         code: form.code,
         type: form.type,
-        value: parseInt(form.value),
+        value: form.type === 'FIXED' ? Math.round(parseFloat(form.value) * 100) : parseInt(form.value),
         maxUses: form.unlimited ? null : (form.maxUses ? parseInt(form.maxUses) : null),
         source: form.source || null,
         validUntil: form.noExpiry ? null : (form.validUntil || null),
@@ -122,14 +158,14 @@ export function PromoCodesManager({ codes, monthlyStats = {} }: { codes: PromoCo
               <label className="block text-xs font-semibold text-[#122056] mb-1">Typ</label>
               <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value as 'PERCENT' | 'FIXED' })} className={inputCls}>
                 <option value="PERCENT">Procentowy (%)</option>
-                <option value="FIXED">Kwotowy (grosze)</option>
+                <option value="FIXED">Kwotowy (zł)</option>
               </select>
             </div>
             <div>
               <label className="block text-xs font-semibold text-[#122056] mb-1">
-                Wartość {form.type === 'PERCENT' ? '(%)' : '(grosze, np. 2000 = 20 zł)'}
+                Wartość {form.type === 'PERCENT' ? '(%)' : '(zł)'}
               </label>
-              <input type="number" value={form.value} onChange={(e) => setForm({ ...form, value: e.target.value })} placeholder={form.type === 'PERCENT' ? '10' : '2000'} className={inputCls} />
+              <input type="number" value={form.value} onChange={(e) => setForm({ ...form, value: e.target.value })} placeholder={form.type === 'PERCENT' ? '10' : '20'} className={inputCls} />
             </div>
             <div>
               <label className="block text-xs font-semibold text-[#122056] mb-1">Limit użyć</label>
@@ -183,6 +219,54 @@ export function PromoCodesManager({ codes, monthlyStats = {} }: { codes: PromoCo
               </thead>
               <tbody>
                 {codes.map((c) => (
+                  editingId === c.id ? (
+                    <tr key={c.id} className="border-b border-[#EEEFFD] bg-[#FAFAFD]">
+                      <td className="px-3 py-2">
+                        <input value={editForm.code} onChange={(e) => setEditForm({ ...editForm, code: e.target.value.toUpperCase() })}
+                          className="w-24 px-2 py-1 rounded border border-[#EEEFFD] text-xs font-mono font-bold" />
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex gap-1">
+                          <select value={editForm.type} onChange={(e) => setEditForm({ ...editForm, type: e.target.value as 'PERCENT' | 'FIXED' })}
+                            className="px-1 py-1 rounded border border-[#EEEFFD] text-xs w-16">
+                            <option value="PERCENT">%</option>
+                            <option value="FIXED">zł</option>
+                          </select>
+                          <input type="number" value={editForm.value} onChange={(e) => setEditForm({ ...editForm, value: e.target.value })}
+                            className="w-16 px-2 py-1 rounded border border-[#EEEFFD] text-xs" />
+                        </div>
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex gap-1 items-center">
+                          <input type="number" value={editForm.usedCount} onChange={(e) => setEditForm({ ...editForm, usedCount: e.target.value })}
+                            className="w-12 px-2 py-1 rounded border border-[#EEEFFD] text-xs" />
+                          <span className="text-[#8a8fa6] text-xs">/</span>
+                          <input type="number" value={editForm.maxUses} onChange={(e) => setEditForm({ ...editForm, maxUses: e.target.value })}
+                            placeholder="∞" className="w-12 px-2 py-1 rounded border border-[#EEEFFD] text-xs" />
+                        </div>
+                      </td>
+                      <td className="px-3 py-2">
+                        <input value={editForm.source} onChange={(e) => setEditForm({ ...editForm, source: e.target.value })}
+                          placeholder="—" className="w-20 px-2 py-1 rounded border border-[#EEEFFD] text-xs" />
+                      </td>
+                      <td className="px-3 py-2">
+                        <button onClick={() => toggleActive(c.id, c.active)}
+                          className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${c.active ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-500'}`}>
+                          {c.active ? 'Aktywny' : 'Nieaktywny'}
+                        </button>
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex gap-1">
+                          <button onClick={handleUpdate} disabled={loading} className="text-emerald-600 hover:text-emerald-800">
+                            <Check size={14} />
+                          </button>
+                          <button onClick={() => setEditingId(null)} className="text-[#8a8fa6] hover:text-red-500">
+                            <X size={14} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : (
                   <tr key={c.id} className="border-b border-[#EEEFFD] last:border-0">
                     <td className="px-4 py-3 font-mono font-bold text-[#122056]">{c.code}</td>
                     <td className="px-4 py-3 text-[#122056]">
@@ -201,11 +285,17 @@ export function PromoCodesManager({ codes, monthlyStats = {} }: { codes: PromoCo
                       </button>
                     </td>
                     <td className="px-4 py-3">
-                      <button onClick={() => handleDelete(c.id)} className="text-[#8a8fa6] hover:text-red-500">
-                        <Trash2 size={14} />
-                      </button>
+                      <div className="flex gap-2">
+                        <button onClick={() => startEdit(c)} className="text-[#8a8fa6] hover:text-[#5B65DC]">
+                          <Pencil size={14} />
+                        </button>
+                        <button onClick={() => handleDelete(c.id)} className="text-[#8a8fa6] hover:text-red-500">
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
+                  )
                 ))}
               </tbody>
             </table>

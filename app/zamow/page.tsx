@@ -701,29 +701,43 @@ function OrderPage() {
               {/* Kod rabatowy */}
               <div className="pb-4 border-b border-[#EEEFFD]">
                 <p className="text-[#8a8fa6] text-xs mb-2">Kod rabatowy</p>
-                <div className="flex gap-2">
-                  <div className="relative flex-1">
-                    <IconTag size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8a8fa6]" stroke={1.5} />
-                    <input
-                      type="text"
-                      value={promoCode}
-                      onChange={(e) => { setPromoCode(e.target.value.toUpperCase()); setPromoResult(null); }}
-                      placeholder="Wpisz kod"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-[#FAFAFD] placeholder:text-[#c5c8d6] uppercase"
-                    />
+                {promoResult?.valid ? (
+                  <div className="flex items-center justify-between bg-emerald-50 rounded-xl px-4 py-3">
+                    <div>
+                      <p className="text-emerald-700 text-sm font-semibold">Kod {promoCode} zastosowany: {promoResult.label}</p>
+                    </div>
+                    <button
+                      onClick={() => { setPromoCode(''); setPromoResult(null); }}
+                      className="text-xs text-red-500 hover:text-red-700 font-semibold"
+                    >
+                      Usuń kod
+                    </button>
                   </div>
-                  <button
-                    onClick={handleApplyPromo}
-                    disabled={!promoCode.trim() || promoLoading}
-                    className="px-5 py-2.5 rounded-xl bg-[#EEEFFD] text-[#122056] text-sm font-semibold hover:bg-[#e0e2f8] transition-colors disabled:opacity-40"
-                  >
-                    {promoLoading ? 'Sprawdzam...' : 'Zastosuj'}
-                  </button>
-                </div>
-                {promoResult && (
-                  <p className={`text-xs mt-2 ${promoResult.valid ? 'text-emerald-600' : 'text-red-500'}`}>
-                    {promoResult.valid ? `Rabat zastosowany: ${promoResult.label}` : promoResult.error}
-                  </p>
+                ) : (
+                  <>
+                    <div className="flex gap-2">
+                      <div className="relative flex-1">
+                        <IconTag size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8a8fa6]" stroke={1.5} />
+                        <input
+                          type="text"
+                          value={promoCode}
+                          onChange={(e) => { setPromoCode(e.target.value.toUpperCase()); setPromoResult(null); }}
+                          placeholder="Wpisz kod"
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-[#FAFAFD] placeholder:text-[#c5c8d6] uppercase"
+                        />
+                      </div>
+                      <button
+                        onClick={handleApplyPromo}
+                        disabled={!promoCode.trim() || promoLoading}
+                        className="px-5 py-2.5 rounded-xl bg-[#EEEFFD] text-[#122056] text-sm font-semibold hover:bg-[#e0e2f8] transition-colors disabled:opacity-40"
+                      >
+                        {promoLoading ? 'Sprawdzam...' : 'Zastosuj'}
+                      </button>
+                    </div>
+                    {promoResult && !promoResult.valid && (
+                      <p className="text-xs mt-2 text-red-500">{promoResult.error}</p>
+                    )}
+                  </>
                 )}
               </div>
 

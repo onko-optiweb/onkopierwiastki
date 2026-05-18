@@ -151,7 +151,7 @@ export default async function OrderDetailPage({
       </div>
 
       {/* Status actions */}
-      <OrderStatusActions orderId={order.id} currentStatus={order.status} />
+      <OrderStatusActions orderId={order.id} currentStatus={order.status} hasFacilityEmail={!!order.facility?.email} />
     </div>
   );
 }
