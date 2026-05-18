@@ -57,8 +57,6 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
     email: settings.email || '',
     phone: settings.phone || '',
     address: settings.address || '',
-    ga4Id: settings.ga4Id || '',
-    gscVerification: settings.gscVerification || '',
     gtmId: settings.gtmId || '',
     recaptchaEnabled: settings.recaptchaEnabled,
     recaptchaSiteKey: settings.recaptchaSiteKey || '',
@@ -112,18 +110,8 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
         </div>
       </Section>
 
-      {/* GA4 */}
-      <Section title="Google Analytics 4" description="Identyfikator pomiaru GA4 (Measurement ID)">
-        <Field label="GA4 Measurement ID" name="ga4Id" value={form.ga4Id} onChange={handleField} placeholder="G-XXXXXXXXXX" mono />
-      </Section>
-
-      {/* GSC */}
-      <Section title="Google Search Console" description="Kod weryfikacyjny GSC (meta tag content)">
-        <Field label="Kod weryfikacyjny" name="gscVerification" value={form.gscVerification} onChange={handleField} placeholder="abc123..." mono />
-      </Section>
-
       {/* GTM */}
-      <Section title="Google Tag Manager" description="Identyfikator kontenera GTM">
+      <Section title="Google Tag Manager" description="Identyfikator kontenera GTM (także do pikseli Meta, TikTok itp.)">
         <Field label="GTM Container ID" name="gtmId" value={form.gtmId} onChange={handleField} placeholder="GTM-XXXXXXX" mono />
       </Section>
 

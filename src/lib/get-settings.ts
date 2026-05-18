@@ -7,8 +7,6 @@ export type SiteSettings = {
   email: string | null;
   phone: string | null;
   address: string | null;
-  ga4Id: string | null;
-  gscVerification: string | null;
   gtmId: string | null;
   recaptchaEnabled: boolean;
   recaptchaSiteKey: string | null;
@@ -39,8 +37,6 @@ const defaults: SiteSettings = {
   email: "kontakt@onkopierwiastki.pl",
   phone: null,
   address: "71-253 Szczecin, ul. Akacjowa 2",
-  ga4Id: null,
-  gscVerification: null,
   gtmId: null,
   recaptchaEnabled: false,
   recaptchaSiteKey: null,
