@@ -214,7 +214,7 @@ export async function createOrder(data: CreateOrderInput) {
           `${orderData.panelType === "PROFILAKTYKA" ? "Profilaktyczny" : "Onkologiczny"} — ${orderData.panelTier.toLowerCase()}`;
 
         const payuResult = await createPayuOrder({
-          orderNumber,
+          orderNumber: order.id,
           totalAmount: finalPrice,
           products: [
             {
@@ -256,10 +256,17 @@ export async function createOrder(data: CreateOrderInput) {
         redirectUrl = payuResult.redirectUri;
       } catch (payuError) {
         console.error("PayU createOrder error:", payuError);
+        return {
+          success: true,
+          data: {
+            orderId: order.id,
+            orderNumber,
+            redirectUrl: undefined,
+          },
+          warning: "Zamówienie złożone, ale płatność nie została utworzona. Użyj przycisku 'Opłać ponownie'.",
+        };
       }
     }
-
-    // Emails are sent from PayU callback (after payment is confirmed)
 
     return {
       success: true,
