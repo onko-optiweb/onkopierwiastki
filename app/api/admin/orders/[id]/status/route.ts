@@ -83,6 +83,18 @@ export async function DELETE(
 
   const { id } = await params;
 
+  // Decrement promo code usage if order used one
+  const order = await prisma.order.findUnique({
+    where: { id },
+    select: { promoCodeId: true },
+  });
+  if (order?.promoCodeId) {
+    await prisma.promoCode.update({
+      where: { id: order.promoCodeId },
+      data: { usedCount: { decrement: 1 } },
+    });
+  }
+
   // Delete payments first, then order
   await prisma.payment.deleteMany({ where: { orderId: id } });
   await prisma.order.delete({ where: { id } });
