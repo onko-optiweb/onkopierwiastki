@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+
+.grecaptcha-badge { visibility: hidden !important; }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
   themes: business --default;
