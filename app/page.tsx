@@ -18,6 +18,7 @@ import OrderOnline from '@/src/components/OrderOnline';
 import Professor from '@/src/components/Professor';
 import ProfessorVideos from '@/src/components/ProfessorVideos';
 import FAQ from '@/src/components/FAQ';
+import { faqQuestions } from '@/src/data/faq';
 import FinalCTA from '@/src/components/FinalCTA';
 import CityLinks from '@/src/components/CityLinks';
 import Footer from '@/src/components/Footer';
@@ -29,8 +30,22 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqQuestions.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Navbar />
       <main>
         <Hero />
