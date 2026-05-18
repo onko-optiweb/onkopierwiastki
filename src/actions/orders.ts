@@ -387,7 +387,7 @@ export async function retryPayment(orderId: string) {
     const panelName = `${order.panelType === "PROFILAKTYKA" ? "Profilaktyczny" : "Onkologiczny"} — ${order.panelTier.toLowerCase()}`;
 
     const payuResult = await createPayuOrder({
-      orderNumber: order.id,
+      orderNumber: `${order.id}-retry-${Date.now()}`,
       totalAmount: finalPrice,
       products: [{
         name: `Panel ${panelName}`,
