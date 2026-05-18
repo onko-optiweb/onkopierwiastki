@@ -11,12 +11,19 @@ function PostHogPageView() {
   const ph = usePostHog();
 
   useEffect(() => {
-    if (pathname && ph) {
-      let url = window.origin + pathname;
-      const search = searchParams.toString();
-      if (search) url += '?' + search;
-      ph.capture('$pageview', { $current_url: url });
+    if (!pathname || !ph) return;
+
+    // Don't track admin or login pages
+    if (pathname.startsWith('/admin') || pathname.startsWith('/login')) {
+      ph.opt_out_capturing();
+      return;
     }
+
+    ph.opt_in_capturing();
+    let url = window.origin + pathname;
+    const search = searchParams.toString();
+    if (search) url += '?' + search;
+    ph.capture('$pageview', { $current_url: url });
   }, [pathname, searchParams, ph]);
 
   return null;
