@@ -10,22 +10,47 @@
 
 import { MetadataRoute } from 'next';
 import { siteConfig } from '@/src/siteConfig';
+import { prisma } from '@/src/lib/prisma';
+import { getAllCitySlugs } from '@/src/data/cities';
 
-export const dynamic = 'force-static';
-
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.domain;
 
-  const pages = [
+  // Static pages
+  const staticPages = [
     { path: '/', changeFrequency: 'weekly' as const, priority: 1.0 },
     { path: '/zamow', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: '/blog', changeFrequency: 'weekly' as const, priority: 0.8 },
     { path: '/regulamin', changeFrequency: 'yearly' as const, priority: 0.3 },
     { path: '/polityka-prywatnosci', changeFrequency: 'yearly' as const, priority: 0.3 },
   ];
 
-  return pages.map((page) => ({
+  // City pages
+  const citySlugs = getAllCitySlugs();
+  const cityPages = citySlugs.map((slug) => ({
+    path: `/miasto/${slug}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
+  // Blog posts from DB
+  const posts = await prisma.blogPost.findMany({
+    where: { published: true },
+    select: { slug: true, updatedAt: true },
+    orderBy: { updatedAt: 'desc' },
+  });
+  const blogPages = posts.map((post) => ({
+    path: `/blog/${post.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+    lastModified: post.updatedAt,
+  }));
+
+  const allPages = [...staticPages, ...cityPages, ...blogPages];
+
+  return allPages.map((page) => ({
     url: `${baseUrl}${page.path}`,
-    lastModified: new Date(),
+    lastModified: 'lastModified' in page ? page.lastModified : new Date(),
     changeFrequency: page.changeFrequency,
     priority: page.priority,
   }));

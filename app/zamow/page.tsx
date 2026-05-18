@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo, useCallback, Suspense } from 'react';
+import { useState, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTag, IconLoader2 } from '@tabler/icons-react';
@@ -106,7 +106,6 @@ function OrderPage() {
   const discount = promoResult?.valid ? promoResult.discount! : 0;
   const finalPrice = selectedPanel.price - discount / 100;
   const selectedFacility = facilities.find((f) => f.id === facilityId);
-  const nextBtnRef = useRef<HTMLButtonElement>(null);
 
   // Deselect facility if it doesn't support the new material
   useEffect(() => {
@@ -389,16 +388,18 @@ function OrderPage() {
                     const materialLabel = selectedPanel.material === 'Krew pełna' ? 'krwi pełnej' :
                       selectedPanel.material === 'Surowica' ? 'surowicy' : 'krwi pełnej i surowicy';
                     return (
-                      <button
+                      <div
                         key={f.id}
+                        role="button"
+                        tabIndex={supported ? 0 : -1}
                         onClick={() => supported && handleSelectFacility(f.id)}
-                        disabled={!supported}
+                        onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && supported) { e.preventDefault(); handleSelectFacility(f.id); } }}
                         className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                           !supported
                             ? 'border-transparent bg-neutral-50 opacity-50 cursor-not-allowed'
                             : facilityId === f.id && !isOnline
-                              ? 'border-[#5B65DC] bg-white'
-                              : 'border-transparent bg-white hover:border-[#EEEFFD]'
+                              ? 'border-[#5B65DC] bg-white cursor-pointer'
+                              : 'border-transparent bg-white hover:border-[#EEEFFD] cursor-pointer'
                         }`}
                       >
                         <p className={`font-bold text-sm ${supported ? 'text-[#122056]' : 'text-neutral-400'}`}>{f.name}</p>
@@ -413,9 +414,9 @@ function OrderPage() {
                           </p>
                         )}
                         {supported && facilityId === f.id && (
-                          <div className="mt-3" onClick={(e) => e.stopPropagation()}>
+                          <div className="mt-3">
                             <button
-                              onClick={() => setStep(step + 1)}
+                              onClick={(e) => { e.stopPropagation(); setStep(step + 1); }}
                               className="w-full flex items-center justify-center gap-2 bg-[#5B65DC] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-[#4a53c7] transition-colors"
                             >
                               Wybieram tę placówkę
@@ -423,7 +424,7 @@ function OrderPage() {
                             </button>
                           </div>
                         )}
-                      </button>
+                      </div>
                     );
                   })}
                   {filtered.length === 0 && (
@@ -453,7 +454,6 @@ function OrderPage() {
                 Wstecz
               </button>
               <button
-                ref={nextBtnRef}
                 onClick={() => canProceed() && setStep(step + 1)}
                 disabled={!canProceed()}
                 className="flex items-center gap-2 bg-[#5B65DC] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#4a53c7] transition-colors text-sm disabled:opacity-40 disabled:cursor-not-allowed"

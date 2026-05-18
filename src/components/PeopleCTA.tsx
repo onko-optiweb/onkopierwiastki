@@ -1,8 +1,8 @@
 const photos = [
-  '/images/people/253.webp',
-  '/images/people/2396.webp',
-  '/images/people/14786.webp',
-  '/images/people/46911.webp',
+  { src: '/images/people/253.webp', alt: 'Pacjentka po badaniu onkopierwiastków' },
+  { src: '/images/people/2396.webp', alt: 'Pacjent zadowolony z wyniku badania' },
+  { src: '/images/people/14786.webp', alt: 'Kobieta dbająca o profilaktykę nowotworową' },
+  { src: '/images/people/46911.webp', alt: 'Mężczyzna po badaniu pierwiastków we krwi' },
 ];
 
 export default function PeopleCTA() {
@@ -11,14 +11,14 @@ export default function PeopleCTA() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Photos */}
         <div className="flex justify-center gap-4 sm:gap-5 mb-6 sm:mb-12">
-          {photos.map((src, i) => (
+          {photos.map((photo, i) => (
             <div
               key={i}
               className={`w-32 sm:w-40 lg:w-48 rounded-2xl overflow-hidden shadow-md shadow-black/5 ${
                 i === 1 || i === 2 ? '-translate-y-3' : 'translate-y-1'
               } ${i === 0 || i === 3 ? 'hidden sm:block opacity-60' : ''}`}
             >
-              <img src={src} alt="" className="w-full h-auto" />
+              <img src={photo.src} alt={photo.alt} className="w-full h-auto" />
             </div>
           ))}
         </div>

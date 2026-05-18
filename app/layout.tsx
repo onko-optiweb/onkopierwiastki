@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   description: siteConfig.tagline,
   metadataBase: new URL(siteConfig.domain),
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
   alternates: {
     canonical: '/',
@@ -43,6 +43,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     type: 'website',
+    images: [{ url: '/images/og-default.png', width: 1200, height: 630, alt: 'Onkopierwiastki — badanie 6 pierwiastków we krwi' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.tagline,
+    images: ['/images/og-default.png'],
   },
 };
 
@@ -78,6 +85,7 @@ export default async function RootLayout({
       opens: item.opens,
       closes: item.closes,
     })),
+    sameAs: [siteConfig.social.facebook, siteConfig.social.instagram].filter(Boolean),
   };
 
   return (

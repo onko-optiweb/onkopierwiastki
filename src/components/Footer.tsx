@@ -19,6 +19,10 @@ const legalLinks = [
   { label: 'Ustawienia cookies', href: '#cookies', onClick: true },
 ];
 
+const cityLinks = [
+  { label: 'Onkopierwiastki Wrocław', href: '/miasto/wroclaw' },
+];
+
 export default function Footer() {
   return (
     <footer className="bg-white px-3 sm:px-4 pb-4">
@@ -46,7 +50,7 @@ export default function Footer() {
         </div>
 
         {/* Main content */}
-        <div className="grid md:grid-cols-3 gap-10 px-8 lg:px-12 py-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 px-8 lg:px-12 py-12">
           {/* Logo + info */}
           <div>
             <div className="mb-6">
@@ -64,6 +68,18 @@ export default function Footer() {
             <p className="font-semibold text-white text-sm mb-4">Nawigacja</p>
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm hover:text-white transition-colors">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* City links */}
+          <div>
+            <p className="font-semibold text-white text-sm mb-4">Miasta</p>
+            <ul className="space-y-2.5">
+              {cityLinks.map((link) => (
                 <li key={link.href}>
                   <a href={link.href} className="text-sm hover:text-white transition-colors">{link.label}</a>
                 </li>

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Navbar from '@/src/components/Navbar';
 import Hero from '@/src/components/Hero';
 import TrustBar from '@/src/components/TrustBar';
@@ -20,6 +21,12 @@ import FAQ from '@/src/components/FAQ';
 import FinalCTA from '@/src/components/FinalCTA';
 import CityLinks from '@/src/components/CityLinks';
 import Footer from '@/src/components/Footer';
+
+export const metadata: Metadata = {
+  title: { absolute: 'Onkopierwiastki — badanie 6 pierwiastków we krwi | Profilaktyka nowotworowa' },
+  description: 'Zbadaj stężenie 6 pierwiastków śladowych (Se, Zn, As, Cu, Cd, Pb) we krwi. Spersonalizowany wynik z zaleceniami w 15 dni roboczych. Ponad 20 lat badań naukowych prof. Lubińskiego.',
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   return (
