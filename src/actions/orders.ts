@@ -148,8 +148,8 @@ export async function createOrder(data: CreateOrderInput) {
       return { success: false, error: "Nieprawidłowy typ panelu" };
     }
     if (orderData.price !== validPrice) {
-      console.error(`Price tampering: client=${orderData.price}, expected=${validPrice}`);
-      orderData.price = validPrice;
+      console.error(`Price tampering rejected: client=${orderData.price}, expected=${validPrice}`);
+      return { success: false, error: "Nieprawidłowa cena zamówienia" };
     }
 
     // Walidacja placówki

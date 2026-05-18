@@ -8,14 +8,16 @@ export async function POST(request: NextRequest) {
     const rawBody = await request.text();
     const signatureHeader = request.headers.get("OpenPayu-Signature") || "";
 
-    // Verify signature
+    // Verify signature (mandatory)
     const md5Key = process.env.PAYU_MD5_KEY;
-    if (md5Key) {
-      const valid = verifyPayuSignature(rawBody, signatureHeader, md5Key);
-      if (!valid) {
-        console.error("PayU webhook: invalid signature");
-        return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-      }
+    if (!md5Key) {
+      console.error("PayU webhook: PAYU_MD5_KEY not configured");
+      return NextResponse.json({ error: "Server misconfigured" }, { status: 503 });
+    }
+    const valid = verifyPayuSignature(rawBody, signatureHeader, md5Key);
+    if (!valid) {
+      console.error("PayU webhook: invalid signature");
+      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
     }
 
     const body = JSON.parse(rawBody);
