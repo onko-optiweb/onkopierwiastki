@@ -109,6 +109,11 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* reCAPTCHA notice */}
+        <div className="border-t border-white/10 px-8 lg:px-12 py-4 text-[10px] text-white/20 text-center">
+          Witryna chroniona przez reCAPTCHA Enterprise. Obowiązuje <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40">Polityka prywatności</a> oraz <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/40">Warunki korzystania</a> Google.
+        </div>
+
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 px-8 lg:px-12 py-6 text-xs text-white/30">
           <p>&copy; {new Date().getFullYear()} {siteConfig.owner}. Wszelkie prawa zastrzeżone. Realizacja: <a href="https://optiweb.pl" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">optiweb.pl</a></p>
