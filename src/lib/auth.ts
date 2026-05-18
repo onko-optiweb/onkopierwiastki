@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/src/lib/prisma";
 import { authConfig } from "@/src/lib/auth.config";
+import { verifyRecaptchaToken } from "@/src/lib/recaptcha";
 
 // Simple in-memory rate limiter for login attempts
 const loginAttempts = new Map<string, { count: number; lastAttempt: number }>();
@@ -39,11 +40,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Hasło", type: "password" },
+        recaptchaToken: { label: "reCAPTCHA", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
         const email = (credentials.email as string).toLowerCase();
+
+        // reCAPTCHA verification
+        const settings = await prisma.siteSettings.findUnique({
+          where: { id: 'main' },
+          select: { recaptchaEnabled: true, recaptchaSiteKey: true, recaptchaSecretKey: true },
+        });
+        if (settings?.recaptchaEnabled && settings.recaptchaSecretKey && settings.recaptchaSiteKey) {
+          const token = credentials.recaptchaToken as string;
+          if (!token) return null;
+          const { valid } = await verifyRecaptchaToken(token, 'LOGIN', settings.recaptchaSecretKey, settings.recaptchaSiteKey);
+          if (!valid) return null;
+        }
 
         // Rate limit check
         if (!checkRateLimit(email)) {

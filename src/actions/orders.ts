@@ -2,6 +2,7 @@
 
 import { prisma } from "@/src/lib/prisma";
 import { createPayuOrder, isPayuEnabled, getPayuOrderStatus } from "@/src/lib/payu";
+import { verifyRecaptchaToken } from "@/src/lib/recaptcha";
 
 import { headers } from "next/headers";
 import { z } from "zod";
@@ -30,6 +31,7 @@ const createOrderSchema = z.object({
     error: "Musisz zaakceptować regulamin",
   }),
   acceptMarketing: z.boolean().optional(),
+  recaptchaToken: z.string().optional().nullable(),
 });
 
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;
@@ -121,8 +123,24 @@ export async function createOrder(data: CreateOrderInput) {
       acceptTerms: _,
       acceptMarketing: _m,
       promoCode,
+      recaptchaToken,
       ...orderData
     } = parsed.data;
+
+    // reCAPTCHA verification
+    const settings = await prisma.siteSettings.findUnique({
+      where: { id: 'main' },
+      select: { recaptchaEnabled: true, recaptchaSiteKey: true, recaptchaSecretKey: true },
+    });
+    if (settings?.recaptchaEnabled && settings.recaptchaSecretKey && settings.recaptchaSiteKey) {
+      if (!recaptchaToken) {
+        return { success: false, error: 'Weryfikacja reCAPTCHA nie powiodła się.' };
+      }
+      const { valid } = await verifyRecaptchaToken(recaptchaToken, 'ORDER', settings.recaptchaSecretKey, settings.recaptchaSiteKey);
+      if (!valid) {
+        return { success: false, error: 'Weryfikacja reCAPTCHA nie powiodła się.' };
+      }
+    }
 
     // Walidacja ceny — serwer wyznacza cenę, nie klient
     const validPrice = getValidPrice(orderData.panelType, orderData.panelTier);

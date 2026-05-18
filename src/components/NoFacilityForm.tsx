@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { IconPhone, IconMapPin, IconUser, IconCheck, IconLoader2, IconBuilding } from '@tabler/icons-react';
+import { getRecaptchaToken } from '@/src/lib/recaptcha';
 
 export default function NoFacilityForm() {
   const [form, setForm] = useState({ name: '', postalCode: '', city: '', phone: '' });
@@ -11,10 +12,11 @@ export default function NoFacilityForm() {
     e.preventDefault();
     setStatus('loading');
     try {
+      const recaptchaToken = await getRecaptchaToken('CONTACT');
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
       setStatus(res.ok ? 'success' : 'error');
     } catch {

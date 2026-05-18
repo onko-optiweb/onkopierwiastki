@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSearch, IconCircleCheck, IconTag, IconLoader2 } from '@tabler/icons-react';
 import NoFacilityForm from '@/src/components/NoFacilityForm';
 import { createOrder } from '@/src/actions/orders';
+import { getRecaptchaToken } from '@/src/lib/recaptcha';
 
 interface Facility {
   id: number;
@@ -206,6 +207,7 @@ function OrderPage() {
     setSubmitting(true);
     setSubmitError('');
     try {
+      const recaptchaToken = await getRecaptchaToken('ORDER');
       const result = await createOrder({
         firstName: firstName.trim(),
         lastName: lastName.trim(),
@@ -227,6 +229,7 @@ function OrderPage() {
         promoCode: promoResult?.valid ? promoCode.trim().toUpperCase() : null,
         acceptTerms: true,
         acceptMarketing,
+        recaptchaToken,
       });
 
       if (result.success && result.data) {

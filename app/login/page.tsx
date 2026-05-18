@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { getRecaptchaToken } from '@/src/lib/recaptcha';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -16,9 +17,11 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
+    const recaptchaToken = await getRecaptchaToken('LOGIN');
     const result = await signIn('credentials', {
       email,
       password,
+      recaptchaToken: recaptchaToken || '',
       redirect: false,
     });
 

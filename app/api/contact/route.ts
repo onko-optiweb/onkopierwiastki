@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { prisma } from '@/src/lib/prisma';
+import { verifyRecaptchaToken } from '@/src/lib/recaptcha';
 
 function escapeHtml(str: string): string {
   return str
@@ -13,7 +14,7 @@ function escapeHtml(str: string): string {
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, postalCode, city, phone } = await req.json();
+    const { name, postalCode, city, phone, recaptchaToken } = await req.json();
 
     if (!name || !city || !phone) {
       return NextResponse.json({ error: 'Uzupełnij wymagane pola.' }, { status: 400 });
@@ -21,8 +22,19 @@ export async function POST(req: NextRequest) {
 
     const settings = await prisma.siteSettings.findUnique({
       where: { id: 'main' },
-      select: { smtpHost: true, smtpPort: true, smtpUser: true, smtpPassword: true, smtpSecure: true, smtpFrom: true },
+      select: { smtpHost: true, smtpPort: true, smtpUser: true, smtpPassword: true, smtpSecure: true, smtpFrom: true, recaptchaEnabled: true, recaptchaSiteKey: true, recaptchaSecretKey: true },
     });
+
+    // reCAPTCHA verification
+    if (settings?.recaptchaEnabled && settings.recaptchaSecretKey && settings.recaptchaSiteKey) {
+      if (!recaptchaToken) {
+        return NextResponse.json({ error: 'Weryfikacja reCAPTCHA nie powiodła się.' }, { status: 400 });
+      }
+      const { valid } = await verifyRecaptchaToken(recaptchaToken, 'CONTACT', settings.recaptchaSecretKey, settings.recaptchaSiteKey);
+      if (!valid) {
+        return NextResponse.json({ error: 'Weryfikacja reCAPTCHA nie powiodła się.' }, { status: 403 });
+      }
+    }
 
     if (!settings?.smtpHost || !settings.smtpUser || !settings.smtpPassword) {
       return NextResponse.json({ error: 'Błąd konfiguracji serwera.' }, { status: 500 });

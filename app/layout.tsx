@@ -90,7 +90,13 @@ export default async function RootLayout({
 
   return (
     <html lang={siteConfig.language} data-theme='business' suppressHydrationWarning>
-      <body className={`${funnelDisplay.variable} ${dmSans.variable} font-sans antialiased`} suppressHydrationWarning>
+      <head>
+        {settings.recaptchaEnabled && settings.recaptchaSiteKey && (
+          <script src={`https://www.google.com/recaptcha/enterprise.js?render=${settings.recaptchaSiteKey}`} async defer />
+        )}
+      </head>
+      <body className={`${funnelDisplay.variable} ${dmSans.variable} font-sans antialiased`} suppressHydrationWarning
+        {...(settings.recaptchaEnabled && settings.recaptchaSiteKey ? { 'data-recaptcha-key': settings.recaptchaSiteKey } : {})}>
         <PostHogProvider>
           {children}
         </PostHogProvider>
