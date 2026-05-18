@@ -103,7 +103,6 @@ export const siteConfig: SiteConfig = {
     { label: 'Jak się przygotować', href: '/#przygotowanie' },
     { label: 'Placówki', href: '/#placowki' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Zamów online', href: '/#zamow' },
   ],
 
   logo: {

@@ -27,12 +27,6 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <a
-                href="/blog"
-                className="text-[13px] text-neutral-400 hover:text-[#122056] transition-colors"
-              >
-                Blog
-              </a>
             </div>
           </div>
 
@@ -72,13 +66,6 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
-          <a
-            href="/blog"
-            onClick={() => setOpen(false)}
-            className="block py-3 text-sm text-neutral-400 hover:text-[#122056] border-b border-neutral-50"
-          >
-            Blog
-          </a>
           <a
             href="/zamow"
             onClick={() => setOpen(false)}
