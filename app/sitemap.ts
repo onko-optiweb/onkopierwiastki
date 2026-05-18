@@ -46,12 +46,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: post.updatedAt,
   }));
 
-  const allPages = [...staticPages, ...cityPages, ...blogPages];
-
-  return allPages.map((page) => ({
-    url: `${baseUrl}${page.path}`,
-    lastModified: 'lastModified' in page ? page.lastModified : new Date(),
-    changeFrequency: page.changeFrequency,
-    priority: page.priority,
-  }));
+  return [
+    ...staticPages.map((page) => ({
+      url: `${baseUrl}${page.path}`,
+      lastModified: new Date(),
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })),
+    ...cityPages.map((page) => ({
+      url: `${baseUrl}${page.path}`,
+      lastModified: new Date(),
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })),
+    ...blogPages.map((page) => ({
+      url: `${baseUrl}${page.path}`,
+      lastModified: page.lastModified,
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })),
+  ];
 }
