@@ -13,7 +13,7 @@ export default function CityLinks() {
             Badanie onkopierwiastków w Twoim mieście
           </h2>
           <p className="text-[#8a8fa6] text-sm max-w-xl mx-auto">
-            Znajdź certyfikowaną placówkę referencyjną, w której wykonasz onkopakiet.
+            Znajdź certyfikowaną placówkę, w której wykonasz badanie onkopierwiastków.
           </p>
         </div>
 

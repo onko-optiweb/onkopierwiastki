@@ -235,10 +235,10 @@ export default async function CityPage({ params }: Props) {
         <section id="placowki" className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Onkopakiet {city.name}.<br />Punkty pobrań i placówki
+              Onkopierwiastki {city.name}.<br />Punkty pobrań i placówki
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
-              Onkopakiet — badanie pierwiastków, które bywa potocznie określane jako onkopakiet — wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
+              Badanie onkopierwiastków wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
             {facilities.length === 0 && <NoFacilityForm />}
             {facilities.length > 0 && (
@@ -363,10 +363,10 @@ export default async function CityPage({ params }: Props) {
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Badanie 6 pierwiastków we krwi — co obejmuje onkopakiet?
+              Badanie 6 pierwiastków we krwi — co obejmuje badanie onkopierwiastków?
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-10">
-              Onkopakiet oznacza stężenia sześciu pierwiastków śladowych, których poziom we krwi — według wieloletnich badań — wiąże się z ryzykiem nowotworów.
+              Badanie onkopierwiastków oznacza stężenia sześciu pierwiastków śladowych, których poziom we krwi — według wieloletnich badań — wiąże się z ryzykiem nowotworów.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -400,7 +400,7 @@ export default async function CityPage({ params }: Props) {
               Komu szczególnie polecamy badanie onkopierwiastków?
             </h2>
             <p className="text-white/50 text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
-              Onkopakiet jest przeznaczony dla wszystkich dorosłych osób z polskiej populacji. Szczególną korzyść odniosą:
+              Badanie onkopierwiastków jest przeznaczone dla wszystkich dorosłych osób z polskiej populacji. Szczególną korzyść odniosą:
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -471,7 +471,7 @@ export default async function CityPage({ params }: Props) {
         <section className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Co zyskasz dzięki onkopakietowi?
+              Co zyskasz dzięki badaniu onkopierwiastków?
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
               To nie kolejne badanie krwi. To spersonalizowana informacja, która zmienia podejście do profilaktyki.
@@ -522,7 +522,7 @@ export default async function CityPage({ params }: Props) {
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="bg-[#EEEFFD] rounded-2xl p-8 lg:p-10 text-center">
               <h2 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-[#122056] mb-3">
-                Zamów onkopakiet {city.name} — badanie onkopierwiastków online
+                Zamów badanie onkopierwiastków {city.name} — online
               </h2>
               <p className="text-[#8a8fa6] text-sm mb-6 max-w-xl mx-auto">
                 Jedno pobranie krwi. Sześć pierwiastków. Spersonalizowany raport z zaleceniami dietetycznymi i suplementacyjnymi w 15 dni roboczych.
