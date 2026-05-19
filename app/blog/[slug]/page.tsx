@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Content with TOC sidebar */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-6xl xl:grid xl:grid-cols-[220px_1fr] xl:gap-10">
-          {/* TOC — left sidebar, stretches full height for sticky to work */}
+          {/* TOC — sidebar on desktop, accordion on mobile (inside component) */}
           <BlogTableOfContents content={post.content} />
 
           {/* Article content */}

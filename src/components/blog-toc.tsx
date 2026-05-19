@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 interface TocItem {
   id: string;
@@ -11,6 +12,7 @@ interface TocItem {
 export function BlogTableOfContents({ content }: { content: string }) {
   const [activeId, setActiveId] = useState('');
   const [headings, setHeadings] = useState<TocItem[]>([]);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const article = document.querySelector('[data-blog-content]');
@@ -33,7 +35,7 @@ export function BlogTableOfContents({ content }: { content: string }) {
       items.push({
         id: el.id,
         text: el.textContent || '',
-        level: el.tagName === 'H2' ? 2 : 3,
+        level: 2,
       });
     });
 
@@ -69,33 +71,57 @@ export function BlogTableOfContents({ content }: { content: string }) {
       const top = el.getBoundingClientRect().top + window.scrollY - 90;
       window.scrollTo({ top, behavior: 'smooth' });
     }
+    setMobileOpen(false);
   };
 
+  const tocList = (
+    <ul className="space-y-1 border-l-2 border-neutral-200">
+      {headings.map((h) => (
+        <li key={h.id}>
+          <button
+            onClick={() => scrollTo(h.id)}
+            className={`block w-full text-left text-[13px] leading-snug transition-colors duration-150 border-l-2 -ml-[2px] pl-4 py-1.5 ${
+              activeId === h.id
+                ? 'border-[#5B65DC] text-[#5B65DC] font-medium'
+                : 'border-transparent text-[#8a8fa6] hover:text-[#122056] hover:border-neutral-300'
+            }`}
+          >
+            {h.text}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <aside className="hidden xl:block" aria-label="Spis treści">
-      <nav className="sticky top-24">
-        <p className="text-xs font-semibold text-[#122056] uppercase tracking-wider mb-3">
+    <>
+      {/* Mobile — accordion above article */}
+      <div className="xl:hidden mb-6">
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="w-full flex items-center justify-between bg-white rounded-xl px-5 py-3.5 border border-neutral-200 text-sm font-semibold text-[#122056]"
+        >
           Spis treści
-        </p>
-        <ul className="space-y-1 border-l-2 border-neutral-200 max-h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar">
-          {headings.map((h) => (
-            <li key={h.id}>
-              <button
-                onClick={() => scrollTo(h.id)}
-                className={`block w-full text-left text-[13px] leading-snug transition-colors duration-150 border-l-2 -ml-[2px] ${
-                  h.level === 3 ? 'pl-6' : 'pl-4'
-                } py-1.5 ${
-                  activeId === h.id
-                    ? 'border-[#5B65DC] text-[#5B65DC] font-medium'
-                    : 'border-transparent text-[#8a8fa6] hover:text-[#122056] hover:border-neutral-300'
-                }`}
-              >
-                {h.text}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </aside>
+          <ChevronDown size={16} className={`text-[#8a8fa6] transition-transform duration-200 ${mobileOpen ? 'rotate-180' : ''}`} />
+        </button>
+        {mobileOpen && (
+          <div className="bg-white rounded-b-xl border border-t-0 border-neutral-200 px-5 py-4 -mt-1">
+            {tocList}
+          </div>
+        )}
+      </div>
+
+      {/* Desktop — sidebar sticky */}
+      <aside className="hidden xl:block" aria-label="Spis treści">
+        <nav className="sticky top-24">
+          <p className="text-xs font-semibold text-[#122056] uppercase tracking-wider mb-3">
+            Spis treści
+          </p>
+          <div className="max-h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar">
+            {tocList}
+          </div>
+        </nav>
+      </aside>
+    </>
   );
 }

@@ -17,7 +17,7 @@ export default function Navbar() {
               <img src="/logos/onkopierwiastki.svg" alt="Onkopierwiastki" className="h-14" />
             </a>
 
-            <div className="hidden lg:flex items-center gap-7">
+            <div className="hidden lg:flex items-center gap-7 mt-[10px]">
               {siteConfig.nav.map((item) => (
                 <a
                   key={item.href}
