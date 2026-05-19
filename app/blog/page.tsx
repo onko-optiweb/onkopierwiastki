@@ -6,6 +6,8 @@ import Navbar from '@/src/components/Navbar';
 import Footer from '@/src/components/Footer';
 import { ArrowRight, Calendar, ChevronRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Artykuły o profilaktyce nowotworowej, pierwiastkach śladowych i badaniach onkologicznych.',
