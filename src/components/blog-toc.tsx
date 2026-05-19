@@ -16,7 +16,7 @@ export function BlogTableOfContents({ content }: { content: string }) {
     const article = document.querySelector('[data-blog-content]');
     if (!article) return;
 
-    const elements = article.querySelectorAll('h2, h3');
+    const elements = article.querySelectorAll('h2');
     const items: TocItem[] = [];
 
     elements.forEach((el, index) => {
