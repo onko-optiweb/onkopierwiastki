@@ -150,6 +150,39 @@ export default async function OrderDetailPage({
         </div>
       </div>
 
+      {/* Źródło ruchu */}
+      {(order.utmSource || order.utmMedium || order.referrer) && (
+        <div className="bg-white rounded-xl p-6 space-y-4">
+          <h2 className="font-bold text-[#122056] text-sm">Źródło ruchu</h2>
+          <div className="grid sm:grid-cols-2 gap-4 text-sm">
+            {order.utmSource && (
+              <div>
+                <p className="text-[#8a8fa6] text-xs">Źródło (utm_source)</p>
+                <p className="text-[#122056] font-medium">{order.utmSource}</p>
+              </div>
+            )}
+            {order.utmMedium && (
+              <div>
+                <p className="text-[#8a8fa6] text-xs">Medium (utm_medium)</p>
+                <p className="text-[#122056] font-medium">{order.utmMedium}</p>
+              </div>
+            )}
+            {order.utmCampaign && (
+              <div>
+                <p className="text-[#8a8fa6] text-xs">Kampania (utm_campaign)</p>
+                <p className="text-[#122056] font-medium">{order.utmCampaign}</p>
+              </div>
+            )}
+            {order.referrer && (
+              <div>
+                <p className="text-[#8a8fa6] text-xs">Referrer</p>
+                <p className="text-[#122056] font-medium text-xs break-all">{order.referrer}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Status actions */}
       <OrderStatusActions orderId={order.id} currentStatus={order.status} hasFacilityEmail={!!order.facility?.email} />
     </div>

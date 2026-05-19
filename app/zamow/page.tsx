@@ -7,6 +7,7 @@ import { IconArrowLeft, IconArrowRight, IconMapPin, IconPhone, IconClock, IconSe
 import NoFacilityForm from '@/src/components/NoFacilityForm';
 import { createOrder } from '@/src/actions/orders';
 import { getRecaptchaToken } from '@/src/lib/recaptcha';
+import { useUtm } from '@/src/hooks/useUtm';
 
 interface Facility {
   id: number;
@@ -57,6 +58,7 @@ export default function OrderPageWrapper() {
 
 function OrderPage() {
   const searchParams = useSearchParams();
+  const utm = useUtm();
   const [facilities, setFacilities] = useState<Facility[]>([]);
   const [step, setStep] = useState(1);
   const [panelType, setPanelType] = useState<PanelType>(() => {
@@ -230,6 +232,10 @@ function OrderPage() {
         acceptTerms: true,
         acceptMarketing,
         recaptchaToken,
+        utmSource: utm.utmSource,
+        utmMedium: utm.utmMedium,
+        utmCampaign: utm.utmCampaign,
+        referrer: utm.referrer,
       });
 
       if (result.success && result.data) {

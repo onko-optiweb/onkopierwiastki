@@ -32,6 +32,10 @@ const createOrderSchema = z.object({
   }),
   acceptMarketing: z.boolean().optional(),
   recaptchaToken: z.string().optional().nullable(),
+  utmSource: z.string().optional().default(""),
+  utmMedium: z.string().optional().default(""),
+  utmCampaign: z.string().optional().default(""),
+  referrer: z.string().optional().default(""),
 });
 
 export type CreateOrderInput = z.infer<typeof createOrderSchema>;

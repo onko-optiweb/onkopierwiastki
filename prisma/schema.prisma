@@ -92,6 +92,12 @@ model Order {
   // PayU
   payuOrderId String?     @unique
 
+  // Źródło ruchu (UTM)
+  utmSource   String      @default("")
+  utmMedium   String      @default("")
+  utmCampaign String      @default("")
+  referrer    String      @default("")
+
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   paidAt      DateTime?
