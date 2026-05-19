@@ -8,6 +8,7 @@ import NoFacilityForm from '@/src/components/NoFacilityForm';
 import { createOrder } from '@/src/actions/orders';
 import { getRecaptchaToken } from '@/src/lib/recaptcha';
 import { useUtm } from '@/src/hooks/useUtm';
+import posthog from 'posthog-js';
 
 interface Facility {
   id: number;
@@ -239,6 +240,27 @@ function OrderPage() {
       });
 
       if (result.success && result.data) {
+        // PostHog: identify user + track order
+        try {
+          posthog.identify(email.trim(), {
+            name: `${firstName.trim()} ${lastName.trim()}`,
+            phone: phone.trim(),
+          });
+          posthog.capture('order_created', {
+            order_id: result.data.orderId,
+            order_number: result.data.orderNumber,
+            panel_type: panelType,
+            panel_tier: panelTier,
+            price: priceInGrosze / 100,
+            discount: promoResult?.valid ? promoResult.discount! / 100 : 0,
+            facility: facilityId ? facilities.find(f => f.id === facilityId)?.name : 'online',
+            promo_code: promoResult?.valid ? promoCode.trim().toUpperCase() : null,
+            utm_source: utm.utmSource,
+            utm_medium: utm.utmMedium,
+            utm_campaign: utm.utmCampaign,
+          });
+        } catch {}
+
         if (result.data.redirectUrl) {
           window.location.href = result.data.redirectUrl;
         } else {
