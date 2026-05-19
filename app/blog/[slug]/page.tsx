@@ -86,7 +86,7 @@ export default async function BlogPostPage({ params }: Props) {
       <main className="min-h-screen bg-[#FAFAFD] pt-24 pb-16">
         {/* Breadcrumbs */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-6xl mb-6">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
+          <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-sm text-[#8a8fa6]">
             <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
             <ChevronRight size={14} />
             <Link href="/blog" className="hover:text-[#122056] transition-colors">Blog</Link>
