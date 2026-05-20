@@ -615,35 +615,6 @@ function OrderPage() {
               {/* Separator */}
               <div className="h-px bg-[#EEEFFD]" />
 
-              {/* Faktura */}
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={needInvoice} onChange={(e) => setNeedInvoice(e.target.checked)}
-                  className="w-5 h-5 rounded border-[#EEEFFD] text-[#5B65DC] focus:ring-[#5B65DC]/20 cursor-pointer" />
-                <span className="text-sm text-[#122056] font-medium">Potrzebuję fakturę na firmę</span>
-              </label>
-
-              {needInvoice && (
-                <div className="grid sm:grid-cols-2 gap-4 pl-8">
-                  <div>
-                    <label htmlFor="companyName" className="block text-xs font-semibold text-[#122056] mb-1.5">
-                      Nazwa firmy <span className="text-red-500">*</span>
-                    </label>
-                    <input id="companyName" type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Nazwa firmy"
-                      className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
-                  </div>
-                  <div>
-                    <label htmlFor="nip" className="block text-xs font-semibold text-[#122056] mb-1.5">
-                      NIP <span className="text-red-500">*</span>
-                    </label>
-                    <input id="nip" type="text" value={nip} onChange={(e) => setNip(e.target.value.replace(/[^\d]/g, '').slice(0, 10))} placeholder="0000000000" maxLength={10}
-                      className="w-full px-4 py-3 rounded-xl border border-[#EEEFFD] focus:border-[#5B65DC] focus:ring-2 focus:ring-[#5B65DC]/20 outline-none text-sm bg-white placeholder:text-[#c5c8d6]" />
-                  </div>
-                </div>
-              )}
-
-              {/* Separator */}
-              <div className="h-px bg-[#EEEFFD]" />
-
               {/* Checkboxy */}
               <div className="space-y-4">
                 <label className="flex items-start gap-3 cursor-pointer">
@@ -715,7 +686,6 @@ function OrderPage() {
                   <p className="text-[#8a8fa6] text-xs">
                     {street} {houseNumber}{apartmentNumber ? '/' + apartmentNumber : ''}, {postalCode} {city}
                   </p>
-                  {needInvoice && <p className="text-[#8a8fa6] text-xs">Faktura: {companyName}, NIP: {nip}</p>}
                 </div>
                 <button onClick={() => setStep(3)} className="text-[#5B65DC] text-xs font-semibold hover:underline">Zmień</button>
               </div>

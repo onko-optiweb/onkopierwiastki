@@ -12,6 +12,7 @@ import Pricing from '@/src/components/Pricing';
 import { ExpandableText } from '@/src/components/ExpandableText';
 import { CollapsibleContent } from '@/src/components/CollapsibleContent';
 import { FacilityDescription } from '@/src/components/FacilityDescription';
+import { FacilityCarousel } from '@/src/components/FacilityCarousel';
 import {
   ChevronRight, MapPin, Phone, Clock, ArrowRight, ShieldCheck,
   FlaskConical, AlertTriangle, Check,
@@ -63,6 +64,8 @@ export default async function CityPage({ params }: Props) {
   const facilityLogos: Record<string, string> = {
     'Dolnośląskie Centrum Medyczne DOLMED S.A.': '/images/dolmed logo.png',
     'Centrum Medyczne Polmed': '/images/polmed-logo.png',
+    'Flosmed - Specjalistyczna Przychodnia Lekarska': '/images/flosmed-logo.webp',
+    'Life Medical Center': '/images/life-medical-logo.webp',
   };
 
   const facilityDescriptions: Record<string, { teaser: string; full: string }> = {
@@ -72,7 +75,23 @@ export default async function CityPage({ params }: Props) {
     },
     'Centrum Medyczne Polmed': {
       teaser: 'Centrum Medyczne Polmed to ogólnopolska sieć przychodni oferująca szeroki zakres usług medycznych, w tym diagnostykę laboratoryjną i specjalistyczne konsultacje.',
-      full: 'Centrum Medyczne Polmed to jedna z największych sieci prywatnych placówek medycznych w Polsce, działająca w kilkunastu miastach. Wrocławska placówka przy ul. Grabiszyńskiej 208 oferuje pełen zakres diagnostyki laboratoryjnej, w tym pobrania krwi zgodnie z wyspecjalizowanymi protokołami. Personel jest przeszkolony w zakresie obsługi specjalnych próbówek wymaganych do badania onkopierwiastków. Placówka przyjmuje pacjentów w szerokich godzinach, a rejestracja dostępna jest zarówno online, jak i telefonicznie.',
+      full: 'Centrum Medyczne Polmed to jedna z największych sieci prywatnych placówek medycznych w Polsce, działająca w kilkunastu miastach. Personel jest przeszkolony w zakresie obsługi specjalnych próbówek wymaganych do badania onkopierwiastków. Placówki przyjmują pacjentów w szerokich godzinach, a rejestracja dostępna jest zarówno online, jak i telefonicznie.',
+    },
+    'Flosmed - Specjalistyczna Przychodnia Lekarska': {
+      teaser: 'Flosmed to specjalistyczna przychodnia lekarska w Poznaniu, oferująca diagnostykę laboratoryjną oraz konsultacje medyczne w szerokim zakresie specjalizacji.',
+      full: 'Flosmed — Specjalistyczna Przychodnia Lekarska przy ul. Barwickiej 14/A w Poznaniu — zapewnia pacjentom dostęp do szerokiego wachlarza usług diagnostycznych. Placówka realizuje pobrania krwi zgodnie z protokołem wymaganym przez laboratorium Innowacyjna Medycyna, z użyciem specjalnych próbówek dedykowanych badaniu onkopierwiastków. Lokalizacja w dzielnicy Grunwald zapewnia wygodny dojazd komunikacją miejską z centrum Poznania.',
+    },
+    'Vitall Clinic - Centrum medyczne': {
+      teaser: 'Vitall Clinic to centrum medyczne w Bielsku-Białej specjalizujące się w diagnostyce laboratoryjnej i konsultacjach specjalistycznych.',
+      full: 'Vitall Clinic przy ul. Kazimierza Wielkiego 26 w Bielsku-Białej oferuje kompleksową diagnostykę medyczną w nowoczesnych warunkach. Placówka jest certyfikowanym punktem pobrań do badania onkopierwiastków — personel został przeszkolony w zakresie obsługi dedykowanych próbówek i protokołu wymaganego przez laboratorium Innowacyjna Medycyna.',
+    },
+    'Centrum Medyczne nMedica': {
+      teaser: 'nMedica to nowoczesne centrum medyczne w Tarnowie, oferujące diagnostykę laboratoryjną oraz konsultacje specjalistyczne w komfortowych warunkach.',
+      full: 'Centrum Medyczne nMedica przy ul. Parkowej 2 w Tarnowie to placówka łącząca szeroką ofertę diagnostyczną z indywidualnym podejściem do pacjenta. Punkt pobrań realizuje badania zgodnie z protokołem laboratorium Innowacyjna Medycyna, z użyciem certyfikowanych próbówek. Lokalizacja w pobliżu Parku Strzeleckiego zapewnia łatwy dojazd z każdej części Tarnowa.',
+    },
+    'Life Medical Center': {
+      teaser: 'Life Medical Center to warszawska klinika medyczna oferująca kompleksową diagnostykę, w tym badania laboratoryjne z zakresu pierwiastków śladowych.',
+      full: 'Life Medical Center przy ul. Grzybowskiej 43A w Warszawie specjalizuje się w medycynie prewencyjnej i diagnostyce zaawansowanej. Placówka znajduje się w ścisłym centrum stolicy, w sąsiedztwie stacji metra Rondo ONZ. Personel jest przeszkolony w zakresie protokołu pobrań wymaganych do badania onkopierwiastków, a placówka dysponuje odpowiednim wyposażeniem do prawidłowego zabezpieczenia próbek.',
     },
   };
 
@@ -241,8 +260,8 @@ export default async function CityPage({ params }: Props) {
               Badanie onkopierwiastków wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
             {facilities.length === 0 && <NoFacilityForm />}
-            {facilities.length > 0 && (
-              <div className={`grid gap-5 ${facilitiesWithLogo.length === 1 ? 'max-w-xl mx-auto' : 'grid-cols-1 sm:grid-cols-2 max-w-5xl mx-auto'}`}>
+            {facilities.length > 0 && facilitiesWithLogo.length === 1 && (
+              <div className="max-w-xl mx-auto">
                 {facilitiesWithLogo.map((f) => (
                   <div key={f.id} className="bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
                     {/* Logo + Name */}
@@ -316,6 +335,69 @@ export default async function CityPage({ params }: Props) {
                   </div>
                 ))}
               </div>
+            )}
+            {facilities.length > 0 && facilitiesWithLogo.length >= 2 && (
+              <FacilityCarousel count={facilitiesWithLogo.length}>
+                {facilitiesWithLogo.map((f) => (
+                  <div key={f.id} data-facility-card className="min-w-[300px] sm:min-w-[340px] max-w-[380px] flex-shrink-0 snap-start bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
+                    {/* Logo + Name */}
+                    <div className="mb-5 pb-5 border-b border-neutral-100">
+                      {f.logo
+                        ? <img src={f.logo} alt={f.name} className="block h-12 w-auto object-contain mb-3" />
+                        : <div className="w-10 h-10 rounded-full bg-[#EEEFFD] flex items-center justify-center mb-3"><FlaskConical size={18} className="text-[#5B65DC]" /></div>
+                      }
+                      <p className="font-bold text-[#122056] text-base leading-tight">{f.name}</p>
+                    </div>
+                    {/* Details */}
+                    <div className="space-y-3 text-sm flex-1">
+                      <div className="flex items-start gap-2">
+                        <MapPin size={15} className="text-[#5B65DC] shrink-0 mt-0.5" />
+                        <span className="text-[#4a4f65]">{f.address}, {f.postalCode} {f.city}</span>
+                      </div>
+                      {f.phone && (
+                        <div className="flex items-center gap-2">
+                          <Phone size={15} className="text-[#5B65DC] shrink-0" />
+                          <a href={`tel:${f.phone.replace(/\s/g, '')}`} className="text-[#5B65DC] font-semibold hover:underline">{f.phone}</a>
+                        </div>
+                      )}
+                      {f.hours && (
+                        <div className="flex items-center gap-2">
+                          <Clock size={15} className="text-[#5B65DC] shrink-0" />
+                          <span className="text-[#4a4f65]">{f.hours}</span>
+                        </div>
+                      )}
+                    </div>
+                    {/* Badges */}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {f.supportsBlood && (
+                        <span className="inline-flex items-center gap-1.5 bg-[#EEEFFD] text-[#122056] text-xs font-medium px-3 py-1.5 rounded-full">
+                          <TestTube size={12} /> Krew pełna
+                        </span>
+                      )}
+                      {f.supportsSerum && (
+                        <span className="inline-flex items-center gap-1.5 bg-[#EEEFFD] text-[#122056] text-xs font-medium px-3 py-1.5 rounded-full">
+                          <FlaskConical size={12} /> Surowica
+                        </span>
+                      )}
+                    </div>
+                    {f.notes && <p className="text-[#8a8fa6] text-xs mt-3 italic">{f.notes}</p>}
+                    {facilityDescriptions[f.name] && (
+                      <FacilityDescription teaser={facilityDescriptions[f.name].teaser} full={facilityDescriptions[f.name].full} />
+                    )}
+                    {/* CTA */}
+                    <div className="mt-5 flex flex-col sm:flex-row gap-2">
+                      <Link href="/zamow" className="inline-flex items-center justify-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#4a53c7] transition-colors flex-1 text-center">
+                        Zamów badanie <ArrowRight size={14} />
+                      </Link>
+                      {f.phone && (
+                        <a href={`tel:${f.phone.replace(/\s/g, '')}`} className="inline-flex items-center justify-center gap-2 bg-white text-[#122056] text-sm font-semibold px-5 py-2.5 rounded-full border border-neutral-200 hover:border-[#5B65DC] transition-colors">
+                          <Phone size={14} /> Zadzwoń
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </FacilityCarousel>
             )}
           </div>
         </section>
