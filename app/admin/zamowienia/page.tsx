@@ -2,6 +2,7 @@ import { prisma } from "@/src/lib/prisma";
 import { autoCancelStaleOrders } from "@/src/actions/orders";
 import Link from "next/link";
 import { OrdersTable } from "@/src/components/admin/orders-table";
+import { ExportOrders } from "@/src/components/admin/export-orders";
 
 const statusLabels: Record<string, string> = {
   PENDING: "Oczekuje",
@@ -81,7 +82,10 @@ export default async function ZamowieniaPage({
         }))} />
       )}
 
-      <p className="text-xs text-[#8a8fa6]">Łącznie: {orders.length} zamówień</p>
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-[#8a8fa6]">Łącznie: {orders.length} zamówień</p>
+        <ExportOrders />
+      </div>
     </div>
   );
 }
