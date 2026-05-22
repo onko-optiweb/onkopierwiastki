@@ -339,7 +339,7 @@ export default async function CityPage({ params }: Props) {
             {facilities.length > 0 && facilitiesWithLogo.length >= 2 && (
               <FacilityCarousel count={facilitiesWithLogo.length}>
                 {facilitiesWithLogo.map((f) => (
-                  <div key={f.id} data-facility-card className="min-w-[300px] sm:min-w-[340px] max-w-[380px] flex-shrink-0 snap-start bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
+                  <div key={f.id} data-facility-card className="min-w-[300px] sm:min-w-0 sm:w-[calc((100%-40px)/3)] flex-shrink-0 snap-start bg-white rounded-2xl p-6 lg:p-8 border border-neutral-100 flex flex-col">
                     {/* Logo + Name */}
                     <div className="mb-5 pb-5 border-b border-neutral-100">
                       {f.logo

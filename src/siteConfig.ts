@@ -101,7 +101,17 @@ export const siteConfig: SiteConfig = {
   nav: [
     { label: 'Dla kogo', href: '/#dla-kogo' },
     { label: 'Jak się przygotować', href: '/#przygotowanie' },
-    { label: 'Placówki', href: '/#placowki' },
+    {
+      label: 'Placówki',
+      href: '/#placowki',
+      children: [
+        { label: 'Wrocław', href: '/miasto/wroclaw' },
+        { label: 'Poznań', href: '/miasto/poznan' },
+        { label: 'Warszawa', href: '/miasto/warszawa' },
+        { label: 'Tarnów', href: '/miasto/tarnow' },
+        { label: 'Bielsko-Biała', href: '/miasto/bielsko-biala' },
+      ],
+    },
     { label: 'Blog', href: '/blog' },
   ],
 

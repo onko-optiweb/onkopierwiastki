@@ -21,6 +21,10 @@ const legalLinks = [
 
 const cityLinks = [
   { label: 'Onkopierwiastki Wrocław', href: '/miasto/wroclaw' },
+  { label: 'Onkopierwiastki Poznań', href: '/miasto/poznan' },
+  { label: 'Onkopierwiastki Warszawa', href: '/miasto/warszawa' },
+  { label: 'Onkopierwiastki Tarnów', href: '/miasto/tarnow' },
+  { label: 'Onkopierwiastki Bielsko-Biała', href: '/miasto/bielsko-biala' },
 ];
 
 export default function Footer() {

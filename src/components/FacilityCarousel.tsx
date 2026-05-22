@@ -22,9 +22,9 @@ export function FacilityCarousel({ children, count }: { children: ReactNode; cou
     if (page < 0 || page >= pageCount) return;
     const el = scrollRef.current;
     if (!el) return;
-    const cardIndex = Math.min(page * perPage, count - 1);
+    const firstCardIndex = page * perPage;
     const cards = el.querySelectorAll('[data-facility-card]');
-    const card = cards[cardIndex] as HTMLElement;
+    const card = cards[firstCardIndex] as HTMLElement | undefined;
     if (!card) return;
     el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: 'smooth' });
     setActivePage(page);
