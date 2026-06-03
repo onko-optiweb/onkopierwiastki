@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { IconCircleCheck } from '@tabler/icons-react';
+import { getSlugForPanel } from '@/src/data/products';
 
 const profilaktyka = [
   {
@@ -134,7 +135,7 @@ export default function Pricing() {
             >
               {plan.popular && (
                 <div className="absolute top-4 right-4 bg-[#5B65DC] text-white text-[11px] font-semibold px-3 py-1 rounded-full">
-                  Najpopularniejszy
+                  Polecany
                 </div>
               )}
 
@@ -155,7 +156,7 @@ export default function Pricing() {
                 <p className="text-[#8a8fa6] text-sm mb-6">{plan.desc}</p>
 
                 <a
-                  href={`/zamow?typ=${tab}&wariant=${plan.name === 'Kobiety' ? 'podstawowy' : plan.name.toLowerCase()}`}
+                  href={`/badanie/${getSlugForPanel(tab, plan.name === 'Kobiety' ? 'podstawowy' : plan.name.toLowerCase())}/`}
                   className={`block text-center text-sm font-semibold py-3.5 rounded-full transition-colors ${
                     plan.btnStyle === 'filled'
                       ? 'bg-[#5B65DC] text-white hover:bg-[#4a53c7]'

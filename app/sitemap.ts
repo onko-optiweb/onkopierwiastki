@@ -12,6 +12,7 @@ import { MetadataRoute } from 'next';
 import { siteConfig } from '@/src/siteConfig';
 import { prisma } from '@/src/lib/prisma';
 import { getAllCitySlugs } from '@/src/data/cities';
+import { products } from '@/src/data/products';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.domain;
@@ -24,6 +25,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/regulamin', changeFrequency: 'yearly' as const, priority: 0.3 },
     { path: '/polityka-prywatnosci', changeFrequency: 'yearly' as const, priority: 0.3 },
   ];
+
+  // Product pages
+  const productPages = products.map((p) => ({
+    path: `/badanie/${p.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
 
   // City pages
   const citySlugs = getAllCitySlugs();
@@ -48,6 +56,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticPages.map((page) => ({
+      url: `${baseUrl}${page.path}`,
+      lastModified: new Date(),
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })),
+    ...productPages.map((page) => ({
       url: `${baseUrl}${page.path}`,
       lastModified: new Date(),
       changeFrequency: page.changeFrequency,

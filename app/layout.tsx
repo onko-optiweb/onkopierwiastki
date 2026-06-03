@@ -33,9 +33,12 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/favicon.svg',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
   },
+  manifest: '/site.webmanifest',
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.tagline,
