@@ -63,7 +63,7 @@ export default function Hero() {
                 </p>
 
                 <p className="text-[#8a8fa6] text-[12px] lg:text-[13px] leading-relaxed mb-8 max-w-lg italic">
-                  Nasze badanie jest często nazywane przez pacjentów <span className="text-[#122056] font-semibold not-italic">onkopierwiastkami</span> lub <span className="text-[#122056] font-semibold not-italic">onkopakietem</span>. To potoczne określenia badania pierwiastków krwi powiązanych z ryzykiem nowotworowym, opracowanego przez prof. Jana Lubińskiego.
+                  Badanie BadamyPierwiastki.pl — badanie znane wśród pacjentów również jako <span className="text-[#122056] font-semibold not-italic">onkopierwiastki</span> lub <span className="text-[#122056] font-semibold not-italic">onkopakiet</span>
                 </p>
 
                 {/* CTA */}

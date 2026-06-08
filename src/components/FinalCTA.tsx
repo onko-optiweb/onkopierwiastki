@@ -16,7 +16,7 @@ export default function FinalCTA() {
             </div>
             <p className="font-[family-name:var(--font-funnel)] font-bold text-black text-xl mb-3">Zamknij tę stronę</p>
             <p className="text-[#8a8fa6] text-sm leading-relaxed">
-              Wracasz do punktu wyjścia. Nadal nie wiesz, jaki masz poziom selenu, cynku, miedzi, arsenu, kadmu i ołowiu — pierwiastków, które nauka wiąże z ryzykiem nowotworowym.
+              Wracasz do punktu wyjścia. Nadal nie wiesz, jakie masz stężenie selenu, cynku, miedzi, arsenu, kadmu i ołowiu — pierwiastków, które nauka wiąże z ryzykiem nowotworowym i zgonu w młodszym wieku.
             </p>
           </div>
 
@@ -27,7 +27,7 @@ export default function FinalCTA() {
             </div>
             <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-xl mb-3">Zbadaj się teraz</p>
             <p className="text-white/60 text-sm leading-relaxed">
-              Zbadaj stężenie swoich pierwiastków i otrzymaj spersonalizowany profil pierwiastkowy + konkretne zalecenia. Zyskujesz wiedzę, którą możesz wykorzystać do działań profilaktycznych.
+              Zbadaj swoje pierwiastki i otrzymaj spersonalizowany profil pierwiastkowy + zalecenia. Zyskujesz wiedzę, którą możesz wykorzystać do działań profilaktycznych lub prognozy co do zgonów w młodszym wieku.
             </p>
           </div>
         </div>
