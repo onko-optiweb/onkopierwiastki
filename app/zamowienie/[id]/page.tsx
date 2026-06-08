@@ -119,7 +119,7 @@ export default async function OrderStatusPage({
           <div className="mt-6 bg-[#5B65DC]/5 border border-[#5B65DC]/20 rounded-xl p-6">
             <h2 className="font-bold text-[#122056] text-base mb-1">Umów się na pobranie krwi</h2>
             <p className="text-[#8a8fa6] text-sm mb-4">
-              Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi. Powołaj się na badanie z <strong className="text-[#122056]">onkopierwiastki.pl</strong> i podaj swoje imię oraz nazwisko.
+              Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi. Powołaj się na badanie z <strong className="text-[#122056]">badamypierwiastki.pl</strong> i podaj swoje imię oraz nazwisko.
             </p>
             <div className="bg-white rounded-xl p-5 space-y-3">
               <div>

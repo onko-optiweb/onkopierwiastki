@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = getProductBySlug(slug);
   if (!product) return {};
 
-  const title = `${product.name} — badanie onkopierwiastków`;
+  const title = `${product.name} — badanie pierwiastków`;
   const description = product.description;
 
   return {
@@ -49,7 +49,7 @@ export default async function BadaniePage({ params }: Props) {
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    brand: { '@type': 'Brand', name: 'Onkopierwiastki' },
+    brand: { '@type': 'Brand', name: 'BadamyPierwiastki.pl' },
     category: 'Badania laboratoryjne',
     offers: {
       '@type': 'Offer',

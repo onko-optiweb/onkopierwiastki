@@ -41,31 +41,27 @@ const onkologiczny = [
   {
     name: 'Kobiety',
     price: 200,
-    desc: 'Panel monitorujący dla kobiet z chorobą nowotworową.',
+    desc: 'Panel prognostyczny dla kobiet z chorobą nowotworową.',
     material: 'Surowica',
     btnStyle: 'outline' as const,
     features: [
       'Se, Zn, Mn, Cu z surowicy',
-      'Opcjonalnie: As, Cd, Pb z krwi',
       'Wynik PDF z zaleceniami',
       'Czas realizacji: do 15 dni',
-      'Monitoring ryzyka kolejnego nowotworu',
+      'Prognozowanie przeżyć chorych z nowotworami złośliwymi',
     ],
   },
   {
-    name: 'Rozszerzony',
-    price: 230,
-    popular: true,
-    desc: 'Pełny panel onkologiczny z krwi i surowicy.',
-    material: 'Surowica + krew pełna',
+    name: 'Mężczyźni',
+    price: 200,
+    desc: 'Panel prognostyczny dla mężczyzn z chorobą nowotworową.',
+    material: 'Surowica',
     btnStyle: 'filled' as const,
     features: [
-      'Pełny zestaw z surowicy',
-      'Dodatkowe As, Cd, Pb z krwi',
+      'Se, Zn, As, Cu z surowicy',
       'Wynik PDF z zaleceniami',
       'Czas realizacji: do 15 dni',
-      'Kompleksowy monitoring',
-      'Bez skierowania lekarskiego',
+      'Prognozowanie przeżyć chorych z nowotworami złośliwymi',
     ],
   },
 ];
@@ -93,10 +89,10 @@ export default function Pricing() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl lg:text-5xl text-black mb-4">
-            Wybierz odpowiedni panel onkopierwiastków
+            Wybierz odpowiedni pakiet
           </h2>
           <p className="text-[#8a8fa6] text-sm lg:text-base max-w-xl mx-auto">
-            Dwa rodzaje badania dopasowane do Twojej sytuacji zdrowotnej.
+
           </p>
         </div>
 
@@ -111,7 +107,7 @@ export default function Pricing() {
                   : 'text-[#122056] hover:bg-white/50'
               }`}
             >
-              Profilaktyka
+              Krew
             </button>
             <button
               onClick={() => setTab('onkologiczny')}
@@ -121,9 +117,33 @@ export default function Pricing() {
                   : 'text-[#122056] hover:bg-white/50'
               }`}
             >
-              Pacjenci onkologiczni
+              Surowica
             </button>
           </div>
+        </div>
+
+        {/* Info block */}
+        <div className="bg-white/95 rounded-2xl border border-neutral-200/60 p-6 lg:p-8 mb-6">
+          {tab === 'profilaktyka' ? (
+            <div>
+              <p className="text-[#122056] font-semibold text-sm mb-3">Wskazania do badania pierwiastków we krwi:</p>
+              <ul className="space-y-1.5">
+                <li className="flex items-start gap-2 text-[#8a8fa6] text-sm"><span className="text-[#5B65DC] mt-0.5">•</span>dorosłe kobiety — nosicielki mutacji genu BRCA1</li>
+                <li className="flex items-start gap-2 text-[#8a8fa6] text-sm"><span className="text-[#5B65DC] mt-0.5">•</span>pozostałe grupy kobiet bez nowotworów złośliwych w wieku zwłaszcza &gt; 40 lat</li>
+                <li className="flex items-start gap-2 text-[#8a8fa6] text-sm"><span className="text-[#5B65DC] mt-0.5">•</span>mężczyźni bez nowotworów złośliwych w wieku zwłaszcza &gt; 40 lat</li>
+              </ul>
+            </div>
+          ) : (
+            <div>
+              <p className="text-[#122056] font-semibold text-sm mb-3">Wskazania do badania pierwiastków z surowicy:</p>
+              <ul className="space-y-1.5 mb-4">
+                <li className="flex items-start gap-2 text-[#8a8fa6] text-sm"><span className="text-[#5B65DC] mt-0.5">•</span>pacjenci z nowotworami złośliwymi (w celach prognostycznych co do przeżyć)</li>
+              </ul>
+              <p className="text-[#8a8fa6] text-sm leading-relaxed">
+                Uwaga! Badanie panelu pierwiastków według aktualnych danych nie ma na celu monitorowania leczenia.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Cards */}
@@ -133,11 +153,11 @@ export default function Pricing() {
               key={plan.name}
               className="relative bg-white/95 rounded-2xl border border-neutral-200/60 overflow-hidden"
             >
-              {plan.popular && (
+              {('popular' in plan && (plan as { popular?: boolean }).popular) ? (
                 <div className="absolute top-4 right-4 bg-[#5B65DC] text-white text-[11px] font-semibold px-3 py-1 rounded-full">
                   Polecany
                 </div>
-              )}
+              ) : null}
 
               {/* Top section */}
               <div className="p-8 pb-6">
@@ -156,7 +176,7 @@ export default function Pricing() {
                 <p className="text-[#8a8fa6] text-sm mb-6">{plan.desc}</p>
 
                 <a
-                  href={`/badanie/${getSlugForPanel(tab, plan.name === 'Kobiety' ? 'podstawowy' : plan.name.toLowerCase())}/`}
+                  href={`/badanie/${getSlugForPanel(tab, plan.name === 'Kobiety' ? 'podstawowy' : plan.name === 'Mężczyźni' ? 'rozszerzony' : plan.name.toLowerCase())}/`}
                   className={`block text-center text-sm font-semibold py-3.5 rounded-full transition-colors ${
                     plan.btnStyle === 'filled'
                       ? 'bg-[#5B65DC] text-white hover:bg-[#4a53c7]'
@@ -193,6 +213,12 @@ export default function Pricing() {
         <p className="text-[#8a8fa6] text-xs text-center mt-8">
           Ceny brutto. Badanie zwolnione z podatku VAT. Bez skierowania lekarskiego.
         </p>
+        <div className="max-w-2xl mx-auto mt-6 text-center">
+          <p className="text-[#122056] font-semibold text-xs mb-1">Uwaga!</p>
+          <p className="text-[#8a8fa6] text-xs leading-relaxed">
+            Celem zasadniczym jest profilaktyka zachorowań na nowotwory i obniżenie ryzyka zgonów (z jakiejkolwiek przyczyny, ang. all-cause mortality). Postępowanie profilaktyczne oparte o stężenie pierwiastków nie zastępuje innych form profilaktyki.
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -18,7 +18,7 @@ export default function Professor() {
               <div className="w-72 sm:w-80 lg:w-[400px] rounded-2xl overflow-hidden">
                 <Image
                   src="/images/IMG_6439.webp"
-                  alt="Prof. dr hab. n. med. Jan Lubiński — twórca badania onkopierwiastków"
+                  alt="Prof. dr hab. n. med. Jan Lubiński — twórca badania pierwiastków"
                   width={400}
                   height={530}
                   className="w-full h-auto"

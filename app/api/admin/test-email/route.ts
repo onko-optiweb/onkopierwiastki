@@ -33,8 +33,8 @@ export async function POST(request: NextRequest) {
     if (type === "confirmation") {
       const introText = settings.emailIntroText || "Dziękujemy za zamówienie! Twoje zamówienie zostało przyjęte.";
       const facilityInstruction = settings.emailFacilityText || "Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi.";
-      const footerText = settings.emailFooterText || "Innowacyjna Medycyna sp. z o.o. · www.onkopierwiastki.pl · kontakt@onkopierwiastki.pl";
-      const subject = settings.emailSubjectConfirmation || "Potwierdzenie zamówienia — Onkopierwiastki.pl";
+      const footerText = settings.emailFooterText || "Innowacyjna Medycyna sp. z o.o. · www.badamypierwiastki.pl · kontakt@onkopierwiastki.pl";
+      const subject = settings.emailSubjectConfirmation || "Potwierdzenie zamówienia — BadamyPierwiastki.pl";
 
       await transporter.sendMail({
         from,
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
               </table>
             </div>
             <p style="margin-top: 20px;">
-              <a href="https://onkopierwiastki.pl" style="background: #EEEFFD; color: #122056; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">
+              <a href="https://badamypierwiastki.pl" style="background: #EEEFFD; color: #122056; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">
                 Pobierz potwierdzenie zamówienia
               </a>
             </p>
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
               <tr><td style="padding: 8px 0; color: #8a8fa6;">Kwota</td><td style="padding: 8px 0;"><strong>230,00 zł</strong></td></tr>
             </table>
             <p style="margin-top: 20px;">
-              <a href="https://onkopierwiastki.pl/admin" style="background: #5B65DC; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;">
+              <a href="https://badamypierwiastki.pl/admin" style="background: #5B65DC; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;">
                 Zobacz zamówienie
               </a>
             </p>

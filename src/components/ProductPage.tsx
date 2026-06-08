@@ -51,7 +51,7 @@ export default function ProductPage({ product, otherProducts }: { product: Produ
             <div className="rounded-2xl overflow-hidden bg-[#EEEFFD] aspect-[4/3] lg:aspect-[4/5]">
               <img
                 src="/images/2150471457.webp"
-                alt="Struktura DNA — badanie onkopierwiastków"
+                alt="Struktura DNA — badanie pierwiastków"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -59,7 +59,7 @@ export default function ProductPage({ product, otherProducts }: { product: Produ
             {/* RIGHT — sticky product details */}
             <div className="lg:sticky lg:top-24">
               <span className="text-[#5B65DC] text-xs font-semibold uppercase tracking-wider">
-                {product.panelType === 'profilaktyka' ? 'Panel profilaktyczny' : 'Panel onkologiczny'}
+                {product.panelType === 'profilaktyka' ? 'Badanie z krwi' : 'Badanie z surowicy'}
               </span>
 
               <h1 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-black mt-3 mb-4 leading-tight">
@@ -179,7 +179,7 @@ export default function ProductPage({ product, otherProducts }: { product: Produ
             <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-start">
               <div className="max-w-3xl">
                 <h2 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-black mb-6">
-                  {product.name} — badanie poziomu onkopierwiastków {product.material === 'Krew pełna' ? 'we krwi pełnej' : product.material === 'Surowica' ? 'w surowicy' : 'z surowicy i krwi pełnej'}
+                  {product.name} — badanie poziomu pierwiastków {product.material === 'Krew pełna' ? 'we krwi pełnej' : product.material === 'Surowica' ? 'w surowicy' : 'z surowicy i krwi pełnej'}
                 </h2>
 
                 <div className="prose prose-sm text-[#122056]/80 space-y-4">
@@ -277,9 +277,8 @@ export default function ProductPage({ product, otherProducts }: { product: Produ
                     step: '01',
                     title: 'Przed pobraniem',
                     items: [
-                      'Co najmniej 6 godzin na czczo',
+                      'Co najmniej 4 godziny na czczo',
                       'Przez 3 dni nie spożywaj ryb morskich, owoców morza i ryżu',
-                      'Poinformuj personel o suplementach z badanymi pierwiastkami',
                     ],
                   },
                   {
@@ -357,7 +356,7 @@ export default function ProductPage({ product, otherProducts }: { product: Produ
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-black mb-3">
-              Inne badania onkopierwiastków
+              Inne badania pierwiastków
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-xl mx-auto">
               Sprawdź pozostałe panele dopasowane do różnych potrzeb zdrowotnych.
@@ -378,7 +377,7 @@ export default function ProductPage({ product, otherProducts }: { product: Produ
                 )}
 
                 <p className="text-[#5B65DC] text-xs font-semibold uppercase tracking-wider mb-2">
-                  {p.panelType === 'profilaktyka' ? 'Profilaktyczny' : 'Onkologiczny'}
+                  {p.panelType === 'profilaktyka' ? 'Krew' : 'Surowica'}
                 </p>
 
                 <p className="font-[family-name:var(--font-funnel)] font-bold text-[#122056] text-lg mb-3">{p.name}</p>

@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Bottom CTA */}
             <div className="mt-16 bg-[#EEEFFD] rounded-2xl p-8 text-center">
               <h3 className="font-[family-name:var(--font-funnel)] font-bold text-xl text-[#122056]">
-                Chcesz zbadać swoje onkopierwiastki?
+                Chcesz zbadać swoje pierwiastki?
               </h3>
               <p className="text-sm text-[#8a8fa6] mt-2 mb-5">
                 Zamów badanie i poznaj swoje ryzyko nowotworowe.

@@ -34,7 +34,7 @@ const panels = {
   },
   onkologiczny: {
     podstawowy: { price: 200, material: 'Surowica', elements: 'Se, Zn, Mn, Cu z surowicy' },
-    rozszerzony: { price: 230, material: 'Surowica + krew pełna', elements: 'Pełny zestaw z surowicy + As, Cd, Pb z krwi' },
+    rozszerzony: { price: 200, material: 'Surowica', elements: 'Se, Zn, As, Cu z surowicy' },
   },
 };
 
@@ -332,7 +332,7 @@ function OrderPage() {
                     panelType === t ? 'bg-[#122056] text-white' : 'bg-[#EEEFFD] text-[#122056] hover:bg-[#e0e2f8]'
                   }`}
                 >
-                  {t === 'profilaktyka' ? 'Profilaktyka' : 'Pacjenci onkologiczni'}
+                  {t === 'profilaktyka' ? 'Krew' : 'Surowica'}
                 </button>
               ))}
             </div>
@@ -351,8 +351,11 @@ function OrderPage() {
                     }`}
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-bold text-[#122056] text-base capitalize">{tier}</span>
-                      {tier === 'rozszerzony' && (
+                      <span className="font-bold text-[#122056] text-base capitalize">
+                        {panelType === 'onkologiczny' && tier === 'podstawowy' ? 'Kobiety' :
+                         panelType === 'onkologiczny' && tier === 'rozszerzony' ? 'Mężczyźni' : tier}
+                      </span>
+                      {tier === 'rozszerzony' && panelType === 'profilaktyka' && (
                         <span className="bg-[#5B65DC] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">Polecany</span>
                       )}
                     </div>
@@ -655,7 +658,7 @@ function OrderPage() {
                 <div>
                   <p className="text-[#8a8fa6] text-xs mb-0.5">Panel badawczy</p>
                   <p className="text-[#122056] font-bold text-sm">
-                    {panelType === 'profilaktyka' ? 'Profilaktyczny' : 'Onkologiczny'} — {panelTier}
+                    {panelType === 'profilaktyka' ? 'Profilaktyczny' : 'Onkologiczny'} — {panelType === 'onkologiczny' && panelTier === 'podstawowy' ? 'Kobiety' : panelType === 'onkologiczny' && panelTier === 'rozszerzony' ? 'Mężczyźni' : panelTier}
                   </p>
                   <p className="text-[#8a8fa6] text-xs mt-0.5">{selectedPanel.elements}</p>
                 </div>

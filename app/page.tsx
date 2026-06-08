@@ -9,7 +9,6 @@ import PeopleCTA from '@/src/components/PeopleCTA';
 // import Statistics from '@/src/components/Statistics';
 import Elements from '@/src/components/Elements';
 import ForWhom from '@/src/components/ForWhom';
-import Testimonials from '@/src/components/Testimonials';
 import Preparation from '@/src/components/Preparation';
 import TrustSection from '@/src/components/TrustSection';
 import Pricing from '@/src/components/Pricing';
@@ -24,8 +23,8 @@ import CityLinks from '@/src/components/CityLinks';
 import Footer from '@/src/components/Footer';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Onkopierwiastki — badanie 6 pierwiastków we krwi | Profilaktyka nowotworowa' },
-  description: 'Zbadaj stężenie 6 pierwiastków śladowych (Se, Zn, As, Cu, Cd, Pb) we krwi. Spersonalizowany wynik z zaleceniami w 15 dni roboczych. Ponad 20 lat badań naukowych prof. Lubińskiego.',
+  title: { absolute: 'Badanie pierwiastków we krwi | BadamyPierwiastki.pl — znane jako onkopierwiastki' },
+  description: 'Zbadaj stężenie 6 pierwiastków śladowych (Se, Zn, As, Cu, Cd, Pb) we krwi. Spersonalizowany wynik z zaleceniami w 15 dni roboczych. Ponad 20 lat badań naukowych prof. Lubińskiego. Badanie znane pacjentom jako onkopierwiastki lub onkopakiet.',
   alternates: { canonical: '/' },
 };
 
@@ -58,7 +57,6 @@ export default function HomePage() {
         <Elements />
         <ForWhom />
         <PeopleCTA />
-        <Testimonials />
         <Preparation />
         <TrustSection />
         <Pricing />

@@ -97,7 +97,7 @@ export async function sendOrderNotification(order: {
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Kwota</td><td style="padding: 8px 0;"><strong>${finalPrice} zł</strong></td></tr>
           </table>
           <p style="margin-top: 20px;">
-            <a href="https://onkopierwiastki.pl/admin/zamowienia/${order.id}" style="background: #5B65DC; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;">
+            <a href="https://badamypierwiastki.pl/admin/zamowienia/${order.id}" style="background: #5B65DC; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;">
               Zobacz zamówienie
             </a>
           </p>
@@ -139,11 +139,11 @@ export async function sendOrderConfirmation(order: {
     const finalPrice = ((order.price - order.discount) / 100).toFixed(2);
     const panelLabel = `${order.panelType === "PROFILAKTYKA" ? "Profilaktyczny" : "Onkologiczny"} — ${order.panelTier.toLowerCase()}`;
 
-    const facilityInstruction = settings.emailFacilityText || "Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi. Powołaj się na badanie z onkopierwiastki.pl i podaj swoje imię oraz nazwisko.";
+    const facilityInstruction = settings.emailFacilityText || "Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi. Powołaj się na badanie z badamypierwiastki.pl i podaj swoje imię oraz nazwisko.";
     const onlineText = settings.emailOnlineText || "Zamówienie online — skontaktujemy się z Tobą mailowo z instrukcjami dotyczącymi pobrania i wysyłki materiału.";
     const introText = settings.emailIntroText || "Dziękujemy za zamówienie! Twoje zamówienie zostało przyjęte.";
-    const footerText = settings.emailFooterText || "Innowacyjna Medycyna sp. z o.o. · www.onkopierwiastki.pl · kontakt@onkopierwiastki.pl";
-    const subject = settings.emailSubjectConfirmation || "Potwierdzenie zamówienia — Onkopierwiastki.pl";
+    const footerText = settings.emailFooterText || "Innowacyjna Medycyna sp. z o.o. · www.badamypierwiastki.pl · kontakt@onkopierwiastki.pl";
+    const subject = settings.emailSubjectConfirmation || "Potwierdzenie zamówienia — BadamyPierwiastki.pl";
 
     const facilitySection = !order.isOnline && order.facilityName
       ? `
@@ -177,7 +177,7 @@ export async function sendOrderConfirmation(order: {
           </table>
           ${facilitySection}
           <p style="margin-top: 20px;">
-            <a href="https://onkopierwiastki.pl/zamowienie/${order.id}/potwierdzenie" style="background: #EEEFFD; color: #122056; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">
+            <a href="https://badamypierwiastki.pl/zamowienie/${order.id}/potwierdzenie" style="background: #EEEFFD; color: #122056; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600;">
               Pobierz potwierdzenie zamówienia
             </a>
           </p>
@@ -223,11 +223,11 @@ export async function sendFacilityNotification(order: {
     await transporter.sendMail({
       from: settings.smtpFrom || settings.smtpUser,
       to: order.facilityEmail,
-      subject: `Nowe badanie onkopierwiastków — ${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}`,
+      subject: `Nowe badanie pierwiastków — ${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #122056;">Nowe badanie do realizacji</h2>
-          <p style="color: #8a8fa6; font-size: 14px;">Pacjent opłacił zamówienie na badanie onkopierwiastków i powinien skontaktować się z Państwa placówką w celu umówienia terminu pobrania krwi.</p>
+          <p style="color: #8a8fa6; font-size: 14px;">Pacjent opłacił zamówienie na badanie pierwiastków i powinien skontaktować się z Państwa placówką w celu umówienia terminu pobrania krwi.</p>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 20px 0;">
             <tr><td style="padding: 8px 0; color: #8a8fa6; width: 120px;">Pacjent</td><td style="padding: 8px 0;"><strong>${escapeHtml(order.firstName)} ${escapeHtml(order.lastName)}</strong></td></tr>
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Telefon</td><td style="padding: 8px 0;">${escapeHtml(order.phone)}</td></tr>
@@ -235,7 +235,7 @@ export async function sendFacilityNotification(order: {
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Panel</td><td style="padding: 8px 0;">${panelLabel}</td></tr>
             <tr><td style="padding: 8px 0; color: #8a8fa6;">Kwota</td><td style="padding: 8px 0;"><strong>${finalPrice} zł</strong></td></tr>
           </table>
-          <p style="color: #8a8fa6; font-size: 12px; margin-top: 30px;">Wiadomość wygenerowana automatycznie przez system onkopierwiastki.pl</p>
+          <p style="color: #8a8fa6; font-size: 12px; margin-top: 30px;">Wiadomość wygenerowana automatycznie przez system badamypierwiastki.pl</p>
         </div>
       `,
     });

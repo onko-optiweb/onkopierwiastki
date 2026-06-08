@@ -57,9 +57,9 @@ export type SiteConfig = {
 };
 
 export const siteConfig: SiteConfig = {
-  name: 'Onkopierwiastki',
-  tagline: 'Zbadaj swoje Onkopierwiastki. Poznaj ryzyko, zanim pojawią się objawy.',
-  domain: 'https://onkopierwiastki.pl',
+  name: 'BadamyPierwiastki.pl',
+  tagline: 'Zbadaj stężenie pierwiastków. Poznaj ryzyko, zanim pojawią się objawy.',
+  domain: 'https://badamypierwiastki.pl',
   owner: 'Innowacyjna Medycyna sp. z o.o.',
 
   locale: 'pl_PL',

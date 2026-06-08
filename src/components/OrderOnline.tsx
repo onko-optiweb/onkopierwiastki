@@ -8,10 +8,10 @@ export default function OrderOnline() {
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4">
-            Zamów badanie onkopierwiastków online
+            Zamów badanie pierwiastków online
           </h2>
           <p className="text-white/50 text-sm lg:text-base max-w-xl mx-auto">
-            Wybierz panel, zapłać online, a my skierujemy Cię do najbliższej placówki referencyjnej.
+            Wybierz panel, zapłać online, a my skierujemy Cię do najbliższej placówki certyfikowanej.
           </p>
         </div>
 
@@ -20,7 +20,7 @@ export default function OrderOnline() {
           {[
             { number: '01', title: 'Wybierz panel', desc: 'Podstawowy lub rozszerzony, krew lub surowica' },
             { number: '02', title: 'Zapłać online', desc: 'Bezpieczna płatność PayU' },
-            { number: '03', title: 'Przyjdź na pobranie', desc: 'Do wskazanej placówki referencyjnej' },
+            { number: '03', title: 'Przyjdź na pobranie', desc: 'Do wskazanej placówki certyfikowanej' },
             { number: '04', title: 'Odbierz wynik', desc: 'PDF na e-mail w 15 dni roboczych' },
           ].map((step) => (
             <div key={step.title} className="bg-[#122056] p-6 lg:p-8 text-center">

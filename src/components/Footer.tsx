@@ -20,11 +20,11 @@ const legalLinks = [
 ];
 
 const cityLinks = [
-  { label: 'Onkopierwiastki Wrocław', href: '/miasto/wroclaw' },
-  { label: 'Onkopierwiastki Poznań', href: '/miasto/poznan' },
-  { label: 'Onkopierwiastki Warszawa', href: '/miasto/warszawa' },
-  { label: 'Onkopierwiastki Tarnów', href: '/miasto/tarnow' },
-  { label: 'Onkopierwiastki Bielsko-Biała', href: '/miasto/bielsko-biala' },
+  { label: 'Badanie pierwiastków Wrocław', href: '/miasto/wroclaw' },
+  { label: 'Badanie pierwiastków Poznań', href: '/miasto/poznan' },
+  { label: 'Badanie pierwiastków Warszawa', href: '/miasto/warszawa' },
+  { label: 'Badanie pierwiastków Tarnów', href: '/miasto/tarnow' },
+  { label: 'Badanie pierwiastków Bielsko-Biała', href: '/miasto/bielsko-biala' },
 ];
 
 export default function Footer() {
@@ -35,7 +35,7 @@ export default function Footer() {
         {/* Top bar — CTA */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 px-8 lg:px-12 py-10 border-b border-white/10">
           <p className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-white">
-            Zbadaj swoje onkopierwiastki
+            Zamów badanie pierwiastków
           </p>
           <div className="flex flex-wrap gap-3">
             <a href="/#placowki" className="inline-flex items-center gap-2 bg-[#5B65DC] text-white text-sm font-semibold pl-5 pr-2 py-2 rounded-full hover:bg-[#4a53c7] transition-colors">

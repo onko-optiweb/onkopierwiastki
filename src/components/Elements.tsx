@@ -420,7 +420,7 @@ export default function Elements() {
             Co dokładnie badamy?
           </h2>
           <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto">
-            Badanie onkopierwiastków obejmuje 6 kluczowych pierwiastków. Kliknij w wybrany pierwiastek, by poznać szczegóły.
+            Badanie pierwiastków obejmuje 6 kluczowych pierwiastków. Kliknij w wybrany pierwiastek, by poznać szczegóły.
           </p>
         </div>
 

@@ -84,7 +84,7 @@ export default async function PotwierdzeniePage({
             </div>
 
             <p>
-              dokonał/a w dniu <strong>{paidDate}</strong> zapłaty za badanie diagnostyczne w ramach serwisu onkopierwiastki.pl.
+              dokonał/a w dniu <strong>{paidDate}</strong> zapłaty za badanie diagnostyczne w ramach serwisu badamypierwiastki.pl.
             </p>
           </div>
 
@@ -139,7 +139,7 @@ export default async function PotwierdzeniePage({
 
           {/* Footer */}
           <div className="mt-10 pt-6 border-t border-[#EEEFFD] flex items-center justify-between text-[10px] text-[#8a8fa6]">
-            <span>www.onkopierwiastki.pl</span>
+            <span>www.badamypierwiastki.pl</span>
             <span>kontakt@onkopierwiastki.pl</span>
             <span>Innowacyjna Medycyna sp. z o.o.</span>
           </div>

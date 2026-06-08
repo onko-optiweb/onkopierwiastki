@@ -20,7 +20,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.name} — Badanie onkopierwiastków | Zbadaj ryzyko nowotworów`,
+    default: 'Badanie pierwiastków we krwi | BadamyPierwiastki.pl — znane jako onkopierwiastki',
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.tagline,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     type: 'website',
-    images: [{ url: '/images/og-default.png', width: 1200, height: 630, alt: 'Onkopierwiastki — badanie 6 pierwiastków we krwi' }],
+    images: [{ url: '/images/og-default.png', width: 1200, height: 630, alt: 'BadamyPierwiastki.pl — badanie 6 pierwiastków we krwi' }],
   },
   twitter: {
     card: 'summary_large_image',

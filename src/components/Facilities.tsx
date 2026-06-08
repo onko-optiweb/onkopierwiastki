@@ -57,10 +57,10 @@ export default function Facilities() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-black mb-4">
-            Placówki referencyjne
+            Placówki certyfikowane
           </h2>
           <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto">
-            Onkopierwiastki to badanie wymagające specjalnych próbówek i procedur. Tylko w placówkach z naszej sieci masz pewność, że materiał zostanie pobrany zgodnie z protokołem laboratorium.
+            Badanie pierwiastków wymaga specjalnych próbówek i procedur. Tylko w placówkach z naszej sieci masz pewność, że materiał zostanie pobrany zgodnie z protokołem laboratorium.
           </p>
         </div>
 

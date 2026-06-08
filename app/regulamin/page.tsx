@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Regulamin serwisu',
-  description: 'Regulamin serwisu internetowego onkopierwiastki.pl — zasady składania zamówień, płatności, realizacji badań i ochrony danych osobowych.',
+  description: 'Regulamin serwisu internetowego badamypierwiastki.pl — zasady składania zamówień, płatności, realizacji badań i ochrony danych osobowych.',
   alternates: { canonical: '/regulamin' },
   openGraph: {
     title: `Regulamin serwisu | ${siteConfig.name}`,
@@ -67,7 +67,7 @@ export default function RegulaminPage() {
             Regulamin serwisu internetowego
           </h1>
           <p className="text-[#8a8fa6] text-sm">
-            www.onkopierwiastki.pl &middot; wersja 1.0, obowiązuje od dnia 1 maja 2026 r.
+            www.badamypierwiastki.pl &middot; wersja 1.0, obowiązuje od dnia 1 maja 2026 r.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ export default function RegulaminPage() {
 
           {/* §1 */}
           <Section id="s1" title="§1. Postanowienia ogólne">
-            <P n={1}>Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem www.onkopierwiastki.pl (dalej: &bdquo;Serwis&rdquo;), w tym zasady składania zamówień, świadczenia usług oraz ochronę danych osobowych użytkowników.</P>
+            <P n={1}>Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem www.badamypierwiastki.pl (dalej: &bdquo;Serwis&rdquo;), w tym zasady składania zamówień, świadczenia usług oraz ochronę danych osobowych użytkowników.</P>
             <P n={2}>Operatorem Serwisu i podmiotem świadczącym usługi jest Innowacyjna Medycyna sp. z o.o.</P>
             <Ul>
               <li>Siedziba: 71-253 Szczecin, ul. Akacjowa 2</li>
@@ -91,22 +91,22 @@ export default function RegulaminPage() {
           {/* §2 */}
           <Section id="s2" title="§2. Definicje">
             <P n={6}><strong>Użytkownik</strong> &ndash; pełnoletnia osoba fizyczna korzystająca z Serwisu w celu złożenia zamówienia na badanie.</P>
-            <P n={7}><strong>Badanie</strong> &ndash; usługa diagnostyczna polegająca na oznaczeniu stężeń pierwiastków (onkopierwiastków) we krwi pełnej lub surowicy, realizowana przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
+            <P n={7}><strong>Badanie</strong> &ndash; usługa diagnostyczna polegająca na oznaczeniu stężeń pierwiastków we krwi pełnej lub surowicy, realizowana przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
             <P n={8}><strong>Zamówienie</strong> &ndash; oświadczenie woli Użytkownika złożone za pośrednictwem Serwisu, zmierzające do zawarcia umowy o wykonanie Badania.</P>
-            <P n={9}><strong>Placówka referencyjna</strong> &ndash; punkt pobrania materiału biologicznego współpracujący z Operatorem, wskazany Użytkownikowi po złożeniu Zamówienia.</P>
+            <P n={9}><strong>Placówka certyfikowana</strong> &ndash; punkt pobrania materiału biologicznego współpracujący z Operatorem, wskazany Użytkownikowi po złożeniu Zamówienia.</P>
             <P n={10}><strong>Wynik</strong> &ndash; raport PDF zawierający wyniki Badania, przekazywany Użytkownikowi drogą elektroniczną.</P>
             <P n={11}><strong>Panel badawczy</strong> &ndash; zestaw pierwiastków objętych danym Badaniem, zgodny z ofertą przedstawioną w Serwisie.</P>
           </Section>
 
           {/* §3 */}
           <Section id="s3" title="§3. Przedmiot usługi">
-            <P n={12}>Za pośrednictwem Serwisu Użytkownik może zamówić badanie oznaczenia stężeń onkopierwiastków we krwi lub surowicy, realizowane przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
+            <P n={12}>Za pośrednictwem Serwisu Użytkownik może zamówić badanie oznaczenia stężeń pierwiastków we krwi lub surowicy, realizowane przez laboratorium Innowacyjna Medycyna sp. z o.o.</P>
             <P n={13}>Oferta Serwisu obejmuje następujące panele badawcze:</P>
             <Ul>
-              <li>Onkopakiet do 3 wybranych pierwiastków we krwi pełnej (As, Zn, Cd, Pb, Se, Cu)</li>
-              <li>Onkopakiet do 6 wybranych pierwiastków we krwi pełnej (As, Zn, Cd, Pb, Se, Cu)</li>
-              <li>Onkopakiet do 3 wybranych pierwiastków w surowicy (As, Zn, Se, Mn, Cu)</li>
-              <li>Onkopakiet do 5 wybranych pierwiastków w surowicy (As, Zn, Se, Mn, Cu)</li>
+              <li>Badanie podstawowe — do 3 wybranych pierwiastków z krwi pełnej (As, Zn, Cd, Pb, Se, Cu)</li>
+              <li>Badanie rozszerzone — 6 pierwiastków z krwi pełnej (As, Se, Zn, Cu, Cd, Pb)</li>
+              <li>Badanie podstawowe z surowicy — Se, Zn, Mn, Cu</li>
+              <li>Badanie rozszerzone z surowicy — Se, Zn, As, Cu</li>
             </Ul>
             <P n={14}>Wyniki Badań opracowywane są w oparciu o zakresy referencyjne ustalone wyłącznie dla populacji polskiej, opracowane przez Międzynarodowe Centrum Nowotworów Dziedzicznych Pomorskiego Uniwersytetu Medycznego w Szczecinie i chronione patentami Urzędu Patentowego Rzeczypospolitej Polskiej.</P>
             <P n={15}>Badanie nie stanowi diagnozy medycznej i nie zastępuje konsultacji lekarskiej. Wyniki należy omawiać z lekarzem.</P>
@@ -124,7 +124,7 @@ export default function RegulaminPage() {
               <li>Dokonanie płatności</li>
             </Ul>
             <P n={19}>Umowa o wykonanie Badania zostaje zawarta z chwilą potwierdzenia przez Operatora przyjęcia Zamówienia drogą e-mail.</P>
-            <P n={20}>Po złożeniu Zamówienia Użytkownik otrzymuje informację o wskazanej Placówce referencyjnej, w której powinien się zgłosić na pobranie materiału.</P>
+            <P n={20}>Po złożeniu Zamówienia Użytkownik otrzymuje informację o wskazanej Placówce certyfikowanej, w której powinien się zgłosić na pobranie materiału.</P>
             <P n={21}>Zamówienia realizowane są w dniach roboczych od poniedziałku do czwartku. Pobrania dokonane w piątek lub w święta będą wysyłane w następnym dostępnym dniu roboczym.</P>
           </Section>
 
@@ -138,7 +138,7 @@ export default function RegulaminPage() {
 
           {/* §6 */}
           <Section id="s6" title="§6. Realizacja Badania">
-            <P n={26}>Po złożeniu Zamówienia i dokonaniu płatności Użytkownik zgłasza się do wskazanej Placówki referencyjnej na pobranie materiału biologicznego.</P>
+            <P n={26}>Po złożeniu Zamówienia i dokonaniu płatności Użytkownik zgłasza się do wskazanej Placówki certyfikowanej na pobranie materiału biologicznego.</P>
             <P n={27}>Przed pobraniem materiału Użytkownik zobowiązany jest:</P>
             <Ul>
               <li>Przebywać na czczo co najmniej 6 godzin przed pobraniem</li>
@@ -193,7 +193,7 @@ export default function RegulaminPage() {
               <li>Prawo do przenoszenia danych</li>
               <li>Prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa)</li>
             </Ul>
-            <P n={45}>Dane osobowe Użytkowników nie są sprzedawane ani udostępniane osobom trzecim, za wyjątkiem podmiotów bezpośrednio uczestniczących w realizacji usługi (Placówka referencyjna, laboratorium) oraz na żądanie uprawnionych organów.</P>
+            <P n={45}>Dane osobowe Użytkowników nie są sprzedawane ani udostępniane osobom trzecim, za wyjątkiem podmiotów bezpośrednio uczestniczących w realizacji usługi (Placówka certyfikowana, laboratorium) oraz na żądanie uprawnionych organów.</P>
             <P n={46}>W przypadku naruszenia ochrony danych osobowych Operator niezwłocznie powiadomi Użytkownika oraz podejmie działania naprawcze zgodnie z obowiązującymi przepisami.</P>
             <P n={47}>Dane kontaktowe Inspektora Ochrony Danych (jeśli dotyczy) oraz wszelkie pytania dotyczące przetwarzania danych można kierować na adres: <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a></P>
           </Section>
@@ -218,7 +218,7 @@ export default function RegulaminPage() {
             <P n={54}>Operator nie ponosi odpowiedzialności za:</P>
             <Ul>
               <li>Szkody wynikające z nieprawidłowego przygotowania się Użytkownika do Badania</li>
-              <li>Nieprawidłowe wyniki spowodowane błędami po stronie Placówki referencyjnej</li>
+              <li>Nieprawidłowe wyniki spowodowane błędami po stronie Placówki certyfikowanej</li>
               <li>Opóźnienia w dostarczeniu materiału spowodowane przez firmę kurierską</li>
               <li>Przerwy techniczne w działaniu Serwisu wynikające z przyczyn niezależnych od Operatora</li>
             </Ul>
@@ -237,7 +237,7 @@ export default function RegulaminPage() {
 
           {/* Footer */}
           <div className="mt-10 pt-6 border-t border-[#EEEFFD] text-center text-[#8a8fa6] text-xs">
-            Innowacyjna Medycyna sp. z o.o. &middot; www.onkopierwiastki.pl &middot; <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>
+            Innowacyjna Medycyna sp. z o.o. &middot; www.badamypierwiastki.pl &middot; <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>
           </div>
 
         </div>

@@ -103,7 +103,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
       {/* Dane firmy */}
       <Section title="Dane firmy" description="Informacje wyświetlane na stronie i w stopce">
         <div className="grid sm:grid-cols-2 gap-4">
-          <Field label="Nazwa serwisu" name="siteName" value={form.siteName} onChange={handleField} placeholder="Onkopierwiastki.pl" />
+          <Field label="Nazwa serwisu" name="siteName" value={form.siteName} onChange={handleField} placeholder="BadamyPierwiastki.pl" />
           <Field label="E-mail kontaktowy" name="email" value={form.email} onChange={handleField} placeholder="kontakt@onkopierwiastki.pl" type="email" />
           <Field label="Telefon" name="phone" value={form.phone} onChange={handleField} placeholder="+48 91 000 00 00" />
           <Field label="Adres" name="address" value={form.address} onChange={handleField} placeholder="71-253 Szczecin, ul. Akacjowa 2" />
@@ -161,7 +161,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
           <Field label="Użytkownik SMTP" name="smtpUser" value={form.smtpUser} onChange={handleField} placeholder="noreply@onkopierwiastki.pl" mono />
           <Field label="Hasło SMTP" name="smtpPassword" value={form.smtpPassword} onChange={handleField} placeholder="********" type="password" mono />
         </div>
-        <Field label="Nadawca (From)" name="smtpFrom" value={form.smtpFrom} onChange={handleField} placeholder="Onkopierwiastki <noreply@onkopierwiastki.pl>" />
+        <Field label="Nadawca (From)" name="smtpFrom" value={form.smtpFrom} onChange={handleField} placeholder="BadamyPierwiastki.pl <noreply@onkopierwiastki.pl>" />
         <Toggle label="SSL/TLS (port 465)" description="Włącz jeśli używasz portu 465 z pełnym szyfrowaniem" checked={form.smtpSecure} onChange={(v) => handleToggle('smtpSecure', v)} />
       </Section>
 

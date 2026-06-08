@@ -43,7 +43,7 @@ export type CreateOrderInput = z.infer<typeof createOrderSchema>;
 // ─── Cennik serwerowy (źródło prawdy) ───
 const SERVER_PRICES: Record<string, Record<string, number>> = {
   PROFILAKTYKA: { PODSTAWOWY: 20000, ROZSZERZONY: 23000 },
-  ONKOLOGICZNY: { PODSTAWOWY: 20000, ROZSZERZONY: 23000 },
+  ONKOLOGICZNY: { PODSTAWOWY: 20000, ROZSZERZONY: 20000 },
 };
 
 function getValidPrice(panelType: string, panelTier: string): number | null {
@@ -179,7 +179,7 @@ export async function createOrder(data: CreateOrderInput) {
     }
 
     const orderNumber = await generateOrderNumber();
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://onkopierwiastki.pl";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://badamypierwiastki.pl";
 
     const order = await prisma.order.create({
       data: {
@@ -237,7 +237,7 @@ export async function createOrder(data: CreateOrderInput) {
           continueUrl: `${siteUrl}/zamowienie/${order.id}`,
           notifyUrl: `${siteUrl}/api/payu/notify/`,
           customerIp: ip,
-          description: `Onkopierwiastki — ${panelName}`,
+          description: `BadamyPierwiastki.pl — ${panelName}`,
         });
 
         // Save PayU order ID
@@ -415,7 +415,7 @@ export async function retryPayment(orderId: string) {
       continueUrl: `${siteUrl}/zamowienie/${order.id}`,
       notifyUrl: `${siteUrl}/api/payu/notify/`,
       customerIp: ip,
-      description: `Onkopierwiastki — ${panelName}`,
+      description: `BadamyPierwiastki.pl — ${panelName}`,
     });
 
     // Update payment record

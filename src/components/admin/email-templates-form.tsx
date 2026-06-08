@@ -74,8 +74,8 @@ export function EmailTemplatesForm({ settings }: { settings: SiteSettings }) {
           <p className="text-xs text-[#8a8fa6] mt-0.5">Wysyłany automatycznie do klienta po złożeniu zamówienia</p>
         </div>
         <Field label="Temat emaila" name="emailSubjectConfirmation" value={form.emailSubjectConfirmation} onChange={handleField}
-          placeholder="Potwierdzenie zamówienia — Onkopierwiastki.pl"
-          hint="Domyślnie: Potwierdzenie zamówienia — Onkopierwiastki.pl" />
+          placeholder="Potwierdzenie zamówienia — BadamyPierwiastki.pl"
+          hint="Domyślnie: Potwierdzenie zamówienia — BadamyPierwiastki.pl" />
         <TextArea label="Tekst powitalny" name="emailIntroText" value={form.emailIntroText} onChange={handleField}
           placeholder="Dziękujemy za zamówienie! Twoje zamówienie zostało przyjęte." rows={2}
           hint="Wyświetlany na górze emaila, po imieniu klienta. Pierwszy fragment przed kropką staje się nagłówkiem." />
@@ -87,7 +87,7 @@ export function EmailTemplatesForm({ settings }: { settings: SiteSettings }) {
           <p className="text-xs text-[#8a8fa6] mt-0.5">Treści wyświetlane w sekcji z danymi placówki</p>
         </div>
         <TextArea label="Instrukcja dla placówki stacjonarnej" name="emailFacilityText" value={form.emailFacilityText} onChange={handleField}
-          placeholder="Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi. Powołaj się na badanie z onkopierwiastki.pl i podaj swoje imię oraz nazwisko." rows={3}
+          placeholder="Zadzwoń do placówki podanej poniżej i umów się na termin pobrania krwi. Powołaj się na badanie z badamypierwiastki.pl i podaj swoje imię oraz nazwisko." rows={3}
           hint="Wyświetlany nad danymi kontaktowymi placówki (telefon, adres, godziny). Klient sam kontaktuje się z placówką." />
         <TextArea label="Tekst dla zamówień online" name="emailOnlineText" value={form.emailOnlineText} onChange={handleField}
           placeholder="Zamówienie online — skontaktujemy się z Tobą mailowo z instrukcjami dotyczącymi pobrania i wysyłki materiału." rows={2}
@@ -100,7 +100,7 @@ export function EmailTemplatesForm({ settings }: { settings: SiteSettings }) {
           <p className="text-xs text-[#8a8fa6] mt-0.5">Tekst na samym dole każdego emaila</p>
         </div>
         <TextArea label="Stopka emaila" name="emailFooterText" value={form.emailFooterText} onChange={handleField}
-          placeholder="Innowacyjna Medycyna sp. z o.o. · www.onkopierwiastki.pl · kontakt@onkopierwiastki.pl" rows={2} />
+          placeholder="Innowacyjna Medycyna sp. z o.o. · www.badamypierwiastki.pl · kontakt@onkopierwiastki.pl" rows={2} />
       </div>
 
       <div className="bg-[#EEEFFD]/50 rounded-xl p-5 text-xs text-[#8a8fa6] space-y-1">

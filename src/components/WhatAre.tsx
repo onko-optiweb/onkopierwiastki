@@ -17,7 +17,7 @@ const slides = [
     alt: 'Tłum ludzi z wykresem statystycznym — normy różnią się między populacjami',
     myth: '„Normy są uniwersalne"',
     fact: 'Średnie stężenia różnią się między populacjami, płciami i grupami wiekowymi.',
-    conclusion: 'Onkopierwiastki używają norm opracowanych wyłącznie dla populacji polskiej.',
+    conclusion: 'Badanie wykorzystuje normy opracowane wyłącznie dla populacji polskiej.',
   },
   {
     image: '/images/mit-dieta.webp',
@@ -72,8 +72,11 @@ export default function WhatAre() {
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-[1.6rem] sm:text-4xl lg:text-5xl !leading-tight text-black mb-5">
             Ocena stężenia pierwiastków skutecznie wspiera profilaktykę nowotworów i obniża ryzyko zgonów w młodszym wieku.
           </h2>
-          <p className="text-[#8a8fa6] text-sm lg:text-base">
+          <p className="text-[#8a8fa6] text-sm lg:text-base mb-3">
             Sprawdź, które przekonania mogą dawać Ci <span className="text-[#122056] font-semibold">fałszywe poczucie bezpieczeństwa</span>.
+          </p>
+          <p className="text-[#8a8fa6] text-xs lg:text-sm max-w-2xl mx-auto">
+            Badanie znane pacjentom pod nazwą <strong className="text-[#122056]">onkopierwiastki</strong> lub <strong className="text-[#122056]">onkopakiet</strong> sprawdza stężenie 6 pierwiastków śladowych we krwi — selenu, cynku, arsenu, miedzi, kadmu i ołowiu.
           </p>
         </div>
 

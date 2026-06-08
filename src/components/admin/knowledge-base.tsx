@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FileText, Copy, Check, ChevronDown, BookOpen, Image, Search, Sparkles, Download } from 'lucide-react';
 
-const blogPrompt = `Jesteś ekspertem SEO i copywriterem medycznym. Napisz artykuł blogowy na stronę onkopierwiastki.pl — stronę poświęconą badaniu stężenia pierwiastków śladowych we krwi (selen, cynk, arsen, miedź, kadm, ołów) pod kątem ryzyka nowotworowego. Badanie opracował prof. Jan Lubiński z Pomorskiego Uniwersytetu Medycznego w Szczecinie.
+const blogPrompt = `Jesteś ekspertem SEO i copywriterem medycznym. Napisz artykuł blogowy na stronę badamypierwiastki.pl — stronę poświęconą badaniu stężenia pierwiastków śladowych we krwi (selen, cynk, arsen, miedź, kadm, ołów) pod kątem ryzyka nowotworowego. Badanie opracował prof. Jan Lubiński z Pomorskiego Uniwersytetu Medycznego w Szczecinie.
 
 TEMAT ARTYKUŁU: [wpisz temat, np. "Rola selenu w profilaktyce nowotworowej"]
 
@@ -29,9 +29,9 @@ WYMAGANIA:
    - Pisz przystępnym językiem, ale zachowaj wiarygodność medyczną
    - NIE obiecuj wyleczenia ani diagnozy
    - NIE podawaj konkretnych zakresów referencyjnych (chronione patentami)
-   - Używaj terminu "badanie onkopierwiastków" (NIE "onkopakiet")
+   - Oficjalna nazwa marki: "BadamyPierwiastki.pl". Terminy "onkopierwiastki" i "onkopakiet" to potoczne określenia pacjentów — OK w celach SEO, ale NIE jako nazwa własna
    - Na końcu dodaj sekcję zachęcającą do badania (bez nachalnej reklamy)
-   - Jeśli pasuje, linkuj: <a href="/zamow">Zamów badanie onkopierwiastków</a>
+   - Jeśli pasuje, linkuj: <a href="/zamow">Zamów badanie pierwiastków</a>
 
 3. META TYTUŁ (meta title):
    - Maks. 60 znaków (bezwzględnie nie więcej niż 70)
@@ -140,14 +140,14 @@ export function KnowledgeBase() {
       {/* Claude Project setup */}
       <KnowledgeCard
         title="Projekt Claude AI — pisz z wiedzą o firmie"
-        description="Jak stworzyć projekt w Claude, który zna Onkopierwiastki"
+        description="Jak stworzyć projekt w Claude, który zna BadamyPierwiastki.pl"
         icon={<Sparkles size={20} className="text-[#5B65DC]" />}
         defaultOpen
       >
         <div className="space-y-6">
           <p className="text-sm text-[#4a4f65] leading-relaxed">
             Możesz stworzyć <strong>projekt w Claude</strong>, który będzie znał wszystkie informacje o firmie, badaniu, pierwiastkach, cenach i zasadach komunikacji.
-            Dzięki temu każdy prompt (np. pisanie bloga, postów social media, odpowiedzi na pytania) będzie od razu uwzględniał kontekst Onkopierwiastków.
+            Dzięki temu każdy prompt (np. pisanie bloga, postów social media, odpowiedzi na pytania) będzie od razu uwzględniał kontekst badania pierwiastków.
           </p>
 
           {/* Step 1 — download */}
@@ -157,7 +157,7 @@ export function KnowledgeBase() {
               Pobierz dokument wiedzy o firmie
             </h3>
             <p className="text-sm text-[#4a4f65] mb-3">
-              Kliknij poniższy przycisk, aby pobrać plik z kompletną bazą wiedzy o Onkopierwiastkach.
+              Kliknij poniższy przycisk, aby pobrać plik z kompletną bazą wiedzy o BadamyPierwiastki.pl.
             </p>
             <a
               href="/docs/baza-wiedzy-onkopierwiastki.md"
@@ -186,7 +186,7 @@ export function KnowledgeBase() {
                   W lewym panelu kliknij <strong>&quot;Projects&quot;</strong> (Projekty), a następnie <strong>&quot;Create project&quot;</strong>
                 </li>
                 <li>
-                  Nadaj nazwę, np. <strong>&quot;Onkopierwiastki&quot;</strong>
+                  Nadaj nazwę, np. <strong>&quot;BadamyPierwiastki.pl&quot;</strong>
                 </li>
                 <li>
                   W ustawieniach projektu znajdź sekcję <strong>&quot;Project knowledge&quot;</strong> i kliknij <strong>&quot;Add content&quot;</strong> → <strong>&quot;Upload files&quot;</strong>
@@ -219,13 +219,14 @@ export function KnowledgeBase() {
             </p>
             <div className="relative">
               <div className="absolute top-3 right-3 z-10">
-                <CopyButton text={`Jesteś asystentem firmy Innowacyjna Medycyna sp. z o.o., operatorem strony onkopierwiastki.pl. Pomagasz tworzyć treści marketingowe, wpisy blogowe, posty social media i odpowiedzi na pytania klientów.\n\nZASADY:\n- Ton: profesjonalny, medycznie wiarygodny, ale przystępny. Empowerment, nie straszenie.\n- Zawsze używaj terminu "badanie onkopierwiastków" (NIGDY "onkopakiet").\n- Zawsze używaj "certyfikowana placówka" (NIGDY "certyfikowana placówka referencyjna").\n- Nie obiecuj wyleczenia ani diagnozy.\n- Nie podawaj konkretnych zakresów referencyjnych — są chronione patentami UP RP.\n- Wszystkie twierdzenia medyczne muszą pochodzić z materiałów w bazie wiedzy projektu.\n- Gdy piszesz artykuł blogowy w HTML, używaj TYLKO: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>, <ol>, <blockquote>, <a href="">. Bez klas CSS.\n- Meta tytuł: maks. 60 znaków. Meta opis: maks. 155 znaków.\n- Strona zamówienia: /zamow`} label="Kopiuj instrukcję" />
+                <CopyButton text={`Jesteś asystentem firmy Innowacyjna Medycyna sp. z o.o., operatorem strony badamypierwiastki.pl. Pomagasz tworzyć treści marketingowe, wpisy blogowe, posty social media i odpowiedzi na pytania klientów.\n\nZASADY:\n- Ton: profesjonalny, medycznie wiarygodny, ale przystępny. Empowerment, nie straszenie.\n- Oficjalna nazwa marki: "BadamyPierwiastki.pl". Terminy "onkopierwiastki" i "onkopakiet" to potoczne określenia pacjentów — używaj ich w celach SEO, ale NIE jako nazwy własnej produktu.\n- Wzorzec: "Badanie BadamyPierwiastki.pl — znane wśród pacjentów jako onkopierwiastki lub onkopakiet".\n- Zawsze używaj "certyfikowana placówka" (NIGDY "certyfikowana placówka referencyjna").\n- Nie obiecuj wyleczenia ani diagnozy.\n- Nie podawaj konkretnych zakresów referencyjnych — są chronione patentami UP RP.\n- Wszystkie twierdzenia medyczne muszą pochodzić z materiałów w bazie wiedzy projektu.\n- Gdy piszesz artykuł blogowy w HTML, używaj TYLKO: <h2>, <h3>, <p>, <strong>, <em>, <ul>, <li>, <ol>, <blockquote>, <a href="">. Bez klas CSS.\n- Meta tytuł: maks. 60 znaków. Meta opis: maks. 155 znaków.\n- Strona zamówienia: /zamow`} label="Kopiuj instrukcję" />
               </div>
-              <pre className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 pr-40 text-xs text-[#4a4f65] overflow-x-auto max-h-52 overflow-y-auto whitespace-pre-wrap leading-relaxed">{`Jesteś asystentem firmy Innowacyjna Medycyna sp. z o.o., operatorem strony onkopierwiastki.pl. Pomagasz tworzyć treści marketingowe, wpisy blogowe, posty social media i odpowiedzi na pytania klientów.
+              <pre className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 pr-40 text-xs text-[#4a4f65] overflow-x-auto max-h-52 overflow-y-auto whitespace-pre-wrap leading-relaxed">{`Jesteś asystentem firmy Innowacyjna Medycyna sp. z o.o., operatorem strony badamypierwiastki.pl. Pomagasz tworzyć treści marketingowe, wpisy blogowe, posty social media i odpowiedzi na pytania klientów.
 
 ZASADY:
 - Ton: profesjonalny, medycznie wiarygodny, ale przystępny. Empowerment, nie straszenie.
-- Zawsze używaj terminu "badanie onkopierwiastków" (NIGDY "onkopakiet").
+- Oficjalna nazwa marki: "BadamyPierwiastki.pl". Terminy "onkopierwiastki" i "onkopakiet" to potoczne określenia pacjentów — używaj ich w celach SEO, ale NIE jako nazwy własnej produktu.
+- Wzorzec: "Badanie BadamyPierwiastki.pl — znane wśród pacjentów jako onkopierwiastki lub onkopakiet".
 - Zawsze używaj "certyfikowana placówka" (NIGDY "certyfikowana placówka referencyjna").
 - Nie obiecuj wyleczenia ani diagnozy.
 - Nie podawaj konkretnych zakresów referencyjnych — są chronione patentami UP RP.
@@ -371,7 +372,7 @@ ZASADY:
               <li>• <strong>Sprawdź „Ludzie też pytają"</strong> w Google — te pytania to świetne nagłówki H2/H3</li>
               <li>• <strong>Linkuj wewnętrznie</strong> — do strony /zamow i do innych wpisów blogowych</li>
               <li>• <strong>Nie kopiuj treści</strong> z innych stron — artykuł musi być oryginalny</li>
-              <li>• <strong>Nie używaj terminu „onkopakiet"</strong> — zawsze pisz „badanie onkopierwiastków"</li>
+              <li>• <strong>Nazwa marki: BadamyPierwiastki.pl</strong> — terminy „onkopierwiastki" i „onkopakiet" OK jako potoczne określenia pacjentów (SEO), ale NIE jako nazwa produktu</li>
             </ul>
           </div>
         </div>
@@ -427,7 +428,7 @@ ZASADY:
               <li>• <strong>Licencja:</strong> Pexels License — darmowe do użytku komercyjnego i niekomercyjnego</li>
               <li>• <strong>Atrybucja:</strong> NIE jest wymagana (ale mile widziana)</li>
               <li>• <strong>Ograniczenie:</strong> Nie wolno sprzedawać zdjęć niemodyfikowanych ani sugerować, że osoby na zdjęciach polecają produkt</li>
-              <li>• <strong>Uwaga:</strong> Nie używaj zdjęć osób z Pexels w kontekście sugerującym, że dana osoba wykonała badanie onkopierwiastków — to naruszenie licencji</li>
+              <li>• <strong>Uwaga:</strong> Nie używaj zdjęć osób z Pexels w kontekście sugerującym, że dana osoba wykonała badanie pierwiastków — to naruszenie licencji</li>
             </ul>
           </div>
 
@@ -506,8 +507,9 @@ ZASADY:
               <li>• Odwoływanie się do badań naukowych prof. Lubińskiego i PUM Szczecin</li>
               <li>• Informacja o patentach UP RP i publikacjach PubMed</li>
               <li>• Zachęcanie do profilaktyki i badań kontrolnych</li>
-              <li>• Termin: <strong>badanie onkopierwiastków</strong></li>
+              <li>• Termin: <strong>badanie pierwiastków</strong> / <strong>BadamyPierwiastki.pl</strong></li>
               <li>• Termin: <strong>certyfikowana placówka</strong></li>
+              <li>• Potoczne określenia pacjentów: <strong>onkopierwiastki</strong>, <strong>onkopakiet</strong> (tylko jako potoczne nazwy, NIE jako marka)</li>
             </ul>
           </div>
 
@@ -517,14 +519,14 @@ ZASADY:
               <li>• Obietnic wyleczenia, diagnozy lub gwarancji zdrowotnych</li>
               <li>• Konkretnych zakresów referencyjnych (chronione patentami)</li>
               <li>• Twierdzeń medycznych spoza materiałów źródłowych</li>
-              <li>• Terminu <strong className="line-through">„onkopakiet"</strong> — zawsze „badanie onkopierwiastków"</li>
+              <li>• Używania „onkopierwiastki" lub „onkopakiet" jako <strong>nazwy własnej</strong> produktu — to potoczne określenia pacjentów, nie marka</li>
               <li>• Terminu <strong className="line-through">„certyfikowana placówka referencyjna"</strong> — wystarczy „certyfikowana placówka"</li>
             </ul>
           </div>
 
           <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-3">
             <p className="text-xs text-[#8a8fa6]">
-              <strong>Disclaimer (wymagany na stronie):</strong> Badanie Onkopierwiastków jest badaniem diagnostycznym. Wyniki nie stanowią diagnozy medycznej i nie zastępują konsultacji lekarskiej. Zakresy referencyjne opracowane przez Międzynarodowe Centrum Nowotworów Dziedzicznych PUM w Szczecinie są chronione patentami Urzędu Patentowego RP.
+              <strong>Disclaimer (wymagany na stronie):</strong> Badanie pierwiastków jest badaniem diagnostycznym. Wyniki nie stanowią diagnozy medycznej i nie zastępują konsultacji lekarskiej. Zakresy referencyjne opracowane przez Międzynarodowe Centrum Nowotworów Dziedzicznych PUM w Szczecinie są chronione patentami Urzędu Patentowego RP.
             </p>
           </div>
         </div>

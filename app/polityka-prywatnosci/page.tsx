@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Polityka prywatności',
-  description: 'Polityka prywatności serwisu onkopierwiastki.pl — informacje o przetwarzaniu danych osobowych, prawach użytkowników i plikach cookies.',
+  description: 'Polityka prywatności serwisu badamypierwiastki.pl — informacje o przetwarzaniu danych osobowych, prawach użytkowników i plikach cookies.',
   alternates: { canonical: '/polityka-prywatnosci' },
   openGraph: {
     title: `Polityka prywatności | ${siteConfig.name}`,
@@ -61,7 +61,7 @@ export default function PolitykaPrywatnosciPage() {
             Polityka prywatności
           </h1>
           <p className="text-[#8a8fa6] text-sm">
-            www.onkopierwiastki.pl &middot; obowiązuje od dnia 1 maja 2026 r.
+            www.badamypierwiastki.pl &middot; obowiązuje od dnia 1 maja 2026 r.
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export default function PolitykaPrywatnosciPage() {
           <Section id="odbiorcy" title="4. Odbiorcy danych">
             <P>Twoje dane osobowe mogą być przekazywane następującym kategoriom odbiorców:</P>
             <Ul>
-              <li><strong>Placówki referencyjne</strong> &ndash; punkty pobrań krwi współpracujące z Administratorem, w zakresie niezbędnym do realizacji badania.</li>
+              <li><strong>Placówki certyfikowane</strong> &ndash; punkty pobrań krwi współpracujące z Administratorem, w zakresie niezbędnym do realizacji badania.</li>
               <li><strong>Laboratorium</strong> &ndash; Innowacyjna Medycyna sp. z o.o. (adres laboratorium: Grzepnica, ul. Alabastrowa 8, 72-003 Dobra).</li>
               <li><strong>Dostawcy usług IT</strong> &ndash; hosting (Vercel), baza danych (Supabase), system płatności (PayU S.A.).</li>
               <li><strong>Organy publiczne</strong> &ndash; na żądanie uprawnionych organów, w przypadkach przewidzianych prawem.</li>
@@ -167,12 +167,12 @@ export default function PolitykaPrywatnosciPage() {
           </Section>
 
           <Section id="dzieci" title="11. Dane dzieci">
-            <P>Serwis onkopierwiastki.pl jest przeznaczony wyłącznie dla osób pełnoletnich (powyżej 18 roku życia). Nie przetwarzamy świadomie danych osobowych osób niepełnoletnich.</P>
+            <P>Serwis badamypierwiastki.pl jest przeznaczony wyłącznie dla osób pełnoletnich (powyżej 18 roku życia). Nie przetwarzamy świadomie danych osobowych osób niepełnoletnich.</P>
           </Section>
 
           <Section id="zmiany" title="12. Zmiany polityki prywatności">
             <P>Administrator zastrzega sobie prawo do zmiany niniejszej Polityki Prywatności. O istotnych zmianach poinformujemy za pośrednictwem komunikatu na stronie lub wiadomości e-mail z co najmniej 14-dniowym wyprzedzeniem.</P>
-            <P>Aktualna wersja Polityki Prywatności jest zawsze dostępna na stronie <a href="/polityka-prywatnosci" className="text-[#5B65DC] hover:underline">onkopierwiastki.pl/polityka-prywatnosci</a>.</P>
+            <P>Aktualna wersja Polityki Prywatności jest zawsze dostępna na stronie <a href="/polityka-prywatnosci" className="text-[#5B65DC] hover:underline">badamypierwiastki.pl/polityka-prywatnosci</a>.</P>
           </Section>
 
           <Section id="kontakt" title="13. Kontakt">
@@ -185,7 +185,7 @@ export default function PolitykaPrywatnosciPage() {
           </Section>
 
           <div className="mt-10 pt-6 border-t border-[#EEEFFD] text-center text-[#8a8fa6] text-xs">
-            Innowacyjna Medycyna sp. z o.o. &middot; www.onkopierwiastki.pl &middot; <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>
+            Innowacyjna Medycyna sp. z o.o. &middot; www.badamypierwiastki.pl &middot; <a href="mailto:kontakt@onkopierwiastki.pl" className="text-[#5B65DC] hover:underline">kontakt@onkopierwiastki.pl</a>
           </div>
 
         </div>

@@ -6,7 +6,7 @@ const testimonials = [
     initials: 'AK',
   },
   {
-    text: 'Jako nosicielka mutacji BRCA1 szukałam czegoś więcej niż standardowa morfologia. Onkopierwiastki dały mi informacje, których żadne inne badanie wcześniej nie pokazało.',
+    text: 'Jako nosicielka mutacji BRCA1 szukałam czegoś więcej niż standardowa morfologia. Badanie pierwiastków dało mi informacje, których żadne inne badanie wcześniej nie pokazało.',
     name: 'Magdalena W.',
     role: 'Farmaceutka',
     initials: 'MW',
@@ -84,7 +84,7 @@ export default function Testimonials() {
             <div className="rounded-2xl overflow-hidden relative flex-1">
               <img
                 src="/images/mit-normy-uniwersalne.webp"
-                alt="Tysiące pacjentów zaufało badaniu onkopierwiastków"
+                alt="Tysiące pacjentów zaufało badaniu pierwiastków"
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2">

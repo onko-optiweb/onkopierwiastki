@@ -83,7 +83,7 @@ export default function ForWhom() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4">
-              Kto powinien zbadać onkopierwiastki?
+              Kto powinien zbadać swoje pierwiastki?
             </h2>
             <p className="text-white/50 text-sm lg:text-base max-w-2xl">
               Badanie jest zalecane dla wszystkich dorosłych z populacji polskiej. W szczególności dla:

@@ -1,5 +1,5 @@
 const photos = [
-  { src: '/images/people/253.webp', alt: 'Pacjentka po badaniu onkopierwiastków' },
+  { src: '/images/people/253.webp', alt: 'Pacjentka po badaniu pierwiastków' },
   { src: '/images/people/2396.webp', alt: 'Pacjent zadowolony z wyniku badania' },
   { src: '/images/people/14786.webp', alt: 'Kobieta dbająca o profilaktykę nowotworową' },
   { src: '/images/people/46911.webp', alt: 'Mężczyzna po badaniu pierwiastków we krwi' },
@@ -26,7 +26,7 @@ export default function PeopleCTA() {
         {/* Text + CTA */}
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl lg:text-[42px] lg:leading-tight text-black mb-5">
-            Dołącz do tysięcy osób, które zbadały swoje onkopierwiastki
+            Dołącz do tysięcy osób, które zbadały swoje pierwiastki
           </h2>
           <p className="text-[#8a8fa6] text-sm lg:text-base mb-8 max-w-2xl mx-auto">
             Profilaktyka to nie luksus — to świadoma decyzja. Jedno badanie krwi może zmienić Twoje podejście do zdrowia.

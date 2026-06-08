@@ -19,6 +19,22 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'onkopierwiastki.pl' }],
+        destination: 'https://badamypierwiastki.pl/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.onkopierwiastki.pl' }],
+        destination: 'https://badamypierwiastki.pl/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

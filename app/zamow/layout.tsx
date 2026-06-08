@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { siteConfig } from '@/src/siteConfig';
 
 export const metadata: Metadata = {
-  title: 'Zamów badanie onkopierwiastków',
+  title: 'Zamów badanie pierwiastków',
   description: 'Zamów badanie poziomu 6 pierwiastków śladowych (Se, Zn, As, Cu, Cd, Pb). Wybierz panel, placówkę pobrań lub zamów zestaw online. Wyniki w 15 dni roboczych.',
   alternates: { canonical: '/zamow' },
   openGraph: {

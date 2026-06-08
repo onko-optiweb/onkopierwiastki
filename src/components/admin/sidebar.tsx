@@ -82,7 +82,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
 
         {/* Footer */}
         <div className="p-4 border-t border-white/10 text-white/40 text-[11px]">
-          Onkopierwiastki.pl &copy; {new Date().getFullYear()}
+          BadamyPierwiastki.pl &copy; {new Date().getFullYear()}
         </div>
       </aside>
     </>

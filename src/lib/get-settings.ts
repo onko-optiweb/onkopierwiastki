@@ -33,7 +33,7 @@ export type SiteSettings = {
 
 const defaults: SiteSettings = {
   id: "main",
-  siteName: "Onkopierwiastki.pl",
+  siteName: "BadamyPierwiastki.pl",
   email: "kontakt@onkopierwiastki.pl",
   phone: null,
   address: "71-253 Szczecin, ul. Akacjowa 2",

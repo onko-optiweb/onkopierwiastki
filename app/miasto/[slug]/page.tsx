@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import {
   IconAlertTriangle, IconReportMedical, IconSalad, IconPill,
-  IconHeartRateMonitor, IconShieldCheck,
+  IconHeartRateMonitor, IconShieldCheck, IconFlask,
   IconUser, IconUsers, IconDna, IconSmoking, IconStethoscope,
 } from '@tabler/icons-react';
 
@@ -75,15 +75,15 @@ export default async function CityPage({ params }: Props) {
     },
     'Centrum Medyczne Polmed': {
       teaser: 'Centrum Medyczne Polmed to ogólnopolska sieć przychodni oferująca szeroki zakres usług medycznych, w tym diagnostykę laboratoryjną i specjalistyczne konsultacje.',
-      full: 'Centrum Medyczne Polmed to jedna z największych sieci prywatnych placówek medycznych w Polsce, działająca w kilkunastu miastach. Personel jest przeszkolony w zakresie obsługi specjalnych próbówek wymaganych do badania onkopierwiastków. Placówki przyjmują pacjentów w szerokich godzinach, a rejestracja dostępna jest zarówno online, jak i telefonicznie.',
+      full: 'Centrum Medyczne Polmed to jedna z największych sieci prywatnych placówek medycznych w Polsce, działająca w kilkunastu miastach. Personel jest przeszkolony w zakresie obsługi specjalnych próbówek wymaganych do badania pierwiastków. Placówki przyjmują pacjentów w szerokich godzinach, a rejestracja dostępna jest zarówno online, jak i telefonicznie.',
     },
     'Flosmed - Specjalistyczna Przychodnia Lekarska': {
       teaser: 'Flosmed to specjalistyczna przychodnia lekarska w Poznaniu, oferująca diagnostykę laboratoryjną oraz konsultacje medyczne w szerokim zakresie specjalizacji.',
-      full: 'Flosmed — Specjalistyczna Przychodnia Lekarska przy ul. Barwickiej 14/A w Poznaniu — zapewnia pacjentom dostęp do szerokiego wachlarza usług diagnostycznych. Placówka realizuje pobrania krwi zgodnie z protokołem wymaganym przez laboratorium Innowacyjna Medycyna, z użyciem specjalnych próbówek dedykowanych badaniu onkopierwiastków. Lokalizacja w dzielnicy Grunwald zapewnia wygodny dojazd komunikacją miejską z centrum Poznania.',
+      full: 'Flosmed — Specjalistyczna Przychodnia Lekarska przy ul. Barwickiej 14/A w Poznaniu — zapewnia pacjentom dostęp do szerokiego wachlarza usług diagnostycznych. Placówka realizuje pobrania krwi zgodnie z protokołem wymaganym przez laboratorium Innowacyjna Medycyna, z użyciem specjalnych próbówek dedykowanych badaniu pierwiastków. Lokalizacja w dzielnicy Grunwald zapewnia wygodny dojazd komunikacją miejską z centrum Poznania.',
     },
     'Vitall Clinic - Centrum medyczne': {
       teaser: 'Vitall Clinic to centrum medyczne w Bielsku-Białej specjalizujące się w diagnostyce laboratoryjnej i konsultacjach specjalistycznych.',
-      full: 'Vitall Clinic przy ul. Kazimierza Wielkiego 26 w Bielsku-Białej oferuje kompleksową diagnostykę medyczną w nowoczesnych warunkach. Placówka jest certyfikowanym punktem pobrań do badania onkopierwiastków — personel został przeszkolony w zakresie obsługi dedykowanych próbówek i protokołu wymaganego przez laboratorium Innowacyjna Medycyna.',
+      full: 'Vitall Clinic przy ul. Kazimierza Wielkiego 26 w Bielsku-Białej oferuje kompleksową diagnostykę medyczną w nowoczesnych warunkach. Placówka jest certyfikowanym punktem pobrań do badania pierwiastków — personel został przeszkolony w zakresie obsługi dedykowanych próbówek i protokołu wymaganego przez laboratorium Innowacyjna Medycyna.',
     },
     'Centrum Medyczne nMedica': {
       teaser: 'nMedica to nowoczesne centrum medyczne w Tarnowie, oferujące diagnostykę laboratoryjną oraz konsultacje specjalistyczne w komfortowych warunkach.',
@@ -91,7 +91,7 @@ export default async function CityPage({ params }: Props) {
     },
     'Life Medical Center': {
       teaser: 'Life Medical Center to warszawska klinika medyczna oferująca kompleksową diagnostykę, w tym badania laboratoryjne z zakresu pierwiastków śladowych.',
-      full: 'Life Medical Center przy ul. Grzybowskiej 43A w Warszawie specjalizuje się w medycynie prewencyjnej i diagnostyce zaawansowanej. Placówka znajduje się w ścisłym centrum stolicy, w sąsiedztwie stacji metra Rondo ONZ. Personel jest przeszkolony w zakresie protokołu pobrań wymaganych do badania onkopierwiastków, a placówka dysponuje odpowiednim wyposażeniem do prawidłowego zabezpieczenia próbek.',
+      full: 'Life Medical Center przy ul. Grzybowskiej 43A w Warszawie specjalizuje się w medycynie prewencyjnej i diagnostyce zaawansowanej. Placówka znajduje się w ścisłym centrum stolicy, w sąsiedztwie stacji metra Rondo ONZ. Personel jest przeszkolony w zakresie protokołu pobrań wymaganych do badania pierwiastków, a placówka dysponuje odpowiednim wyposażeniem do prawidłowego zabezpieczenia próbek.',
     },
   };
 
@@ -108,7 +108,7 @@ export default async function CityPage({ params }: Props) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Strona główna', item: siteConfig.domain },
-      { '@type': 'ListItem', position: 2, name: `Badanie onkopierwiastków ${city.name}`, item: `${siteConfig.domain}/miasto/${slug}` },
+      { '@type': 'ListItem', position: 2, name: `Badanie pierwiastków ${city.name}`, item: `${siteConfig.domain}/miasto/${slug}` },
     ],
   };
 
@@ -143,7 +143,7 @@ export default async function CityPage({ params }: Props) {
             <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-sm text-[#8a8fa6]">
               <Link href="/" className="hover:text-[#122056] transition-colors">Strona główna</Link>
               <ChevronRight size={14} />
-              <span className="text-[#122056] font-medium">Onkopierwiastki {city.name}</span>
+              <span className="text-[#122056] font-medium">Badanie pierwiastków {city.name}</span>
             </nav>
           </div>
         </div>
@@ -254,10 +254,10 @@ export default async function CityPage({ params }: Props) {
         <section id="placowki" className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Onkopierwiastki {city.name}.<br />Punkty pobrań i placówki
+              Badanie pierwiastków {city.name}.<br />Punkty pobrań i placówki
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-4">
-              Badanie onkopierwiastków wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
+              Badanie pierwiastków wymaga pobrania materiału w certyfikowanej placówce {city.nameLocative}. Tylko tam specjalne próbówki i procedury gwarantują wiarygodność wyniku.
             </p>
             {facilities.length === 0 && <NoFacilityForm />}
             {facilities.length > 0 && facilitiesWithLogo.length === 1 && (
@@ -445,10 +445,10 @@ export default async function CityPage({ params }: Props) {
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Badanie 6 pierwiastków we krwi — co obejmuje badanie onkopierwiastków?
+              Badanie 6 pierwiastków we krwi — co obejmuje badanie pierwiastków?
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-3xl mx-auto text-center mb-10">
-              Badanie onkopierwiastków oznacza stężenia sześciu pierwiastków śladowych, których poziom we krwi — według wieloletnich badań — wiąże się z ryzykiem nowotworów.
+              Badanie pierwiastków oznacza stężenia sześciu pierwiastków śladowych, których poziom we krwi — według wieloletnich badań — wiąże się z ryzykiem nowotworów.
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -479,10 +479,10 @@ export default async function CityPage({ params }: Props) {
           </div>
           <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4 text-center">
-              Komu szczególnie polecamy badanie onkopierwiastków?
+              Komu szczególnie polecamy badanie pierwiastków?
             </h2>
             <p className="text-white/50 text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
-              Badanie onkopierwiastków jest przeznaczone dla wszystkich dorosłych osób z polskiej populacji. Szczególną korzyść odniosą:
+              Badanie pierwiastków jest przeznaczone dla wszystkich dorosłych osób z polskiej populacji. Szczególną korzyść odniosą:
             </p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
@@ -519,8 +519,8 @@ export default async function CityPage({ params }: Props) {
             </p>
             <div className="grid md:grid-cols-3 gap-px bg-[#122056]/10 max-w-4xl mx-auto rounded-xl overflow-hidden">
               {[
-                { n: '01', title: 'Przed pobraniem', items: ['Minimum 6 godzin na czczo', 'Przez 3 dni unikaj ryb morskich, owoców morza i ryżu', 'Poinformuj personel o suplementach z Se, Zn, Cu'] },
-                { n: '02', title: 'W placówce', items: ['Pobranie 0,5 ml krwi pełnej lub surowicy', 'Materiał zabezpieczany w specjalnych próbówkach', 'Próbka transportowana do laboratorium'] },
+                { n: '01', title: 'Przed pobraniem', items: ['Minimum 4 godziny na czczo', 'Przez 3 dni unikaj ryb morskich, owoców morza i ryżu'] },
+                { n: '02', title: 'W placówce', items: ['Pobranie 0,5 ml krwi pełnej i/lub surowicy', 'Materiał zabezpieczany w specjalnych próbówkach', 'Próbka transportowana do laboratorium'] },
                 { n: '03', title: 'Odbiór wyniku', items: ['PDF z wynikami i zaleceniami na e-mail', 'Do 15 dni roboczych od dostarczenia próbki', 'Normy dopasowane do Twojego profilu'] },
               ].map((step) => (
                 <div key={step.n} className="bg-white p-6 lg:p-8">
@@ -553,19 +553,39 @@ export default async function CityPage({ params }: Props) {
         <section className="py-16 lg:py-20 bg-[#FAFAFD]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-4 text-center">
-              Co zyskasz dzięki badaniu onkopierwiastków?
+              Co zyskasz dzięki naszemu badaniu pierwiastków?
             </h2>
             <p className="text-[#8a8fa6] text-sm lg:text-base max-w-2xl mx-auto text-center mb-10">
-              To nie kolejne badanie krwi. To spersonalizowana informacja, która zmienia podejście do profilaktyki.
+              To nie jest kolejne badanie krwi. To nowe informacje, które zmieniają sposób, w jaki dbasz o siebie.
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            {/* Wide banner card */}
+            <div className="mb-5 bg-[#122056] rounded-2xl p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center gap-6">
+              <div className="w-14 h-14 rounded-xl bg-[#5B65DC] flex items-center justify-center flex-shrink-0">
+                <IconFlask size={28} className="text-white" stroke={1.5} />
+              </div>
+              <div>
+                <p className="font-[family-name:var(--font-funnel)] font-bold text-white text-lg mb-3">
+                  Otrzymasz wynik z normami dla populacji polskiej
+                </p>
+                <p className="text-white/70 text-sm leading-relaxed mb-2">
+                  Wartości pierwiastków podawane jako optymalne mogą różnić się pomiędzy poszczególnymi laboratoriami.
+                </p>
+                <p className="text-white/70 text-sm leading-relaxed mb-2">
+                  Jedyne normy ustalone na wieloletnich obserwacjach tysięcy pacjentów w Polsce pochodzą z naszego Ośrodka. Wyniki oparte na 20+ patentach i 40+ publikacjach naukowych.
+                </p>
+                <p className="text-white/50 text-xs leading-relaxed">
+                  Zalecane normy mogą ulec zmianie w wyniku dalszych badań prowadzonych w naszym Ośrodku.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-5">
               {[
-                { icon: IconAlertTriangle, title: 'Poznasz sygnały ostrzegawcze organizmu', desc: 'Nieprawidłowe stężenia mogą wskazywać na podwyższone ryzyko — zanim pojawią się jakiekolwiek objawy choroby.' },
-                { icon: IconReportMedical, title: 'Otrzymasz konkretne wskazówki', desc: 'Wynik PDF zawiera jasne zalecenia — co zmienić w diecie, czy suplementować, jakie dalsze badania rozważyć.' },
-                { icon: IconSalad, title: 'Dowiesz się, co jeść i czego unikać', desc: 'Niedobór selenu? Nadmiar kadmu? Raport wskaże, jakie zmiany żywieniowe mogą obniżyć Twoje ryzyko.' },
-                { icon: IconPill, title: 'Koniec z suplementacją na ślepo', desc: 'Zamiast zgadywać — zobaczysz czarno na białym, czy potrzebujesz selenu, cynku, czy może masz ich za dużo.' },
-                { icon: IconHeartRateMonitor, title: 'Zyskasz kontrolę nad zdrowiem', desc: 'Regularne monitorowanie pozwala śledzić efekty wdrożonych zmian — badanie daje realne narzędzie do działania.' },
-                { icon: IconShieldCheck, title: 'Twarde dane do rozmowy z lekarzem', desc: 'Zamiast domysłów — wyniki oparte na 20+ patentach i 30+ publikacjach naukowych w PubMed.' },
+                { icon: IconAlertTriangle, title: 'Dowiesz się, czy Twój organizm wysyła sygnały ostrzegawcze zanim sam je zauważysz', desc: 'Nieprawidłowe stężenia pierwiastków mogą wskazywać na podwyższone ryzyko chorób.' },
+                { icon: IconReportMedical, title: 'Otrzymasz zalecenia, nie tylko liczby', desc: 'Raport PDF z wynikami zawiera wskazówki — co zmienić w diecie / suplementacji, czy potrzebna jest suplementacja i/lub jakie badania wykonać dalej.' },
+                { icon: IconSalad, title: 'Będziesz wiedzieć, co jeść i czego unikać', desc: 'Niedobór selenu? Nadmiar cynku? Wynik wskaże Ci, jakie zmiany dietetyczne mogą obniżyć Twoje indywidualne ryzyko.' },
+                { icon: IconPill, title: 'Przestaniesz suplementować w ciemno', desc: 'Zamiast zgadywać — zobaczysz czarno na białym, czy potrzebujesz selenu, cynku, czy może masz ich za dużo.' },
               ].map((b) => (
                 <div key={b.title} className="bg-white rounded-2xl p-7 border border-neutral-100">
                   <div className="w-12 h-12 rounded-xl bg-[#122056] flex items-center justify-center mb-5">
@@ -587,7 +607,7 @@ export default async function CityPage({ params }: Props) {
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-[#122056] mb-10 text-center">
-              Najczęściej zadawane pytania — onkopierwiastki {city.name}
+              Najczęściej zadawane pytania — badanie pierwiastków {city.name}
             </h2>
             <div className="space-y-3">
               {allFaq.map((item, i) => (
@@ -604,7 +624,7 @@ export default async function CityPage({ params }: Props) {
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="bg-[#EEEFFD] rounded-2xl p-8 lg:p-10 text-center">
               <h2 className="font-[family-name:var(--font-funnel)] font-bold text-2xl sm:text-3xl text-[#122056] mb-3">
-                Zamów badanie onkopierwiastków {city.name} — online
+                Zamów badanie pierwiastków {city.name} — online
               </h2>
               <p className="text-[#8a8fa6] text-sm mb-6 max-w-xl mx-auto">
                 Jedno pobranie krwi. Sześć pierwiastków. Spersonalizowany raport z zaleceniami dietetycznymi i suplementacyjnymi w 15 dni roboczych.
@@ -624,7 +644,7 @@ export default async function CityPage({ params }: Props) {
         {/* ====== DŁUGI TEKST SEO — rozwijany (unique) ====== */}
         <section className="py-16 lg:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <CollapsibleContent title={`Badanie onkopierwiastków ${city.name} — kompletny przewodnik`}>
+            <CollapsibleContent title={`Badanie pierwiastków ${city.name} — kompletny przewodnik`}>
               <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(city.seoText) }} />
             </CollapsibleContent>
           </div>

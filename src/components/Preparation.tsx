@@ -5,16 +5,15 @@ const steps = [
     number: '01',
     title: 'Przed pobraniem',
     items: [
-      'Co najmniej 6 godzin na czczo',
+      'Co najmniej 4 godziny na czczo',
       'Przez 3 dni nie spożywaj ryb morskich, owoców morza i ryżu',
-      'Poinformuj personel o suplementach z badanymi pierwiastkami',
     ],
   },
   {
     number: '02',
     title: 'W placówce',
     items: [
-      'Pobranie krwi pełnej lub surowicy',
+      'Pobranie krwi pełnej i/lub surowicy',
       'Materiał oznaczany kodem zlecenia',
       'Kurier odbiera próbkę od placówki',
     ],
@@ -39,7 +38,7 @@ export default function Preparation() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-[family-name:var(--font-funnel)] font-bold text-3xl sm:text-4xl text-white mb-4">
-            Jak się przygotować do badania onkopierwiastków?
+            Jak się przygotować do badania pierwiastków?
           </h2>
           <p className="text-white/50 text-sm lg:text-base max-w-xl mx-auto">
             Trzy proste kroki — od przygotowania do odbioru wyniku.
@@ -73,7 +72,7 @@ export default function Preparation() {
           <IconAlertTriangle size={16} className="text-[#5B65DC] inline-block mr-1.5 -mt-0.5" stroke={1.5} />
           <span className="text-white/70 font-semibold text-xs">Co może wpłynąć na wynik?</span>{' '}
           <span className="text-white/40 text-xs">
-            Transfuzja krwi, badanie z kontrastem, niestosowanie się do zaleceń dietetycznych. Skonsultuj się z personelem placówki.
+            Transfuzja krwi, badanie MRI z kontrastem, niestosowanie się do zaleceń dietetycznych.
           </span>
         </p>
       </div>

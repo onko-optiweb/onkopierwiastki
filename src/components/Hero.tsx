@@ -51,7 +51,7 @@ export default function Hero() {
               <div className="flex flex-col items-center text-center">
                 {/* Heading */}
                 <h1 className="font-[family-name:var(--font-funnel)] font-bold text-[2.2rem] sm:text-4xl lg:text-[3.2rem] leading-[1.1] tracking-tight text-black mb-2">
-                  Zbadaj onkopierwiastki
+                  Zamów badanie pierwiastków
                 </h1>
                 <p className="font-[family-name:var(--font-funnel)] font-bold text-xl sm:text-2xl lg:text-[1.8rem] leading-[1.2] text-black italic mb-5">
                   Poznaj swoje ryzyko, zanim pojawią się objawy.
@@ -60,6 +60,10 @@ export default function Hero() {
                 {/* Description */}
                 <p className="text-[#8a8fa6] text-[13px] lg:text-sm leading-relaxed mb-8 max-w-lg">
                   Badania z krwi z <span className="text-[#122056] font-semibold">normami opracowanymi dla populacji polskiej</span> oparte na ponad 40 publikacjach w piśmiennictwie międzynarodowym oraz ponad 100 przyznanych lub zgłoszonych patentach. Sprawdza stężenie 6 pierwiastków, które badania naukowe wiążą ze zwiększonym ryzykiem nowotworów złośliwych oraz zgonów w młodszym wieku. Jedno pobranie. Wynik z <span className="text-[#122056] font-semibold">konkretnymi zaleceniami w 15 dni roboczych</span>.
+                </p>
+
+                <p className="text-[#8a8fa6] text-[12px] lg:text-[13px] leading-relaxed mb-8 max-w-lg italic">
+                  Nasze badanie jest często nazywane przez pacjentów <span className="text-[#122056] font-semibold not-italic">onkopierwiastkami</span> lub <span className="text-[#122056] font-semibold not-italic">onkopakietem</span>. To potoczne określenia badania pierwiastków krwi powiązanych z ryzykiem nowotworowym, opracowanego przez prof. Jana Lubińskiego.
                 </p>
 
                 {/* CTA */}

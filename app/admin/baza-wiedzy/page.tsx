@@ -11,7 +11,7 @@ export default function KnowledgeBasePage() {
       <div>
         <h1 className="text-2xl font-bold text-[#122056]">Baza wiedzy</h1>
         <p className="text-sm text-[#8a8fa6] mt-1">
-          Instrukcje i szablony do pracy z serwisem onkopierwiastki.pl
+          Instrukcje i szablony do pracy z serwisem badamypierwiastki.pl
         </p>
       </div>
       <KnowledgeBase />
